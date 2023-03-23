@@ -13,7 +13,7 @@ public class ModelChess {
     public ModelChess(){
         this.player1Name = "Player UNO";
         this.player2Name ="Player Dos";
-        this.timer = new ChessTimer();
+        this.timer = null;
         this.board = new Board();
     }
 
