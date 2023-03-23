@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.chessapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class ChessMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
