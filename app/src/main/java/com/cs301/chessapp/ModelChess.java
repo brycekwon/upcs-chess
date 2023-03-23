@@ -27,4 +27,6 @@ public class ModelChess {
     public String getPlayer2Name(){return this.player2Name;}
 
 
+
+
 }
