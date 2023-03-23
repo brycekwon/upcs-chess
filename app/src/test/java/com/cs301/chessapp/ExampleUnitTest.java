@@ -1,4 +1,4 @@
-package com.example.chessapp;
+package com.cs301.chessapp;
 
 import org.junit.Test;
 
