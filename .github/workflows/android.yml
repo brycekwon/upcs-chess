@@ -3,14 +3,14 @@ name: Build
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'app/src/main/*'
-      - 'gradle/*'
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
   pull_request:
     branches: [ master ]
-    paths:
-      - 'app/src/main/*'
-      - 'gradle/*'
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
 
 jobs:
   build:
