@@ -19,9 +19,7 @@ import com.cs301.chessapp.gamestate.chessboard.Board;
 public class MainGameState extends GameState {
     private final int _gamemode;
     private int _gameturn;
-
     private final boolean _timerVisible;
-
     private final Board _gameboard;
 
     /**
