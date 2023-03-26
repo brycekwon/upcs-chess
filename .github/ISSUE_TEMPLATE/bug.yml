@@ -1,0 +1,16 @@
+name: Bug Report
+description: File a bug report
+labels: ["type:bug", "status:waiting"]
+body:
+  - type: markdown
+    id: title
+    attributes:
+      value: |
+        Thanks for filling out this bug report!
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: Please summarize your problems here.
+      validations:
+        required: true
