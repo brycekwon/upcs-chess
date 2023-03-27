@@ -2,8 +2,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.Board;
-import com.cs301.chessapp.gamestate.chessboard.Move;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
  * King
@@ -18,6 +18,7 @@ import com.cs301.chessapp.gamestate.chessboard.Move;
  * @version March 17, 2023
  */
 public class King extends Piece{
+    private static final String TAG = "King";
 
     /**
      * King constructor
@@ -44,47 +45,47 @@ public class King extends Piece{
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<Move> getMoves(int x, int y, Board board) {
-        ArrayList<Move> valid = new ArrayList<Move>();
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+        ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
 
             if(isValid(x, y+1)){//moves down
                 if(board.isOccupied(x, y+1)) {
-                    valid.add(new Move(x, x, y, y + 1));
+                    valid.add(new MoveAction(x, x, y, y + 1));
                 }
             }
             if(isValid(x, y-1)){//moves up
                 if(board.isOccupied(x, y-1)) {
-                    valid.add(new Move(x, x, y, y - 1));
+                    valid.add(new MoveAction(x, x, y, y - 1));
                 }
             }
             if(isValid(x+1,y)){//moves right
                 if(board.isOccupied(x+1, y)) {
-                    valid.add(new Move(x, x + 1, y, y));
+                    valid.add(new MoveAction(x, x + 1, y, y));
                 }
             }
             if(isValid(x-1,y)){//moves left
                 if(board.isOccupied(x+1, y)) {
-                    valid.add(new Move(x, x - 1, y, y));
+                    valid.add(new MoveAction(x, x - 1, y, y));
                 }
             }
             if(isValid(x, y+1)){//moves up and left
                 if(board.isOccupied(x-1, y-1)) {
-                    valid.add(new Move(x, x - 1, y, y - 1));
+                    valid.add(new MoveAction(x, x - 1, y, y - 1));
                 }
             }
             if(isValid(x, y-1)){//moves up and right
                 if(board.isOccupied(x+1, y-1)) {
-                    valid.add(new Move(x, x + 1, y, y - 1));
+                    valid.add(new MoveAction(x, x + 1, y, y - 1));
                 }
             }
             if(isValid(x+1,y)){//moves down and right
                 if(board.isOccupied(x+1, y+1)) {
-                    valid.add(new Move(x, x + 1, y, y + 1));
+                    valid.add(new MoveAction(x, x + 1, y, y + 1));
                 }
             }
             if(isValid(x-1,y)){//moves down and left
                 if(board.isOccupied(x-1, y+1)) {
-                    valid.add(new Move(x, x - 1, y, y + 1));
+                    valid.add(new MoveAction(x, x - 1, y, y + 1));
                 }
             }
 

@@ -2,8 +2,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.Board;
-import com.cs301.chessapp.gamestate.chessboard.Move;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
  * Knight
@@ -17,6 +17,7 @@ import com.cs301.chessapp.gamestate.chessboard.Move;
  * @version March 17, 2023
  */
 public class Knight extends Piece {
+    private static final String TAG = "Knight";
 
     /**
      * Knight constructor
@@ -43,8 +44,8 @@ public class Knight extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<Move> getMoves(int x, int y, Board board) {
-        ArrayList<Move> valid = new ArrayList<>();
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+        ArrayList<MoveAction> valid = new ArrayList<>();
 
         // Check all possible L-shaped moves
         for (int i = -2; i <= 2; i++) {
@@ -54,7 +55,7 @@ public class Knight extends Piece {
                     // Check if move is on the board
                     if (isValid(x + i, y + j)) {
                         // Check if move is to an empty space or an enemy piece
-                        valid.add(new Move(x, x + i, y, y + j));
+                        valid.add(new MoveAction(x, x + i, y, y + j));
                     }
                 }
             }

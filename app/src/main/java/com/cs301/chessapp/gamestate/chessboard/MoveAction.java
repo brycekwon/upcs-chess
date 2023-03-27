@@ -10,7 +10,9 @@ package com.cs301.chessapp.gamestate.chessboard;
  * @author Bryce Kwon
  * @version March 17, 2023
  */
-public class Move {
+public class MoveAction {
+    private static final String TAG = "MoveAction";
+
     private final int _x1;
     private final int _x2;
     private final int _y1;
@@ -27,7 +29,7 @@ public class Move {
      * @param y1        y coordinate of starting position
      * @param y2        y coordinate of ending position
      */
-    public Move(int x1, int x2, int y1, int y2) {
+    public MoveAction(int x1, int x2, int y1, int y2) {
         this._x1 = x1;
         this._x2 = x2;
         this._y1 = y1;

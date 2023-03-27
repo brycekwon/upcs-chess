@@ -22,8 +22,10 @@ import com.cs301.chessapp.gamestate.pieces.Rook;
  * @author Bryce Kwon
  * @version March 17, 2023
  */
-public class Board {
-    private final Square[][] _gameboard;
+public class ChessBoard {
+    private static final String TAG = "ChessBoard";
+
+    private final ChessSquare[][] _gameboard;
 
     /**
      * Board constructor
@@ -32,14 +34,17 @@ public class Board {
      * creates a 2D array of Square objects, and then iterates through the
      * array, initializing each square.
      */
-    public Board() {
-        this._gameboard = new Square[8][8];
+    public ChessBoard() {
+        // initialize the board with all empty squares
+        this._gameboard = new ChessSquare[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 == 0) {
-                    this._gameboard[i][j] = new Square(Color.WHITE);
+                    // if the sum of the x and y coordinates is even, the square is white
+                    this._gameboard[i][j] = new ChessSquare(Color.WHITE);
                 } else {
-                    this._gameboard[i][j] = new Square(Color.BLACK);
+                    // if the sum of the x and y coordinates is odd, the square is black
+                    this._gameboard[i][j] = new ChessSquare(Color.BLACK);
                 }
             }
         }
@@ -81,7 +86,7 @@ public class Board {
      *
      * @param position      the Move object containing the starting and ending
      */
-    public void moveTo(Move position) {
+    public void moveTo(MoveAction position) {
         Piece mover = this._gameboard[position.getStartX()][position.getStartY()].getPiece();
         this._gameboard[position.getEndX()][position.getEndY()].setPiece(mover);
         this._gameboard[position.getStartX()][position.getStartY()].setPiece(null);
@@ -135,7 +140,7 @@ public class Board {
      *
      * @return      the current state of the gameboard
      */
-    public Square[][] getBoard() {
+    public ChessSquare[][] getBoard() {
         return this._gameboard;
     }
 

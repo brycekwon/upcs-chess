@@ -2,8 +2,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.Board;
-import com.cs301.chessapp.gamestate.chessboard.Move;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
  * Queen
@@ -18,6 +18,7 @@ import com.cs301.chessapp.gamestate.chessboard.Move;
  * @version March 17, 2023
  */
 public class Queen extends Piece{
+    private static final String TAG = "Queen";
 
     /**
      * Queen constructor
@@ -44,8 +45,8 @@ public class Queen extends Piece{
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<Move> getMoves(int x, int y, Board board) {
-        ArrayList<Move> valid = new ArrayList<>();
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+        ArrayList<MoveAction> valid = new ArrayList<>();
 
         //moves like a bishop
             // moves up right
@@ -53,12 +54,12 @@ public class Queen extends Piece{
                 if (isValid(x+i, y+i)) {
                     // if square is occupied by another piece
                     if (board.isOccupied(x+i, y+i)) {
-                        valid.add(new Move(x, x+i, y, y+i));
+                        valid.add(new MoveAction(x, x+i, y, y+i));
                         break;
                     }
                     // if square is empty
                     else {
-                        valid.add(new Move(x, x+i, y, y+i));
+                        valid.add(new MoveAction(x, x+i, y, y+i));
                     }
                 }
             }
@@ -68,12 +69,12 @@ public class Queen extends Piece{
                 if (isValid(x-i, y+i)) {
                     // if square is occupied by another piece
                     if (board.isOccupied(x-i, y+i)) {
-                        valid.add(new Move(x, x-i, y, y+i));
+                        valid.add(new MoveAction(x, x-i, y, y+i));
                         break;
                     }
                     // if square is empty
                     else {
-                        valid.add(new Move(x, x-i, y, y+i));
+                        valid.add(new MoveAction(x, x-i, y, y+i));
                     }
                 }
             }
@@ -83,12 +84,12 @@ public class Queen extends Piece{
                 if (isValid(x+i, y-i)) {
                     // if square is occupied by another piece
                     if (board.isOccupied(x+i, y-i)) {
-                        valid.add(new Move(x, x+i, y, y-i));
+                        valid.add(new MoveAction(x, x+i, y, y-i));
                         break;
                     }
                     // if square is empty
                     else {
-                        valid.add(new Move(x, x+i, y, y-i));
+                        valid.add(new MoveAction(x, x+i, y, y-i));
                     }
                 }
             }
@@ -98,12 +99,12 @@ public class Queen extends Piece{
                 if (isValid(x-i, y-i)) {
                     // if square is occupied by another piece
                     if (board.isOccupied(x-i, y-i)) {
-                        valid.add(new Move(x, x-i, y, y-i));
+                        valid.add(new MoveAction(x, x-i, y, y-i));
                         break;
                     }
                     // if square is empty
                     else {
-                        valid.add(new Move(x, x-i, y, y-i));
+                        valid.add(new MoveAction(x, x-i, y, y-i));
                     }
                 }
             }
@@ -114,10 +115,10 @@ public class Queen extends Piece{
                 if (isValid(x, y+i)) {
                     // if the square is occupied
                     if (board.isOccupied(x, y+i)) {
-                        valid.add(new Move(x, x, y, y+i));
+                        valid.add(new MoveAction(x, x, y, y+i));
                         break;
                     } else {
-                        valid.add(new Move(x, x, y, y+i));
+                        valid.add(new MoveAction(x, x, y, y+i));
                     }
                 }
             }
@@ -126,10 +127,10 @@ public class Queen extends Piece{
             for (int i = 0; i < 8; i++) {
                 if (isValid(x, y-i)) {
                     if (board.isOccupied(x, y-i)) {
-                        valid.add(new Move(x, x, y, y-i));
+                        valid.add(new MoveAction(x, x, y, y-i));
                         break;
                     } else {
-                        valid.add(new Move(x, x, y, y-i));
+                        valid.add(new MoveAction(x, x, y, y-i));
                     }
                 }
             }
@@ -138,10 +139,10 @@ public class Queen extends Piece{
             for (int i = 0; i < 8; i++) {
                 if (isValid(x-i, y)) {
                     if (board.isOccupied(x-i, y)) {
-                        valid.add(new Move(x, x-i, y, y));
+                        valid.add(new MoveAction(x, x-i, y, y));
                         break;
                     } else {
-                        valid.add(new Move(x, x-i, y, y));
+                        valid.add(new MoveAction(x, x-i, y, y));
                     }
                 }
             }
@@ -150,10 +151,10 @@ public class Queen extends Piece{
             for (int i = 0; i < 8; i++) {
                 if (isValid(x+i, y)) {
                     if (board.isOccupied(x+i, y)) {
-                        valid.add(new Move(x, x+i, y, y));
+                        valid.add(new MoveAction(x, x+i, y, y));
                         break;
                     } else {
-                        valid.add(new Move(x, x+i, y, y));
+                        valid.add(new MoveAction(x, x+i, y, y));
                     }
                 }
             }

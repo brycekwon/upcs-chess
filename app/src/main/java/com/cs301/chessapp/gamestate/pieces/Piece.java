@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import android.graphics.Color;
 
-import com.cs301.chessapp.gamestate.chessboard.Board;
-import com.cs301.chessapp.gamestate.chessboard.Move;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
  * Piece
@@ -54,7 +54,7 @@ public abstract class Piece {
      * @param board     The board that the piece is on.
      * @return          ArrayList of all possible moves
      */
-    public abstract ArrayList<Move> getMoves(int x, int y, Board board);
+    public abstract ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board);
 
     /**
      * isValid

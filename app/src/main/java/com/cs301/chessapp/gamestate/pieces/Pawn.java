@@ -2,8 +2,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.Board;
-import com.cs301.chessapp.gamestate.chessboard.Move;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
  * Pawn
@@ -19,6 +19,7 @@ import com.cs301.chessapp.gamestate.chessboard.Move;
  * @version March 17, 2023
  */
 public class Pawn extends Piece {
+    private static final String TAG = "Pawn";
 
     /**
      * Pawn constructor
@@ -46,16 +47,16 @@ public class Pawn extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<Move> getMoves(int x, int y, Board board) {
-        ArrayList<Move> valid = new ArrayList<Move>();
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+        ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
 
         //white piece... bottom of the board
         if(this._player == 0 ) {
             if (y == 6) {//checks if it is starting position
                 if(board.isOccupied(x, y-1) == false) {
-                    valid.add(new Move(x, x, y, y - 1));
+                    valid.add(new MoveAction(x, x, y, y - 1));
                     if (board.isOccupied(x, y-2) == false) {
-                        valid.add(new Move(x, x, y, y - 2));
+                        valid.add(new MoveAction(x, x, y, y - 2));
                     }
                 }
             }
@@ -64,7 +65,7 @@ public class Pawn extends Piece {
             else {
                 if (isValid(x, y - 1)) {
                     if(board.isOccupied(x,y-1)) {
-                        valid.add(new Move(x, x, y, y - 1));
+                        valid.add(new MoveAction(x, x, y, y - 1));
                     }
                 }
             }
@@ -74,16 +75,16 @@ public class Pawn extends Piece {
         else {
             if (y == 1) {
                 if(board.isOccupied(x, y-1) == false) {
-                    valid.add(new Move(x, x, y, y + 1));
+                    valid.add(new MoveAction(x, x, y, y + 1));
                     if (board.isOccupied(x, y-2) == false) {
-                        valid.add(new Move(x, x, y, y + 2));
+                        valid.add(new MoveAction(x, x, y, y + 2));
                     }
                 }
             }
             else{
                 if (isValid(x, y + 1)) {
                     if(board.isOccupied(x, y+1)== false) {
-                        valid.add(new Move(x, x, y, y + 1));
+                        valid.add(new MoveAction(x, x, y, y + 1));
                     }
                 }
             }

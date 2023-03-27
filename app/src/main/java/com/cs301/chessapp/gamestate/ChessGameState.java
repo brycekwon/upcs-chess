@@ -1,7 +1,7 @@
 package com.cs301.chessapp.gamestate;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
-import com.cs301.chessapp.gamestate.chessboard.Board;
+import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
 
 /**
  * MainGameState
@@ -16,11 +16,11 @@ import com.cs301.chessapp.gamestate.chessboard.Board;
  * @author Magnus Graham
  * @version March 17, 2023
  */
-public class MainGameState extends GameState {
+public class ChessGameState extends GameState {
     private final int _gamemode;
     private int _gameturn;
     private final boolean _timerVisible;
-    private final Board _gameboard;
+    private final ChessBoard _gameboard;
 
     /**
      * MainGameState constructor
@@ -34,13 +34,13 @@ public class MainGameState extends GameState {
      *                      1 = Player vs AI
      *                      2 = AI vs AI
      */
-    public MainGameState(int mode) {
+    public ChessGameState(int mode) {
         _gamemode = mode;
         _gameturn = 0;
 
         _timerVisible = _gamemode == 0;
 
-        _gameboard = new Board();
+        _gameboard = new ChessBoard();
     }
 
     /**
@@ -50,7 +50,7 @@ public class MainGameState extends GameState {
      *
      * @param other     The MainGameState to copy.
      */
-    public MainGameState(MainGameState other) {
+    public ChessGameState(ChessGameState other) {
         _gamemode = other.getGamemode();
         _gameturn = other.getGameturn();
 
@@ -79,7 +79,7 @@ public class MainGameState extends GameState {
      *
      * @return      The current gameboard state.
      */
-    public Board getGameboard() {
+    public ChessBoard getGameboard() {
         return _gameboard;
     }
 
