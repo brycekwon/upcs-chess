@@ -15,6 +15,9 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * worth 3 points.
  *
  * @author Bryce Kwon
+ * @author Marshall Zhang
+ * @author Christopher Yee
+ * @author Magnus Graham
  * @version March 17, 2023
  */
 public class Bishop extends Piece {

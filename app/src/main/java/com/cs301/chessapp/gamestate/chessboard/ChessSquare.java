@@ -3,12 +3,15 @@ package com.cs301.chessapp.gamestate.chessboard;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
 /**
- * Square
+ * ChessSquare
  * <p>
  * This class represents a single tile on the chess board. It contains
  * information on if the square is occupied.
  *
  * @author Bryce Kwon
+ * @author Marshall Zhang
+ * @author Christopher Yee
+ * @author Magnus Graham
  * @version March 17, 2023
  */
 public class ChessSquare {

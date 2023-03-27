@@ -11,7 +11,7 @@ import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.pieces.Rook;
 
 /**
- * Board
+ * ChessBoard
  * <p>
  * This class represents the chess board. It contains a 2D array of Square
  * objects, which represent individual tiles on the board. The board is 8x8,
@@ -20,6 +20,9 @@ import com.cs301.chessapp.gamestate.pieces.Rook;
  * with all squares empty (unoccupied).
  *
  * @author Bryce Kwon
+ * @author Marshall Zhang
+ * @author Christopher Yee
+ * @author Magnus Graham
  * @version March 17, 2023
  */
 public class ChessBoard {

@@ -14,7 +14,10 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * occupied by a friendly piece. It cannot place itself in check. It is worth
  * an infinite amount of points.
  *
+ * @author Bryce Kwon
  * @author Marshall Zhang
+ * @author Christopher Yee
+ * @author Magnus Graham
  * @version March 17, 2023
  */
 public class King extends Piece{

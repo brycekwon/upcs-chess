@@ -1,13 +1,16 @@
 package com.cs301.chessapp.gamestate.chessboard;
 
 /**
- * Move
+ * MoveAction
  * <p>
  * This class represents a move in a chess game. It contains the x and y
  * coordinates of the starting and ending positions of the piece that is being
  * moved. The coordinates are immutable after the object is created.
  *
  * @author Bryce Kwon
+ * @author Marshall Zhang
+ * @author Christopher Yee
+ * @author Magnus Graham
  * @version March 17, 2023
  */
 public class MoveAction {
