@@ -4,6 +4,8 @@ import com.cs301.chessapp.gameframework.utilities.GameTimer;
 import com.cs301.chessapp.gameframework.utilities.Tickable;
 
 public class ChessTimer extends GameTimer {
+    private static final String TAG = "ChessTimer";
+
     /**
      * Constructor for objects of class GameTimer
      *

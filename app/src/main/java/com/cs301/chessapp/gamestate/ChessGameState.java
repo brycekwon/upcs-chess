@@ -17,6 +17,8 @@ import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
  * @version March 17, 2023
  */
 public class ChessGameState extends GameState {
+    private static final String TAG = "ChessGameState";
+
     private final int _gamemode;
     private int _gameturn;
     private final boolean _timerVisible;

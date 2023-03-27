@@ -7,6 +7,8 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 public class ChessHumanPlayer extends GameHumanPlayer {
+    private static final String TAG = "ChessHumanPlayer";
+
     /**
      * constructor
      *

@@ -4,6 +4,8 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 
 public class ChessSmartComputer extends GameComputerPlayer {
+    private static final String TAG = "ChessSmartComputer";
+
     /**
      * constructor
      *

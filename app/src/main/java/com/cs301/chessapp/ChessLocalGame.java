@@ -5,6 +5,8 @@ import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 public class ChessLocalGame extends LocalGame {
+    private static final String TAG = "ChessLocalGame";
+
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
 

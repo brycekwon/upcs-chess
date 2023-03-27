@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.chessapp.R;
 
 public class ChessMainActivity extends AppCompatActivity {
+    private static final String TAG = "ChessMainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
