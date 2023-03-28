@@ -3,7 +3,10 @@ package com.cs301.chessapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.SurfaceView;
 
+import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.example.chessapp.R;
 
 public class ChessMainActivity extends AppCompatActivity {
@@ -13,5 +16,7 @@ public class ChessMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        ChessGameState chessGameState = new ChessGameState();
     }
 }
