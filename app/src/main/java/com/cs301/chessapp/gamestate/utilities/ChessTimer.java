@@ -6,13 +6,23 @@ import com.cs301.chessapp.gameframework.utilities.Tickable;
 public class ChessTimer extends GameTimer {
     private static final String TAG = "ChessTimer";
 
-    /**
-     * Constructor for objects of class GameTimer
-     *
-     * @param target the object to "tick" when the timer goes off
-     *               GameTimerAction sends
-     */
     public ChessTimer(Tickable target) {
         super(target);
+    }
+
+    public void setInterval(int interval) {
+        super.setInterval(interval);
+    }
+
+    public void start() {
+        super.start();
+    }
+
+    /**
+     * Stops the timer.
+     *
+     */
+    public void stop() {
+        super.stop();
     }
 }
