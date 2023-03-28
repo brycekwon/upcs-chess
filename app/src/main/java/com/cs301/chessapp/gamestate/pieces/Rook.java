@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Rook extends Piece {
-    private static final String TAG = "Rook";
+    private static final String TAG = "Piece-Rook";
 
     /**
      * Rook constructor
@@ -34,7 +34,7 @@ public class Rook extends Piece {
     public Rook(int player) {
         super(player);
         this._value = 5;
-        this._type = "ROOOK";
+        this._type = "Rook";
     }
 
     /**

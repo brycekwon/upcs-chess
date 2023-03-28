@@ -22,7 +22,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Pawn extends Piece {
-    private static final String TAG = "Pawn";
+    private static final String TAG = "Piece-Pawn";
 
     /**
      * Pawn constructor
@@ -35,7 +35,7 @@ public class Pawn extends Piece {
     public Pawn(int player) {
         super(player);
         this._value = 1;
-        this._type = "PAWNN";
+        this._type = "Pawn";
 
     }
 

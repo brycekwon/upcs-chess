@@ -21,6 +21,8 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public abstract class Piece {
+    private static final String TAG = "Piece";
+
     protected String _type;
     protected int _player;      // 0 = white, 1 = black
     protected int _color;
