@@ -20,7 +20,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Knight extends Piece {
-    private static final String TAG = "Knight";
+    private static final String TAG = "Piece-Knight";
 
     /**
      * Knight constructor
@@ -33,7 +33,7 @@ public class Knight extends Piece {
     public Knight(int player) {
         super(player);
         this._value = 3;
-        this._type = "KNIGH";
+        this._type = "Knight";
     }
 
     /**

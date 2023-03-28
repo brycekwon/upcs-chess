@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Bishop extends Piece {
-    private static final String TAG = "Bishop";
+    private static final String TAG = "Piece-Bishop";
 
     /**
      * Bishop constructor
@@ -34,7 +34,7 @@ public class Bishop extends Piece {
     public Bishop(int player) {
         super(player);
         this._value = 3;
-        this._type = "BISHO";
+        this._type = "Bishop";
     }
 
     /**

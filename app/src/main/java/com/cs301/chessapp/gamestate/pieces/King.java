@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class King extends Piece{
-    private static final String TAG = "King";
+    private static final String TAG = "Piece-King";
 
     /**
      * King constructor
@@ -34,7 +34,7 @@ public class King extends Piece{
     public King(int player) {
         super(player);
         this._value = 100;
-        this._type = "KINGG";
+        this._type = "King";
     }
 
     /**
