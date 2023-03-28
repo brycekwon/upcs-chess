@@ -1,20 +1,34 @@
-name: Build
+name: Build App
 
 on:
   push:
     branches: [ master ]
     paths-ignore:
+      - - 'README.md'
       - '.github/**'
       - '.idea/**'
+      - '.gradle/**'
+      - 'gradle/**'
+      - 'build/**'
+      - 'app/build/**'
+      - 'app/src/androidTest/**'
+      - 'app/src/test/**'
   pull_request:
     branches: [ master ]
     paths-ignore:
+      - 'README.md'
       - '.github/**'
       - '.idea/**'
+      - '.gradle/**'
+      - 'gradle/**'
+      - 'build/**'
+      - 'app/build/**'
+      - 'app/src/androidTest/**'
+      - 'app/src/test/**'
 
 jobs:
   build:
-    name: compile and test
+    name: Compile and Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
