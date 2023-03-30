@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -48,14 +48,14 @@ public class Bishop extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<>();
 
         // searching for moves up right
         for (int i = 0; i < 8; i++) {
             if (isValid(x+i, y+i)) {
                 // if square is occupied by another piece
-                if (board.isOccupied(x+i, y+i)) {
+                if (board[x+i][y+i] != null) {
                     valid.add(new MoveAction(x, x+i, y, y+i));
                     break;
                 }
@@ -70,7 +70,7 @@ public class Bishop extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x-i, y+i)) {
                 // if square is occupied by another piece
-                if (board.isOccupied(x-i, y+i)) {
+                if (board[x-i][y+i] != null) {
                     valid.add(new MoveAction(x, x-i, y, y+i));
                     break;
                 }
@@ -85,7 +85,7 @@ public class Bishop extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x+i, y-i)) {
                 // if square is occupied by another piece
-                if (board.isOccupied(x+i, y-i)) {
+                if (board[x+i][y-i] != null) {
                     valid.add(new MoveAction(x, x+i, y, y-i));
                     break;
                 }
@@ -100,7 +100,7 @@ public class Bishop extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x-i, y-i)) {
                 // if square is occupied by another piece
-                if (board.isOccupied(x-i, y-i)) {
+                if (board[x-i][y-i] == null) {
                     valid.add(new MoveAction(x, x-i, y, y-i));
                     break;
                 }

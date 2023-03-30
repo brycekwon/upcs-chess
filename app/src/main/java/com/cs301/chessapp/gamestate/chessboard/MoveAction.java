@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.chessboard;
 
+
+// todo: change x and y to startx, starty, endx, endy
 /**
  * MoveAction
  * <p>

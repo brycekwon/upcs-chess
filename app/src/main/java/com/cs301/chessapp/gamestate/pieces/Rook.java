@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -23,6 +23,8 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 public class Rook extends Piece {
     private static final String TAG = "Piece-Rook";
 
+    private boolean _canCastle;
+
     /**
      * Rook constructor
      * <p>
@@ -35,6 +37,7 @@ public class Rook extends Piece {
         super(player);
         this._value = 5;
         this._type = "Rook";
+        this._canCastle = true;
     }
 
     /**
@@ -48,55 +51,63 @@ public class Rook extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
-
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<>();
 
-        // search for moves up
+        // todo: consolidate this code into less for loops
+
+        // check for moves up
         for (int i = 0; i < 8; i++) {
             if (isValid(x, y+i)) {
-                // if the square is occupied
-                if (board.isOccupied(x, y+i)) {
-                    valid.add(new MoveAction(x, x, y, y+i));
+                if (board[x][y+i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x, y+i));
+                } else if (board[x][y+i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x, y+i));
                     break;
                 } else {
-                    valid.add(new MoveAction(x, x, y, y+i));
+                    break;
                 }
             }
         }
 
-        // search for moves down
+        // check for moves down
         for (int i = 0; i < 8; i++) {
             if (isValid(x, y-i)) {
-                if (board.isOccupied(x, y-i)) {
-                    valid.add(new MoveAction(x, x, y, y-i));
+                if (board[x][y-i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x, y-i));
+                } else if (board[x][y-i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x, y-i));
                     break;
                 } else {
-                    valid.add(new MoveAction(x, x, y, y-i));
+                    break;
                 }
             }
         }
 
-        // search for moves left
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x-i, y)) {
-                if (board.isOccupied(x-i, y)) {
-                    valid.add(new MoveAction(x, x-i, y, y));
-                    break;
-                } else {
-                    valid.add(new MoveAction(x, x-i, y, y));
-                }
-            }
-        }
-
-        // search for moves right
+        // check for moves right
         for (int i = 0; i < 8; i++) {
             if (isValid(x+i, y)) {
-                if (board.isOccupied(x+i, y)) {
-                    valid.add(new MoveAction(x, x+i, y, y));
+                if (board[x+i][y].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x+i, y));
+                } else if (board[x+i][y].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x+i, y));
                     break;
                 } else {
-                    valid.add(new MoveAction(x, x+i, y, y));
+                    break;
+                }
+            }
+        }
+
+        // check for moves left
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x-i, y)) {
+                if (board[x-i][y].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x-i, y));
+                } else if (board[x-i][y].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x-i, y));
+                    break;
+                } else {
+                    break;
                 }
             }
         }

@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -47,18 +47,24 @@ public class Knight extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<>();
 
-        // Check all possible L-shaped moves
+        // Check all possible moves
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
-                // Check if move is valid
+                // Check if the move is valid
                 if (Math.abs(i) + Math.abs(j) == 3) {
-                    // Check if move is on the board
-                    if (isValid(x + i, y + j)) {
-                        // Check if move is to an empty space or an enemy piece
-                        valid.add(new MoveAction(x, x + i, y, y + j));
+                    // Check if the move is on the board
+                    if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                        // Check if the move is on an empty square
+                        if (board[x + i][y + j].getPiece() == null) {
+                            valid.add(new MoveAction(x, y, x + i, y + j));
+                        }
+                        // Check if the move is on an enemy square
+                        else if (board[x + i][y + j].getPiece().getPlayer() != this._player) {
+                            valid.add(new MoveAction(x, y, x + i, y + j));
+                        }
                     }
                 }
             }
