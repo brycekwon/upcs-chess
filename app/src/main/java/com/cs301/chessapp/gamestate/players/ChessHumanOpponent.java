@@ -1,12 +1,13 @@
 package com.cs301.chessapp.gamestate.players;
 
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
-public class ChessHumanOpponent extends GameHumanPlayer {
+public class ChessHumanOpponent extends GameHumanPlayer implements View.OnTouchListener {
     private static final String TAG = "ChessHumanOpponent";
 
     /**
@@ -32,4 +33,10 @@ public class ChessHumanOpponent extends GameHumanPlayer {
     public void setAsGui(GameMainActivity activity) {
 
     }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return false;
+        }
+
 }
