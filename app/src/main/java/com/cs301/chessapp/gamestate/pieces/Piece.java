@@ -119,4 +119,6 @@ public abstract class Piece {
 //        return _type + " [player=" + side + ", value=" + _value + "]";
         return side + _type;
     }
+
+    public String get_type(){return this._type;}
 }

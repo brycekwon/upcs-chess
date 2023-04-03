@@ -33,7 +33,7 @@ public class Queen extends Piece{
      */
     public Queen(int player) {
         super(player);
-        this._value = 7;
+        this._value = 9;
         this._type = "Queen";
     }
 
