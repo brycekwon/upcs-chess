@@ -1,4 +1,4 @@
-package com.cs301.chessapp.gameframework.utilities.Checkmate;
+package com.cs301.chessapp.gamestate.checkmate;
 
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 import com.cs301.chessapp.gamestate.pieces.Piece;
