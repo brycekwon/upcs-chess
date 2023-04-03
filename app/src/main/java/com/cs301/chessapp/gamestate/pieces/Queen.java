@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -48,119 +48,123 @@ public class Queen extends Piece{
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<>();
 
-        //moves like a bishop
-            // moves up right
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x+i, y+i)) {
-                    // if square is occupied by another piece
-                    if (board.isOccupied(x+i, y+i)) {
-                        valid.add(new MoveAction(x, x+i, y, y+i));
-                        break;
-                    }
-                    // if square is empty
-                    else {
-                        valid.add(new MoveAction(x, x+i, y, y+i));
-                    }
-                }
-            }
+        // todo: consolidate this code into less for loops
 
-            // moves up left
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x-i, y+i)) {
-                    // if square is occupied by another piece
-                    if (board.isOccupied(x-i, y+i)) {
-                        valid.add(new MoveAction(x, x-i, y, y+i));
-                        break;
-                    }
-                    // if square is empty
-                    else {
-                        valid.add(new MoveAction(x, x-i, y, y+i));
-                    }
+        // search for moves up
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x, y+i)) {
+                if (board[x][y+i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x, y+i));
+                } else if (board[x][y+i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x, y+i));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-            // moves down right
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x+i, y-i)) {
-                    // if square is occupied by another piece
-                    if (board.isOccupied(x+i, y-i)) {
-                        valid.add(new MoveAction(x, x+i, y, y-i));
-                        break;
-                    }
-                    // if square is empty
-                    else {
-                        valid.add(new MoveAction(x, x+i, y, y-i));
-                    }
+        // search for moves down
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x, y-i)) {
+                if (board[x][y-i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x, y-i));
+                } else if (board[x][y-i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x, y-i));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-            // moves down left
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x-i, y-i)) {
-                    // if square is occupied by another piece
-                    if (board.isOccupied(x-i, y-i)) {
-                        valid.add(new MoveAction(x, x-i, y, y-i));
-                        break;
-                    }
-                    // if square is empty
-                    else {
-                        valid.add(new MoveAction(x, x-i, y, y-i));
-                    }
+        // search for moves right
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x+i, y)) {
+                if (board[x+i][y].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x+i, y));
+                } else if (board[x+i][y].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x+i, y));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-        //moves like a rook
-            // move up
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x, y+i)) {
-                    // if the square is occupied
-                    if (board.isOccupied(x, y+i)) {
-                        valid.add(new MoveAction(x, x, y, y+i));
-                        break;
-                    } else {
-                        valid.add(new MoveAction(x, x, y, y+i));
-                    }
+        // search for moves left
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x-i, y)) {
+                if (board[x-i][y].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x-i, y));
+                } else if (board[x-i][y].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x-i, y));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-            // move down
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x, y-i)) {
-                    if (board.isOccupied(x, y-i)) {
-                        valid.add(new MoveAction(x, x, y, y-i));
-                        break;
-                    } else {
-                        valid.add(new MoveAction(x, x, y, y-i));
-                    }
+        // search for moves up-right
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x+i, y+i)) {
+                if (board[x+i][y+i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x+i, y+i));
+                } else if (board[x+i][y+i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x+i, y+i));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-            // move left
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x-i, y)) {
-                    if (board.isOccupied(x-i, y)) {
-                        valid.add(new MoveAction(x, x-i, y, y));
-                        break;
-                    } else {
-                        valid.add(new MoveAction(x, x-i, y, y));
-                    }
+        // search for moves up-left
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x-i, y+i)) {
+                if (board[x-i][y+i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x-i, y+i));
+                } else if (board[x-i][y+i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x-i, y+i));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
 
-            // move right
-            for (int i = 0; i < 8; i++) {
-                if (isValid(x+i, y)) {
-                    if (board.isOccupied(x+i, y)) {
-                        valid.add(new MoveAction(x, x+i, y, y));
-                        break;
-                    } else {
-                        valid.add(new MoveAction(x, x+i, y, y));
-                    }
+        // search for moves down-right
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x+i, y-i)) {
+                if (board[x+i][y-i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x+i, y-i));
+                } else if (board[x+i][y-i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x+i, y-i));
+                    break;
+                } else {
+                    break;
                 }
             }
+        }
+
+        // search for moves down-left
+        for (int i = 0; i < 8; i++) {
+            if (isValid(x-i, y-i)) {
+                if (board[x-i][y-i].getPiece() == null) {
+                    valid.add(new MoveAction(x, y, x-i, y-i));
+                } else if (board[x-i][y-i].getPiece().getPlayer() != this._player) {
+                    valid.add(new MoveAction(x, y, x-i, y-i));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
         return valid;
     }
 }

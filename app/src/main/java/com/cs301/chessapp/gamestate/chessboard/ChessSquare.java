@@ -15,32 +15,34 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
  * @version March 17, 2023
  */
 public class ChessSquare {
+    // Debugging tag used by the Android logger.
     private static final String TAG = "ChessSquare";
 
     private Piece _piece;
     private int _color;
 
     /**
-     * Square constructor
+     * ChessSquare constructor
      * <p>
-     * This constructor initializes the square with a piece and a color.
+     * This constructor initializes a square with a piece.
      *
-     * @param color     the color of the square
+     * @param color     The color of the square. (0 = white, 1 = black)
+     * @param piece     The piece on the square.
      */
-    public ChessSquare(int color) {
-        this._piece = null;
-        this._color = color;
+    public ChessSquare(int color, Piece piece) {
+        _piece = piece;
+        _color = color;
     }
 
     /**
-     * getPiece
+     * ChessSquare constructor
      * <p>
-     * This method returns the piece on the square.
+     * This constructor initializes an empty square.
      *
-     * @return      the piece on the square
+     * @param color     The color of the square. (0 = white, 1 = black)
      */
-    public Piece getPiece() {
-        return _piece;
+    public ChessSquare(int color) {
+        this(color, null);
     }
 
     /**
@@ -48,19 +50,21 @@ public class ChessSquare {
      * <p>
      * This method sets the piece on the square.
      *
-     * @param piece     the piece to be set
+     * @param piece     The piece to set on the square.
      */
     public void setPiece(Piece piece) {
         _piece = piece;
     }
 
     /**
-     * removePiece
+     * getPiece
      * <p>
-     * This method removes the piece from the square.
+     * This method returns the piece on the square.
+     *
+     * @return          The piece on the square.
      */
-    public void removePiece() {
-        _piece = null;
+    public Piece getPiece() {
+        return _piece;
     }
 
     /**
@@ -68,9 +72,24 @@ public class ChessSquare {
      * <p>
      * This method returns the color of the square.
      *
-     * @return      the color of the square
+     * @return          The color of the square.
      */
     public int getColor() {
         return _color;
+    }
+
+    /**
+     * toString
+     * <p>
+     * This method returns a string representation of the square.
+     *
+     * @return          A string representation of the square.
+     */
+    @Override
+    public String toString() {
+        return "ChessSquare{" +
+                "_piece=" + _piece +
+                ", _color=" + _color +
+                '}';
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Color;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -21,7 +21,6 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public abstract class Piece {
-    private static final String TAG = "Piece";
 
     protected String _type;
     protected int _player;      // 0 = white, 1 = black
@@ -58,7 +57,7 @@ public abstract class Piece {
      * @param board     The board that the piece is on.
      * @return          ArrayList of all possible moves
      */
-    public abstract ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board);
+    public abstract ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board);
 
     /**
      * isValid

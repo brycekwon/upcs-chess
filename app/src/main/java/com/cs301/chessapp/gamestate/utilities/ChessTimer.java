@@ -18,10 +18,6 @@ public class ChessTimer extends GameTimer {
         super.start();
     }
 
-    /**
-     * Stops the timer.
-     *
-     */
     public void stop() {
         super.stop();
     }

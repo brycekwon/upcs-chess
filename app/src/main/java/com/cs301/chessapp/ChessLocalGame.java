@@ -3,6 +3,7 @@ package com.cs301.chessapp;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+import com.cs301.chessapp.gamestate.ChessGameState;
 
 /**
  * ChessLocalGame
@@ -20,9 +21,21 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 public class ChessLocalGame extends LocalGame {
     private static final String TAG = "ChessLocalGame";
 
+    public ChessLocalGame() {
+        super();
+    }
+
+    public ChessLocalGame(ChessGameState gameState) {
+        super();
+    }
+
+    @Override
+    public void start(GamePlayer[] players) {
+        super.start(players);
+    }
+
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-
     }
 
     @Override
@@ -32,12 +45,11 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        return null;
+        return "Hell0 World";
     }
 
     @Override
     protected boolean makeMove(GameAction action) {
         return false;
     }
-
 }

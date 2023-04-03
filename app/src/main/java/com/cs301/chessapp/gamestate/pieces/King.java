@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -23,6 +23,8 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 public class King extends Piece{
     private static final String TAG = "Piece-King";
 
+    private boolean _canCastle;
+
     /**
      * King constructor
      * <p>
@@ -35,6 +37,7 @@ public class King extends Piece{
         super(player);
         this._value = 100;
         this._type = "King";
+        this._canCastle = true;
     }
 
     /**
@@ -48,50 +51,55 @@ public class King extends Piece{
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
 
-            if(isValid(x, y+1)){//moves down
-                if(board.isOccupied(x, y+1)) {
-                    valid.add(new MoveAction(x, x, y, y + 1));
+        // Check all squares around the king
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                // Check if the square is on the board
+                if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                    // Check if the square is occupied by a friendly piece
+                    if (board[x + i][y + j].getPiece() == null || board[x + i][y + j].getPiece().getPlayer() != this._player) {
+                        // Check if the king is in check
+                        if (!this.inCheck(x + i, y + j, board)) {
+                            valid.add(new MoveAction(x,  y, x + i, y + j));
+                        }
+                    }
                 }
             }
-            if(isValid(x, y-1)){//moves up
-                if(board.isOccupied(x, y-1)) {
-                    valid.add(new MoveAction(x, x, y, y - 1));
-                }
-            }
-            if(isValid(x+1,y)){//moves right
-                if(board.isOccupied(x+1, y)) {
-                    valid.add(new MoveAction(x, x + 1, y, y));
-                }
-            }
-            if(isValid(x-1,y)){//moves left
-                if(board.isOccupied(x+1, y)) {
-                    valid.add(new MoveAction(x, x - 1, y, y));
-                }
-            }
-            if(isValid(x, y+1)){//moves up and left
-                if(board.isOccupied(x-1, y-1)) {
-                    valid.add(new MoveAction(x, x - 1, y, y - 1));
-                }
-            }
-            if(isValid(x, y-1)){//moves up and right
-                if(board.isOccupied(x+1, y-1)) {
-                    valid.add(new MoveAction(x, x + 1, y, y - 1));
-                }
-            }
-            if(isValid(x+1,y)){//moves down and right
-                if(board.isOccupied(x+1, y+1)) {
-                    valid.add(new MoveAction(x, x + 1, y, y + 1));
-                }
-            }
-            if(isValid(x-1,y)){//moves down and left
-                if(board.isOccupied(x-1, y+1)) {
-                    valid.add(new MoveAction(x, x - 1, y, y + 1));
-                }
-            }
+        }
 
         return valid;
+    }
+
+    /**
+     * inCheck
+     * <p>
+     * This method checks if the king is in check.
+     *
+     * @param x         The x coordinate of the king.
+     * @param y         The y coordinate of the king.
+     * @param board     The board that the king is on.
+     * @return          True if the king is in check, false otherwise.
+     */
+    public boolean inCheck(int x, int y, ChessSquare[][] board) {
+        // Check all squares around the king
+        for (int i = - 1; i <= 1; i++) {
+            for (int j = - 1; j <= 1; j++) {
+                // Check if the square is on the board
+                if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                    // Check if the square is occupied by an enemy piece
+                    if (board[x + i][y + j].getPiece() != null && board[x + i][y + j].getPiece().getPlayer() != this._player) {
+                        // Check if the piece can move to the king's square
+                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new MoveAction(x + i, y + j, x, y))) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
