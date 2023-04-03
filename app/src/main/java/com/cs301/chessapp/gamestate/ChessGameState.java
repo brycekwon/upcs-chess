@@ -84,6 +84,8 @@ public class ChessGameState extends GameState {
             this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
         }
 
+        this.numSetupTurns = 0;
+
         // todo: add timer for black and white in player v player mode
     }
 
