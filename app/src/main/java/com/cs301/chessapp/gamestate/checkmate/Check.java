@@ -1,16 +1,15 @@
-package com.cs301.chessapp.gamestate.checkmate;
+package com.cs301.chessapp.gameframework.utilities.Checkmate;
 
-//import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Check {
     int _player;
     boolean inCheck;
-    //ChessBoard gamestate;
     Checkmate checker;
     int kingX;
     int kingY;
