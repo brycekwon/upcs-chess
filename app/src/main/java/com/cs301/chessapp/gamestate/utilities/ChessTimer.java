@@ -12,7 +12,7 @@ public class ChessTimer extends GameTimer {
 
     @Override
     public void setInterval(int interval) {
-        super.setInterval(7200000);
+        super.setInterval(5400000);
     }
 
     @Override
