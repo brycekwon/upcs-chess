@@ -34,7 +34,7 @@ import com.cs301.chessapp.gameframework.utilities.IPCoder;
 import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gameframework.utilities.MessageBox;
 import com.cs301.chessapp.gameframework.utilities.Saving;
-import com.example.chessapp.R;
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 
@@ -176,7 +176,6 @@ public abstract class GameMainActivity extends AppCompatActivity implements
         }
 
         if (this.config.isUserModifiable()) { // normal run: user has chance to modify configuration
-
             // initialize and show the GUI that allows the user to specify the game's
             // configuration
             initStarterGui();
@@ -506,7 +505,6 @@ public abstract class GameMainActivity extends AppCompatActivity implements
         v.setOnClickListener(this);
         v = findViewById(R.id.debugLogging);
         v.setOnClickListener(this);
-
 
         String ipCode = IPCoder.encodeLocalIP();
         String ipAddress = IPCoder.getLocalIpAddress();

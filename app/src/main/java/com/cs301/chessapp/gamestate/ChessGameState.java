@@ -101,6 +101,9 @@ public class ChessGameState extends GameState {
         _chessboard = other.getChessboard();
         _whiteTimer = other.getWhiteTimer();
         _blackTimer = other.getBlackTimer();
+
+        super.numSetupTurns = other.numSetupTurns;
+        super.currentSetupTurn = other.currentSetupTurn;
     }
 
     /**

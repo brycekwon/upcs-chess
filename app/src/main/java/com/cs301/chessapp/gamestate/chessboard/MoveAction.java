@@ -1,7 +1,6 @@
 package com.cs301.chessapp.gamestate.chessboard;
 
 
-// todo: change x and y to startx, starty, endx, endy
 /**
  * MoveAction
  * <p>
@@ -30,14 +29,14 @@ public class MoveAction {
      * and ending x y coordinates.
      *
      * @param x1        x coordinate of starting position
-     * @param x2        x coordinate of ending position
      * @param y1        y coordinate of starting position
+     * @param x2        x coordinate of ending position
      * @param y2        y coordinate of ending position
      */
-    public MoveAction(int x1, int x2, int y1, int y2) {
+    public MoveAction(int x1, int y1, int x2, int y2) {
         this._x1 = x1;
-        this._x2 = x2;
         this._y1 = y1;
+        this._x2 = x2;
         this._y2 = y2;
     }
 
@@ -83,5 +82,20 @@ public class MoveAction {
      */
     public int getEndY() {
         return _y2;
+    }
+
+    /**
+     * toString
+     * <p>
+     * This method returns a string representation of the Move object.
+     */
+    @Override
+    public String toString() {
+        return "MoveAction{" +
+            "_x1=" + _x1 +
+            ", _x2=" + _x2 +
+            ", _y1=" + _y1 +
+            ", _y2=" + _y2 +
+            '}';
     }
 }

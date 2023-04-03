@@ -63,7 +63,7 @@ public class King extends Piece{
                     if (board[x + i][y + j].getPiece() == null || board[x + i][y + j].getPiece().getPlayer() != this._player) {
                         // Check if the king is in check
                         if (!this.inCheck(x + i, y + j, board)) {
-                            valid.add(new MoveAction(x,  x + i, y, y + j));
+                            valid.add(new MoveAction(x,  y, x + i, y + j));
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class King extends Piece{
                     // Check if the square is occupied by an enemy piece
                     if (board[x + i][y + j].getPiece() != null && board[x + i][y + j].getPiece().getPlayer() != this._player) {
                         // Check if the piece can move to the king's square
-                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new MoveAction(x + i, x, y + j, y))) {
+                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new MoveAction(x + i, y + j, x, y))) {
                             return true;
                         }
                     }

@@ -51,17 +51,19 @@ public class Bishop extends Piece {
     public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<>();
 
+        // todo: consolidate this code into less for loops
+
         // searching for moves up right
         for (int i = 0; i < 8; i++) {
             if (isValid(x+i, y+i)) {
                 // if square is occupied by another piece
                 if (board[x+i][y+i] != null) {
-                    valid.add(new MoveAction(x, x+i, y, y+i));
+                    valid.add(new MoveAction(x,  y, x+i, y+i));
                     break;
                 }
                 // if square is empty
                 else {
-                    valid.add(new MoveAction(x, x+i, y, y+i));
+                    valid.add(new MoveAction(x, y, x+i, y+i));
                 }
             }
         }
@@ -71,12 +73,12 @@ public class Bishop extends Piece {
             if (isValid(x-i, y+i)) {
                 // if square is occupied by another piece
                 if (board[x-i][y+i] != null) {
-                    valid.add(new MoveAction(x, x-i, y, y+i));
+                    valid.add(new MoveAction(x, y, x-i, y+i));
                     break;
                 }
                 // if square is empty
                 else {
-                    valid.add(new MoveAction(x, x-i, y, y+i));
+                    valid.add(new MoveAction(x, y, x-i, y+i));
                 }
             }
         }
@@ -86,12 +88,12 @@ public class Bishop extends Piece {
             if (isValid(x+i, y-i)) {
                 // if square is occupied by another piece
                 if (board[x+i][y-i] != null) {
-                    valid.add(new MoveAction(x, x+i, y, y-i));
+                    valid.add(new MoveAction(x, y, x+i, y-i));
                     break;
                 }
                 // if square is empty
                 else {
-                    valid.add(new MoveAction(x, x+i, y, y-i));
+                    valid.add(new MoveAction(x, y, x+i, y-i));
                 }
             }
         }
@@ -101,12 +103,12 @@ public class Bishop extends Piece {
             if (isValid(x-i, y-i)) {
                 // if square is occupied by another piece
                 if (board[x-i][y-i] == null) {
-                    valid.add(new MoveAction(x, x-i, y, y-i));
+                    valid.add(new MoveAction(x, y, x-i, y-i));
                     break;
                 }
                 // if square is empty
                 else {
-                    valid.add(new MoveAction(x, x-i, y, y-i));
+                    valid.add(new MoveAction(x, y, x-i, y-i));
                 }
             }
         }

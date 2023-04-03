@@ -1,22 +1,46 @@
 package com.cs301.chessapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.cs301.chessapp.gameframework.GameMainActivity;
+import com.cs301.chessapp.gameframework.LocalGame;
+import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
+import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
+import com.cs301.chessapp.gameframework.infoMessage.GameState;
+import com.cs301.chessapp.gameframework.players.GamePlayer;
+import com.cs301.chessapp.gameframework.utilities.Logger;
+import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 
-import android.os.Bundle;
-import android.view.SurfaceView;
+import java.util.ArrayList;
 
-import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
-import com.cs301.chessapp.gamestate.ChessGameState;
-import com.example.chessapp.R;
-
-public class ChessMainActivity extends AppCompatActivity {
+public class ChessMainActivity extends GameMainActivity {
     private static final String TAG = "ChessMainActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private static final int PORT_NUMBER = 5213;
 
-//        ChessGameState chessGameState = new ChessGameState();
+    @Override
+    public GameConfig createDefaultConfig() {
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
+
+        playerTypes.add(new GamePlayerType("Local Human Player 1") {
+            public GamePlayer createPlayer(String name) {
+                return new ChessHumanPlayer(name, R.layout.chess_human_player);
+            }
+        });
+
+        playerTypes.add(new GamePlayerType("Local Human Player 2") {
+            public GamePlayer createPlayer(String name) {
+                return new ChessHumanPlayer(name, R.layout.chess_human_player);
+            }
+        });
+
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
+        defaultConfig.addPlayer("Human 1", 0);
+        defaultConfig.addPlayer("Human 2", 1);
+
+        return defaultConfig;
+    }
+
+    @Override
+    public LocalGame createLocalGame(GameState gameState) {
+        return new ChessLocalGame();
     }
 }
