@@ -1,12 +1,10 @@
-package com.cs301.chessapp.gameframework.utilities.Checkmate;
+package com.cs301.chessapp.gamestate.checkmate;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
+//import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 import com.cs301.chessapp.gamestate.pieces.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class Checkmate {
@@ -15,29 +13,29 @@ public class Checkmate {
     boolean inCheck = false; // true if king is in check
     private int kingX; // position of king x
     private int kingY; // position of king y
-    ChessSquare[][] board; //board state
+    //ChessBoard board; //board state
 
     Piece k;
-    public Checkmate(int player, ChessSquare[][] boardstate){
+    public Checkmate(int player /*,ChessBoard boardstate*/){
         _player = player;
         inCheck = false;
-        this.board = boardstate;
+        //this.board = boardstate;
     }
 
 
     //set the king's piece of the player and updates the king's position
     public void setKing(int player){
-        for(int i = 0; i < 8; i ++){
-            for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getPlayer() == player){
-                    if(board[i][j].getPiece().getValue() == 100){
-                        kingX = i;
-                        kingY = j;
-                        return;
-                    }
-                }
-            }
-        }
+//        for(int i = 0; i < 8; i ++){
+//            for(int j = 0; j < 8; j++){
+//                if(board.getPiece(i,j).getPlayer() == player){
+//                    if(board.getPiece(i,j).getValue() == 100){
+//                        kingX = i;
+//                        kingY = j;
+//                        return;
+//                    }
+//                }
+//            }
+//        }
     }
 
     //returns the player's king's position
@@ -47,27 +45,27 @@ public class Checkmate {
 
     //returns the king's valid moves
     public ArrayList<MoveAction> getKingMoves(){
-        for(int i = 0; i < 8; i ++){
-            for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getValue() == 100){
-                    k = board[i][j].getPiece();
-                    return k.getMoves(i, j, board);
-                }
-            }
-        }
+//        for(int i = 0; i < 8; i ++){
+//            for(int j = 0; j < 8; j++){
+//                if(board.getPiece(i,j).getValue() == 100){
+//                    k = board.getPiece(i,j);
+//                    return k.getMoves(i, j, board);
+//                }
+//            }
+//        }
         return null;
     }
 
     //gets the valid moves of each piece;
     public ArrayList<MoveAction> getPieceMoves(Piece p) {
 
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (board[i][j].getPiece().getValue() == p.getValue()) {
-                        return p.getMoves(i,j,board);
-                    }
-                }
-            }
+//            for (int i = 0; i < 8; i++) {
+//                for (int j = 0; j < 8; j++) {
+//                    if (board.getPiece(i, j).getValue() == p.getValue()) {
+//                        return p.getMoves(i,j,board);
+//                    }
+//                }
+//            }
         return null;
     }
 
@@ -81,13 +79,13 @@ public class Checkmate {
         }
 
         ArrayList<Piece> oppositePiece = new ArrayList<Piece>();
-        for(int i = 0; i < 8; i ++){
-            for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getPlayer() == _player){
-                    oppositePiece.add(board[i][j].getPiece());
-                }
-            }
-        }
+//        for(int i = 0; i < 8; i ++){
+//            for(int j = 0; j < 8; j++){
+//                if(board.getPiece(i,j).getPlayer() == _player){
+//                    oppositePiece.add(board.getPiece(i,j));
+//                }
+//            }
+//        }
         return oppositePiece;
     }
 

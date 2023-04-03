@@ -1,15 +1,12 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
-import com.cs301.chessapp.gameframework.infoMessage.IllegalMoveInfo;
-import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
-import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
 public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
@@ -39,6 +36,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
     @Override
     public void setAsGui(GameMainActivity activity) {
+        activity.setContentView(layoutId);
+
+        view = (ChessPerspectiveWhite) activity.findViewById(R.id.chess_perspective_white);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class ChessMainActivity extends GameMainActivity {
             }
         });
 
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Human 1", 0);
         defaultConfig.addPlayer("Human 2", 1);
 

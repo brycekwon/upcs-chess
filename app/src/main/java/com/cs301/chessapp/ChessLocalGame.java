@@ -23,10 +23,12 @@ public class ChessLocalGame extends LocalGame {
 
     public ChessLocalGame() {
         super();
+        super.state = new ChessGameState(0);
     }
 
     public ChessLocalGame(ChessGameState gameState) {
         super();
+        super.state = new ChessGameState(0);
     }
 
     @Override
