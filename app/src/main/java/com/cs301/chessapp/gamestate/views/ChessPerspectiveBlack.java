@@ -8,72 +8,63 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class ChessPerspectiveBlack extends SurfaceView {
+import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
+import com.cs301.chessapp.gamestate.ChessGameState;
 
-    Paint borderPaint = new Paint();
+public class ChessPerspectiveBlack extends FlashSurfaceView {
+    private static final String TAG = "ChessPerspectiveBlack";
+    // these constants define the dimensions of the board
+    private static final float BOARD_LENGTH = 900f;
+    private static final float BOARD_MARGIN = 50f;
+    private static final float BOARD_STROKE = 5f;
+    private static final float TILE_LENGTH = BOARD_LENGTH / 8;
+    private static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
 
-    Paint blackSquarePaint = new Paint();
-    Paint whiteSquarePaint = new Paint();
+    private ChessGameState _gameState;
+
+    public ChessPerspectiveBlack(Context context) {
+        super(context);
+        setWillNotDraw(false);
+
+        // establish the dimensions of the view
+        setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
+        setMinimumHeight((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
+
+        // establish the background color
+        setBackgroundColor(Color.GREEN);
+    }
 
     public ChessPerspectiveBlack(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setWillNotDraw(false);
 
-        borderPaint.setColor(Color.BLACK);
-        borderPaint.setStrokeWidth(4);
-        //paint for the border of the board
+        // establish the dimensions of the view
+        setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
+        setMinimumHeight((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
 
-        blackSquarePaint.setColor(Color.BLACK);
-        blackSquarePaint.setStyle(Paint.Style.FILL);
-
-        whiteSquarePaint.setColor(Color.WHITE);
-        whiteSquarePaint.setStyle(Paint.Style.FILL);
-        //paint for the squares
+        // establish the background color
+        setBackgroundColor(Color.GREEN);
     }
 
-    int boardSize = 200;
 
-
-    public void onDraw(Canvas canvas) {
-        int canvasHeight = canvas.getHeight();
-        int canvasWidth = canvas.getWidth();
-
-        int left = (canvasWidth - boardSize) / 2;
-        int top = (canvasHeight - boardSize) / 2;
-        int right = left + boardSize;
-        int bottom = top + boardSize;
-        //positions of square, centered inside screen
-
-        canvas.drawRect(left, top, right, bottom, borderPaint);
-        //draw centered square
-
-        //double for loop to draw squares
+    public void onDraw(Canvas g) {
+        // draw the board
+        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, getPaint(Color.BLACK, BOARD_STROKE));
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-
-                if (i == 0 || i % 2 == 0) {
-
-                    if (j == 0 || j % 2 == 0) {
-                    canvas.drawRect(left + (j * boardSize / 8), top + (i * boardSize / 8), left + (j + 1) * (boardSize / 8), top + (i + 1) * (boardSize / 8), blackSquarePaint);
-                    }   else if (j == 1 || j % 2 == 1) {
-                    canvas.drawRect(left + (j * boardSize / 8), top + (i * boardSize / 8), left + (j + 1) * (boardSize / 8), top + (i + 1) * (boardSize / 8), whiteSquarePaint);
-                    }
-                    /** if row is even, draw alternating black and white squares
-                     * starting with white
-                     */
-                }
-                else if (i == 1 || i % 2 == 1) {
-
-                    if (j == 0 || j % 2 == 0) {
-                        canvas.drawRect(left + (j * boardSize / 8), top + (i * boardSize / 8), left + (j + 1) * (boardSize / 8), top + (i + 1) * (boardSize / 8),whiteSquarePaint);
-                    }   else if (j == 1 || j % 2 == 1) {
-                        canvas.drawRect(left + (j * boardSize / 8), top + (i * boardSize / 8), left + (j + 1) * (boardSize / 8), top + (i + 1) * (boardSize / 8), blackSquarePaint);
-                    }
-                    /** if row is odd, draw alternating black and white squares
-                     * starting with black
-                     */
+                if ((i + j) % 2 == 0) {
+                    // if the sum of the x and y coordinates is even, the square is black
+                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.BLACK, 0));
+                } else {
+                    // if the sum of the x and y coordinates is odd, the square is white
+                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.WHITE, 0));
                 }
             }
         }
+    }
+    private Paint getPaint(int color, float strokeWidth) {
+        android.graphics.Paint paint = new android.graphics.Paint();
+        paint.setColor(color);
+        paint.setStrokeWidth(strokeWidth);
+        return paint;
     }
 }

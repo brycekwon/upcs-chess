@@ -16,5 +16,6 @@
                 android:layout_height="1290dp"
                 android:id="@+id/chessPerspectiveWhite2"
                 android:layout_weight="1" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
