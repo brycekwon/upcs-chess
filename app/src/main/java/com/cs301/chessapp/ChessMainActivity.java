@@ -6,6 +6,7 @@ import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class ChessMainActivity extends GameMainActivity {
         // todo: add remote player
         // todo: add computer player normal
         // todo: add computer player smart
-
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Human 1", 0);
 
