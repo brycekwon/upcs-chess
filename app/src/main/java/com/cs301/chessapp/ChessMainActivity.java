@@ -54,12 +54,12 @@ public class ChessMainActivity extends GameMainActivity {
         return new ChessLocalGame();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        View touch = findViewById(R.id.chessPerspectiveWhite2);
-        touch.setOnTouchListener(player1);
-        timer.start();
-        Logger.debugLog("Timer and View", "" + timer.getTicks());
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        View touch = findViewById(R.id.chessPerspectiveWhite2);
+//        touch.setOnTouchListener(player1);
+//        timer.start();
+//        Logger.debugLog("Timer and View", "" + timer.getTicks());
+//    }
 }

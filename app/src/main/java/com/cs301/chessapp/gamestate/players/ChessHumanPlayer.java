@@ -76,4 +76,34 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         return true;
     }
+
+    /**
+     * TODO: Chris testing
+     * @param view The view that was clicked.
+     */
+//    @Override
+//    public void onClick(View view) {
+//        if (view == null) {
+//            return;
+//        }
+//
+//        float x = view.getX();
+//        float y = view.getY();
+//
+//        float boardLeft = ChessPerspectiveWhite.BOARD_MARGIN;
+//        float boardRight = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
+//        float boardTop = ChessPerspectiveWhite.BOARD_MARGIN;
+//        float boardBottom = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
+//
+//        if (x < boardLeft || x > boardRight || y < boardTop || y > boardBottom) {
+//            return;
+//        }
+//
+//        int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
+//        int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
+//
+//        Logger.debugLog(TAG, "onTouch: " + row + ", " + col);
+//
+//        return;
+//    }
 }
