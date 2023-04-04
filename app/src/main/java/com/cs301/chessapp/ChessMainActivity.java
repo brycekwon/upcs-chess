@@ -1,12 +1,5 @@
 package com.cs301.chessapp;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
-import android.view.View;
-
-import androidx.annotation.Nullable;
-
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
@@ -23,12 +16,11 @@ public class ChessMainActivity extends GameMainActivity {
 
     @Override
     public GameConfig createDefaultConfig() {
-        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
 
         playerTypes.add(new GamePlayerType("Local Human Player 1") {
             public GamePlayer createPlayer(String name) {
-                ChessHumanPlayer gamePlayer = new ChessHumanPlayer(name, R.layout.activity_main);
-                return gamePlayer;
+                return new ChessHumanPlayer(name, R.layout.activity_main);
             }
         });
 
