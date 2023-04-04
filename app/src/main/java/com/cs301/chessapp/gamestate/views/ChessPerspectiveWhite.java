@@ -13,28 +13,30 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
     private static final String TAG = "ChessPerspectiveWhite";
 
     // these constants define the dimensions of the board
-    private static final float BOARD_LENGTH = 900f;
-    private static final float BOARD_MARGIN = 50f;
-    private static final float BOARD_STROKE = 5f;
-    private static final float TILE_LENGTH = BOARD_LENGTH / 8;
-    private static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
+    public static final float BOARD_LENGTH = 900f;
+    public static final float BOARD_MARGIN = 50f;
+    public static final float BOARD_STROKE = 5f;
+    public static final float TILE_LENGTH = BOARD_LENGTH / 8;
+    public static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
 
     private ChessGameState _gameState;
 
     public ChessPerspectiveWhite(Context context) {
         super(context);
-        setWillNotDraw(false);
+        init();
 
-        // establish the dimensions of the view
-        setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-        setMinimumHeight((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-
-        // establish the background color
-        setBackgroundColor(Color.GREEN);
+        this._gameState = new ChessGameState();
     }
 
     public ChessPerspectiveWhite(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+
+        this._gameState = new ChessGameState();
+    }
+
+    private void init() {
+        setWillNotDraw(false);
 
         // establish the dimensions of the view
         setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
@@ -46,16 +48,67 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
 
     // draw the chess board
     public void onDraw(Canvas g) {
+        // todo: draw board bigger and centered
         // draw the board
-        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, getPaint(Color.BLACK, BOARD_STROKE));
+        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,
+                BOARD_MARGIN + BOARD_LENGTH, getPaint(Color.BLACK, BOARD_STROKE));
+
+        // draw the tiles
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 == 0) {
-                    // if the sum of the x and y coordinates is even, the square is white
-                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.WHITE, 0));
+                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH,
+                            TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH,
+                            getPaint(_gameState.getChessboard()[j][i].getColor(), 0));
                 } else {
-                    // if the sum of the x and y coordinates is odd, the square is black
-                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.BLACK, 0));
+                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH,
+                            TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH,
+                            getPaint(_gameState.getChessboard()[j][i].getColor(), 0));
+                }
+            }
+        }
+
+        // todo: draw the pieces as images
+        // draw the pieces as text characters (for now)
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (_gameState.getChessboard()[j][i].getPiece() == null) {
+                    return;
+                }
+
+                switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
+                    case "Bishop":
+                        g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    case "King":
+                        g.drawText("K", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    case "Knight":
+                        g.drawText("N", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    case "Pawn":
+                        g.drawText("P", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    case "Queen":
+                        g.drawText("Q", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    case "Rook":
+                        g.drawText("R", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                getPaint(Color.RED, 10));
+                        break;
+                    default:
+                        break;
                 }
             }
         }

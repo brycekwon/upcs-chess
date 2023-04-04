@@ -14,7 +14,7 @@ package com.cs301.chessapp.gamestate.chessboard;
  * @author Magnus Graham
  * @version March 17, 2023
  */
-public class MoveAction {
+public class PieceMove {
     private static final String TAG = "MoveAction";
 
     private final int _x1;
@@ -33,7 +33,7 @@ public class MoveAction {
      * @param x2        x coordinate of ending position
      * @param y2        y coordinate of ending position
      */
-    public MoveAction(int x1, int y1, int x2, int y2) {
+    public PieceMove(int x1, int y1, int x2, int y2) {
         this._x1 = x1;
         this._y1 = y1;
         this._x2 = x2;
@@ -87,15 +87,17 @@ public class MoveAction {
     /**
      * toString
      * <p>
-     * This method returns a string representation of the Move object.
+     * This method returns a string representation of the move.
+     *
+     * @return      string representation of the move
      */
     @Override
     public String toString() {
         return "MoveAction{" +
-            "_x1=" + _x1 +
-            ", _x2=" + _x2 +
-            ", _y1=" + _y1 +
-            ", _y2=" + _y2 +
-            '}';
+                "_x1=" + _x1 +
+                ", _x2=" + _x2 +
+                ", _y1=" + _y1 +
+                ", _y2=" + _y2 +
+                '}';
     }
 }

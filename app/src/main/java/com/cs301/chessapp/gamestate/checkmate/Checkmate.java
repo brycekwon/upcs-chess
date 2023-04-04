@@ -1,11 +1,10 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class Checkmate {
@@ -45,7 +44,7 @@ public class Checkmate {
 
 
     //returns the king's valid moves
-    public ArrayList<MoveAction> getKingMoves(){
+    public ArrayList<PieceMove> getKingMoves(){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
                 if(board[i][j].getPiece().getValue() == 100){
@@ -58,7 +57,7 @@ public class Checkmate {
     }
 
     //gets the valid moves of each piece;
-    public ArrayList<MoveAction> getPieceMoves(Piece p) {
+    public ArrayList<PieceMove> getPieceMoves(Piece p) {
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -92,7 +91,7 @@ public class Checkmate {
 
 
     //compares one position vs all the possible moves from the other side
-    boolean checkCMP(int x, int y, ArrayList<MoveAction> list){
+    boolean checkCMP(int x, int y, ArrayList<PieceMove> list){
         for(int i = 0; i < list.size(); i++){//iterates through the arraylist for each valid move
             int a;
             int b;
@@ -107,8 +106,8 @@ public class Checkmate {
     }
 
     //returns all valid moves after comparing
-   public ArrayList<MoveAction> validMoveCMP(int x, int y, ArrayList<MoveAction> kingMove, ArrayList<MoveAction> check){
-        ArrayList<MoveAction> blocks = new ArrayList<MoveAction>();//indexes the possible moves the king can take
+   public ArrayList<PieceMove> validMoveCMP(int x, int y, ArrayList<PieceMove> kingMove, ArrayList<PieceMove> check){
+        ArrayList<PieceMove> blocks = new ArrayList<PieceMove>();//indexes the possible moves the king can take
 
        //index for the king's possible move
         int a;
@@ -118,7 +117,7 @@ public class Checkmate {
             a = kingMove.get(i).getEndX();
             b = kingMove.get(i).getEndY();
             if(checkCMP(a, b, check) != true) {//if checkCMP is false, valid move for the king to move
-                blocks.add(new MoveAction(x, a, y, b));
+                blocks.add(new PieceMove(x, a, y, b));
             }
         }
         if(blocks.isEmpty()){

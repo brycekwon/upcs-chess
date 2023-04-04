@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.graphics.Color;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Piece
@@ -23,7 +23,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 public abstract class Piece {
 
     protected String _type;
-    protected int _player;      // 0 = white, 1 = black
+    protected int _player;
     protected int _color;
     protected int _value;
 
@@ -38,12 +38,7 @@ public abstract class Piece {
      */
     public Piece(int player) {
         this._player = player;
-
-        if (player == 0) {
-            this._color = Color.WHITE;
-        } else {
-            this._color = Color.BLACK;
-        }
+        this._color = player == 0 ? Color.WHITE : Color.BLACK;
     }
 
     /**
@@ -57,7 +52,7 @@ public abstract class Piece {
      * @param board     The board that the piece is on.
      * @return          ArrayList of all possible moves
      */
-    public abstract ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board);
+    public abstract ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board);
 
     /**
      * isValid
@@ -86,6 +81,18 @@ public abstract class Piece {
     }
 
     /**
+     * getColor
+     * <p>
+     * This method returns the color of the piece. The color is determined by
+     * the constructor and cannot be changed.
+     *
+     * @return  The color of the piece.
+     */
+    public int getColor() {
+        return this._color;
+    }
+
+    /**
      * getValue
      * <p>
      * This method returns the value of the piece. The value is determined by
@@ -98,6 +105,18 @@ public abstract class Piece {
     }
 
     /**
+     * getType
+     * <p>
+     * This method returns the type of the piece. The type is determined by
+     * the subclass and cannot be changed.
+     *
+     * @return  The type of the piece.
+     */
+    public String getType() {
+        return this._type;
+    }
+
+    /**
      * toString
      * <p>
      * This method returns a string representation of the board.
@@ -106,18 +125,8 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        String side;
-        if (_player == -1) {
-            side = "w";
-        } else if (_player == -16777216) {
-            side = "b";
-        } else {
-            side = "u";
-        }
-
-//        return _type + " [player=" + side + ", value=" + _value + "]";
-        return side + _type;
+        return _type.charAt(0) + "";
+//        String side = (_player == 0) ? "w" : "b";
+//        return "Piece [player=" + side + ", value=" + _value + "]";
     }
-
-    public String get_type(){return this._type;}
 }

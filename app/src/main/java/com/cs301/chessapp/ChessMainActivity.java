@@ -6,7 +6,6 @@ import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
-import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 
 import java.util.ArrayList;
@@ -22,19 +21,17 @@ public class ChessMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Local Human Player 1") {
             public GamePlayer createPlayer(String name) {
-                return new ChessHumanPlayer(name, R.layout.chess_human_player);
+                return new ChessHumanPlayer(name, R.layout.activity_main);
             }
         });
 
-        playerTypes.add(new GamePlayerType("Local Human Player 2") {
-            public GamePlayer createPlayer(String name) {
-                return new ChessHumanPlayer(name, R.layout.chess_human_player);
-            }
-        });
+        // todo: add 2nd local player
+        // todo: add remote player
+        // todo: add computer player normal
+        // todo: add computer player smart
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Human 1", 0);
-        defaultConfig.addPlayer("Human 2", 1);
 
         return defaultConfig;
     }

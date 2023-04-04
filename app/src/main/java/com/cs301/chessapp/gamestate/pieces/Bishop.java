@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Bishop
@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Bishop extends Piece {
-    private static final String TAG = "Piece-Bishop";
+    private static final String TAG = "PieceBishop";
 
     /**
      * Bishop constructor
@@ -33,6 +33,7 @@ public class Bishop extends Piece {
      */
     public Bishop(int player) {
         super(player);
+
         this._value = 3;
         this._type = "Bishop";
     }
@@ -48,71 +49,101 @@ public class Bishop extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
-        ArrayList<MoveAction> valid = new ArrayList<>();
+    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // todo: consolidate this code into less for loops
-
-        // searching for moves up right
         for (int i = 0; i < 8; i++) {
+
+            // search for all moves up right
             if (isValid(x+i, y+i)) {
-                // if square is occupied by another piece
+
+                // check if a piece is blocking the path
                 if (board[x+i][y+i] != null) {
-                    valid.add(new MoveAction(x,  y, x+i, y+i));
+
+                    // if the piece is an enemy piece
+                    if (board[x+i][y+i].getPiece().getPlayer() != this._player) {
+                        valid.add(new PieceMove(x, y, x+i, y+i));
+                    }
+
+                    // if the piece is a friendly piece
                     break;
                 }
-                // if square is empty
-                else {
-                    valid.add(new MoveAction(x, y, x+i, y+i));
-                }
-            }
-        }
 
-        // searching for moves up left
-        for (int i = 0; i < 8; i++) {
+                // if the square is empty
+                else {
+                    valid.add(new PieceMove(x, y, x+i, y+i));
+                }
+
+            }
+
+            // search for all moves up left
             if (isValid(x-i, y+i)) {
-                // if square is occupied by another piece
+
+                // check if a piece is blocking the path
                 if (board[x-i][y+i] != null) {
-                    valid.add(new MoveAction(x, y, x-i, y+i));
+
+                    // if the piece is an enemy piece
+                    if (board[x-i][y+i].getPiece().getPlayer() != this._player) {
+                        valid.add(new PieceMove(x, y, x-i, y+i));
+                    }
+
+                    // if the piece is a friendly piece
                     break;
                 }
-                // if square is empty
-                else {
-                    valid.add(new MoveAction(x, y, x-i, y+i));
-                }
-            }
-        }
 
-        // searching for moves down right
-        for (int i = 0; i < 8; i++) {
+                // if the square is empty
+                else {
+                    valid.add(new PieceMove(x, y, x-i, y+i));
+                }
+
+            }
+
+            // search for all moves down right
             if (isValid(x+i, y-i)) {
-                // if square is occupied by another piece
+
+                // check if a piece is blocking the path
                 if (board[x+i][y-i] != null) {
-                    valid.add(new MoveAction(x, y, x+i, y-i));
+
+                    // if the piece is an enemy piece
+                    if (board[x+i][y-i].getPiece().getPlayer() != this._player) {
+                        valid.add(new PieceMove(x, y, x+i, y-i));
+                    }
+
+                    // if the piece is a friendly piece
                     break;
                 }
-                // if square is empty
-                else {
-                    valid.add(new MoveAction(x, y, x+i, y-i));
-                }
-            }
-        }
 
-        // searching for moves down left
-        for (int i = 0; i < 8; i++) {
+                // if the square is empty
+                else {
+                    valid.add(new PieceMove(x, y, x+i, y-i));
+                }
+
+            }
+
+            // search for all moves down left
             if (isValid(x-i, y-i)) {
-                // if square is occupied by another piece
-                if (board[x-i][y-i] == null) {
-                    valid.add(new MoveAction(x, y, x-i, y-i));
+
+                // check if a piece is blocking the path
+                if (board[x-i][y-i] != null) {
+
+                    // if the piece is an enemy piece
+                    if (board[x-i][y-i].getPiece().getPlayer() != this._player) {
+                        valid.add(new PieceMove(x, y, x-i, y-i));
+                    }
+
+                    // if the piece is a friendly piece
                     break;
                 }
-                // if square is empty
+
+                // if the square is empty
                 else {
-                    valid.add(new MoveAction(x, y, x-i, y-i));
+                    valid.add(new PieceMove(x, y, x-i, y-i));
                 }
+
             }
         }
 
+        // return the list of valid moves
         return valid;
     }
 }

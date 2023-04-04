@@ -46,6 +46,17 @@ public class ChessSquare {
     }
 
     /**
+     * ChessSquare copy constructor
+     * <p>
+     * This constructor initializes a square with another square.
+     *
+     * @param other    The square to copy.
+     */
+    public ChessSquare(ChessSquare other) {
+        this(other.getColor(), other.getPiece());
+    }
+
+    /**
      * setPiece
      * <p>
      * This method sets the piece on the square.

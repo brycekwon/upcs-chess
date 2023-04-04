@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Rook
@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Rook extends Piece {
-    private static final String TAG = "Piece-Rook";
+    private static final String TAG = "PieceRook";
 
     private boolean _canCastle;
 
@@ -51,8 +51,8 @@ public class Rook extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
-        ArrayList<MoveAction> valid = new ArrayList<>();
+    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = new ArrayList<>();
 
         // todo: consolidate this code into less for loops
 
@@ -60,9 +60,9 @@ public class Rook extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x, y+i)) {
                 if (board[x][y+i].getPiece() == null) {
-                    valid.add(new MoveAction(x, y, x, y+i));
+                    valid.add(new PieceMove(x, y, x, y+i));
                 } else if (board[x][y+i].getPiece().getPlayer() != this._player) {
-                    valid.add(new MoveAction(x, y, x, y+i));
+                    valid.add(new PieceMove(x, y, x, y+i));
                     break;
                 } else {
                     break;
@@ -74,9 +74,9 @@ public class Rook extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x, y-i)) {
                 if (board[x][y-i].getPiece() == null) {
-                    valid.add(new MoveAction(x, y, x, y-i));
+                    valid.add(new PieceMove(x, y, x, y-i));
                 } else if (board[x][y-i].getPiece().getPlayer() != this._player) {
-                    valid.add(new MoveAction(x, y, x, y-i));
+                    valid.add(new PieceMove(x, y, x, y-i));
                     break;
                 } else {
                     break;
@@ -88,9 +88,9 @@ public class Rook extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x+i, y)) {
                 if (board[x+i][y].getPiece() == null) {
-                    valid.add(new MoveAction(x, y, x+i, y));
+                    valid.add(new PieceMove(x, y, x+i, y));
                 } else if (board[x+i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new MoveAction(x, y, x+i, y));
+                    valid.add(new PieceMove(x, y, x+i, y));
                     break;
                 } else {
                     break;
@@ -102,9 +102,9 @@ public class Rook extends Piece {
         for (int i = 0; i < 8; i++) {
             if (isValid(x-i, y)) {
                 if (board[x-i][y].getPiece() == null) {
-                    valid.add(new MoveAction(x, y, x-i, y));
+                    valid.add(new PieceMove(x, y, x-i, y));
                 } else if (board[x-i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new MoveAction(x, y, x-i, y));
+                    valid.add(new PieceMove(x, y, x-i, y));
                     break;
                 } else {
                     break;

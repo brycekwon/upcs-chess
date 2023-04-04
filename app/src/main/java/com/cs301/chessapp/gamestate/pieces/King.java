@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * King
@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class King extends Piece{
-    private static final String TAG = "Piece-King";
+    private static final String TAG = "PieceKing";
 
     private boolean _canCastle;
 
@@ -35,6 +35,7 @@ public class King extends Piece{
      */
     public King(int player) {
         super(player);
+
         this._value = 100;
         this._type = "King";
         this._canCastle = true;
@@ -51,19 +52,20 @@ public class King extends Piece{
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
-        ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
+    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
         // Check all squares around the king
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 // Check if the square is on the board
-                if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                if (isValid(x + i, y + j)) {
                     // Check if the square is occupied by a friendly piece
                     if (board[x + i][y + j].getPiece() == null || board[x + i][y + j].getPiece().getPlayer() != this._player) {
                         // Check if the king is in check
-                        if (!this.inCheck(x + i, y + j, board)) {
-                            valid.add(new MoveAction(x,  y, x + i, y + j));
+                        if (!inCheck(x + i, y + j, board)) {
+                            // Add the move to the list of valid moves
+                            valid.add(new PieceMove(x, y, x + i, y + j));
                         }
                     }
                 }
@@ -92,7 +94,7 @@ public class King extends Piece{
                     // Check if the square is occupied by an enemy piece
                     if (board[x + i][y + j].getPiece() != null && board[x + i][y + j].getPiece().getPlayer() != this._player) {
                         // Check if the piece can move to the king's square
-                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new MoveAction(x + i, y + j, x, y))) {
+                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new PieceMove(x + i, y + j, x, y))) {
                             return true;
                         }
                     }

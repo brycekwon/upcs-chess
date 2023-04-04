@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Knight
@@ -20,7 +20,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Knight extends Piece {
-    private static final String TAG = "Piece-Knight";
+    private static final String TAG = "PieceKnight";
 
     /**
      * Knight constructor
@@ -32,6 +32,7 @@ public class Knight extends Piece {
      */
     public Knight(int player) {
         super(player);
+
         this._value = 3;
         this._type = "Knight";
     }
@@ -47,8 +48,8 @@ public class Knight extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
-        ArrayList<MoveAction> valid = new ArrayList<>();
+    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = new ArrayList<>();
 
         // Check all possible moves
         for (int i = -2; i <= 2; i++) {
@@ -59,11 +60,11 @@ public class Knight extends Piece {
                     if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
                         // Check if the move is on an empty square
                         if (board[x + i][y + j].getPiece() == null) {
-                            valid.add(new MoveAction(x, y, x + i, y + j));
+                            valid.add(new PieceMove(x, y, x + i, y + j));
                         }
                         // Check if the move is on an enemy square
                         else if (board[x + i][y + j].getPiece().getPlayer() != this._player) {
-                            valid.add(new MoveAction(x, y, x + i, y + j));
+                            valid.add(new PieceMove(x, y, x + i, y + j));
                         }
                     }
                 }

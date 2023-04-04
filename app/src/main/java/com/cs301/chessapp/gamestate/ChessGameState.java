@@ -4,8 +4,7 @@ import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
-import com.cs301.chessapp.gamestate.utilities.ChessTimer;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
 
 /**
@@ -22,37 +21,29 @@ import com.cs301.chessapp.gamestate.pieces.*;
  * @version March 17, 2023
  */
 public class ChessGameState extends GameState {
-    // Debugging tag used by the Android logger.
     private static final String TAG = "ChessGameState";
 
     // these variables define the game state
-    private int _mode;
-    private int _turn;
-
-    // these variables define the game objects
-    private ChessSquare[][] _chessboard;
-    private ChessTimer _whiteTimer;
-    private ChessTimer _blackTimer;
+    private int _playerTurn;
+    private final ChessSquare[][] _chessboard;
 
     /**
      * ChessGameState constructor
      * <p>
      * This constructor initializes the game state.
-     *
-     * @param mode      The game mode. (0 = player, 1 = ai)
      */
-    public ChessGameState(int mode) {
-        _mode = mode;
-        _turn = 0;
+    public ChessGameState() {
+        // white always goes first
+        this._playerTurn = 0;
 
-        _chessboard = new ChessSquare[8][8];
+        // initialize the chessboard
+        this._chessboard = new ChessSquare[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                // alternate the colors of the squares
                 if ((i + j) % 2 == 0) {
-                    // if the sum of the x and y coordinates is even, the square is white
                     this._chessboard[i][j] = new ChessSquare(Color.WHITE);
                 } else {
-                    // if the sum of the x and y coordinates is odd, the square is black
                     this._chessboard[i][j] = new ChessSquare(Color.BLACK);
                 }
             }
@@ -83,10 +74,6 @@ public class ChessGameState extends GameState {
         for (int i = 0; i < 8; i++) {
             this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
         }
-
-        this.numSetupTurns = 0;
-
-        // todo: add timer for black and white in player v player mode
     }
 
     /**
@@ -97,59 +84,54 @@ public class ChessGameState extends GameState {
      * @param other     The game state to copy.
      */
     public ChessGameState(ChessGameState other) {
-        _mode = other.getMode();
-        _turn = other.getTurn();
+        this._playerTurn = other._playerTurn;
+        this._chessboard = new ChessSquare[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this._chessboard[i][j] = new ChessSquare(other._chessboard[i][j]);
+            }
+        }
+    }
 
-        _chessboard = other.getChessboard();
-        _whiteTimer = other.getWhiteTimer();
-        _blackTimer = other.getBlackTimer();
+    /**
+     * moveTo
+     * <p>
+     * This method moves a piece from one square to another. If the move is
+     * invalid, the piece will not move. If the move is valid, the piece will
+     * move and the turn will be incremented.
+     *
+     * @param action    The move action to perform.
+     */
+    public void moveTo(PieceMove action) {
+        // get the piece to move
+        ChessSquare fromSquare = this._chessboard[action.getStartX()][action.getStartY()];
+        Piece piece = fromSquare.getPiece();
 
-        super.numSetupTurns = other.numSetupTurns;
-        super.currentSetupTurn = other.currentSetupTurn;
+        // check if the move is valid
+        if (piece.getMoves(action.getStartX(), action.getStartY(), this._chessboard).contains(action)) {
+            // get the square to move to
+            ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
+
+            // move the piece
+            toSquare.setPiece(piece);
+            fromSquare.setPiece(null);
+
+            // increment the turn
+            this.nextTurn();
+        }
     }
 
     /**
      * nextTurn
      * <p>
-     * This method increments the turn.
+     * This method increments the turn between 0 and 1.
      */
     public void nextTurn() {
-        if (_turn == 0) {
-            _turn = 1;
+        if (_playerTurn == 0) {
+            _playerTurn = 1;
         } else {
-            _turn = 0;
+            _playerTurn = 0;
         }
-    }
-
-    // todo: error check move action
-    // todo: add functionality for capturing pieces
-    // todo: integrate with piece getMoves function
-    /**
-     * moveTo
-     * <p>
-     * This method moves a piece from one square to another.
-     *
-     * @param action    The move action to perform.
-     */
-    public void moveTo(MoveAction action) {
-        int x1 = action.getStartX();
-        int y1 = action.getStartY();
-        int x2 = action.getEndX();
-        int y2 = action.getEndY();
-
-        _chessboard[x2][y2].setPiece(_chessboard[x1][y1].getPiece());
-        _chessboard[x1][y1].setPiece(null);
-    }
-
-    /**
-     * getMode
-     * <p>
-     * This method returns the game mode.
-     *
-     * @return          The game mode.
-     */
-    public int getMode() {
-        return _mode;
     }
 
     /**
@@ -160,7 +142,7 @@ public class ChessGameState extends GameState {
      * @return          The current turn.
      */
     public int getTurn() {
-        return _turn;
+        return _playerTurn;
     }
 
     /**
@@ -172,27 +154,5 @@ public class ChessGameState extends GameState {
      */
     public ChessSquare[][] getChessboard() {
         return _chessboard;
-    }
-
-    /**
-     * getWhiteTimer
-     * <p>
-     * This method returns the white timer.
-     *
-     * @return          The white timer.
-     */
-    public ChessTimer getWhiteTimer() {
-        return _whiteTimer;
-    }
-
-    /**
-     * getBlackTimer
-     * <p>
-     * This method returns the black timer.
-     *
-     * @return          The black timer.
-     */
-    public ChessTimer getBlackTimer() {
-        return _blackTimer;
     }
 }

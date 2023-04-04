@@ -1,9 +1,8 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,7 +13,7 @@ public class Check {
     int kingX;
     int kingY;
     ArrayList<Piece> opponentPieces;
-    ArrayList<MoveAction> kingMove;
+    ArrayList<PieceMove> kingMove;
 
     public Check(int player){
         _player = player;

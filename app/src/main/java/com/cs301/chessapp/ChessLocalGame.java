@@ -23,12 +23,12 @@ public class ChessLocalGame extends LocalGame {
 
     public ChessLocalGame() {
         super();
-        super.state = new ChessGameState(0);
+        super.state = new ChessGameState();
     }
 
     public ChessLocalGame(ChessGameState gameState) {
         super();
-        super.state = new ChessGameState(0);
+        super.state = new ChessGameState(gameState);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        return "Hell0 World";
+        return "Hello World";
     }
 
     @Override

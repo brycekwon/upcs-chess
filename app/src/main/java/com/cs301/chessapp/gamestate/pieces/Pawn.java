@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Pawn
@@ -22,7 +22,7 @@ import com.cs301.chessapp.gamestate.chessboard.MoveAction;
  * @version March 17, 2023
  */
 public class Pawn extends Piece {
-    private static final String TAG = "Piece-Pawn";
+    private static final String TAG = "PiecePawn";
 
     /**
      * Pawn constructor
@@ -50,19 +50,19 @@ public class Pawn extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
-        ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
+    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
         // Check if the pawn is in its starting position
         if (this._player == 1 && y == 1) {
             // Check if the pawn can move two squares forward
             if (board[x][y + 2].getPiece() == null) {
-                valid.add(new MoveAction(x, y, x, y + 2));
+                valid.add(new PieceMove(x, y, x, y + 2));
             }
         } else if (this._player == 2 && y == 6) {
             // Check if the pawn can move two squares forward
             if (board[x][y - 2].getPiece() == null) {
-                valid.add(new MoveAction(x, y, x, y - 2));
+                valid.add(new PieceMove(x, y, x, y - 2));
             }
         }
 
@@ -70,12 +70,12 @@ public class Pawn extends Piece {
         if (this._player == 1 && y < 7) {
             // Check if the square is empty
             if (board[x][y + 1].getPiece() == null) {
-                valid.add(new MoveAction(x, y, x, y + 1));
+                valid.add(new PieceMove(x, y, x, y + 1));
             }
         } else if (this._player == 2 && y > 0) {
             // Check if the square is empty
             if (board[x][y - 1].getPiece() == null) {
-                valid.add(new MoveAction(x, y, x, y - 1));
+                valid.add(new PieceMove(x, y, x, y - 1));
             }
         }
 
@@ -83,18 +83,18 @@ public class Pawn extends Piece {
         if (this._player == 1 && y < 7) {
             // Check if the square is occupied by an enemy piece
             if (x > 0 && board[x - 1][y + 1].getPiece() != null && board[x - 1][y + 1].getPiece().getPlayer() == 2) {
-                valid.add(new MoveAction(x, y, x - 1, y + 1));
+                valid.add(new PieceMove(x, y, x - 1, y + 1));
             }
             if (x < 7 && board[x + 1][y + 1].getPiece() != null && board[x + 1][y + 1].getPiece().getPlayer() == 2) {
-                valid.add(new MoveAction(x, y, x + 1, y + 1));
+                valid.add(new PieceMove(x, y, x + 1, y + 1));
             }
         } else if (this._player == 2 && y > 0) {
             // Check if the square is occupied by an enemy piece
             if (x > 0 && board[x - 1][y - 1].getPiece() != null && board[x - 1][y - 1].getPiece().getPlayer() == 1) {
-                valid.add(new MoveAction(x, y, x - 1, y - 1));
+                valid.add(new PieceMove(x, y, x - 1, y - 1));
             }
             if (x < 7 && board[x + 1][y - 1].getPiece() != null && board[x + 1][y - 1].getPiece().getPlayer() == 1) {
-                valid.add(new MoveAction(x, y, x + 1, y - 1));
+                valid.add(new PieceMove(x, y, x + 1, y - 1));
             }
         }
 
