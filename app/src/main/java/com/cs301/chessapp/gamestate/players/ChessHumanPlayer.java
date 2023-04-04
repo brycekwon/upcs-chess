@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.players;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -39,7 +40,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void setAsGui(GameMainActivity activity) {
         activity.setContentView(layoutId);
 
-        surfaceView = (ChessPerspectiveWhite) activity.findViewById(R.id.chess_perspective_white);
+        surfaceView = activity.findViewById(R.id.chessPerspectiveWhite2);
+        surfaceView.setOnTouchListener(this);
     }
 
     /**
@@ -53,9 +55,6 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (view == null || motionEvent == null) {
-            return false;
-        }
 
         float x = motionEvent.getX();
         float y = motionEvent.getY();
@@ -72,8 +71,20 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
 
-        Logger.debugLog(TAG, "onTouch: " + row + ", " + col);
+        Log.d(TAG, "onTouch: " + row + ", " + col);
 
         return true;
+    }
+
+    /**
+     * toString
+     *
+     */
+    @Override
+    public String toString() {
+        return "ChessHumanPlayer{" +
+                "surfaceView=" + surfaceView +
+                ", layoutId=" + layoutId +
+                '}';
     }
 }

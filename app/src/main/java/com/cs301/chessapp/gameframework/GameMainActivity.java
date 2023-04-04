@@ -85,7 +85,7 @@ public abstract class GameMainActivity extends AppCompatActivity implements
     /**
      * contains the game configuration this activity will be used to initialize
      */
-    GameConfig config = null;
+    private GameConfig config = null;
 
     // Each of these is initialized to point to various GUI controls
     TableLayout playerTable = null;

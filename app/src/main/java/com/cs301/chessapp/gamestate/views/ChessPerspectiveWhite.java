@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
 
 import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
@@ -20,7 +19,7 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
     public static final float TILE_LENGTH = BOARD_LENGTH / 8;
     public static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
 
-    private ChessGameState _gameState;
+    private final ChessGameState _gameState;
 
     public ChessPerspectiveWhite(Context context) {
         super(context);
@@ -76,9 +75,6 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
                 if (_gameState.getChessboard()[j][i].getPiece() != null) {
                     switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
                         case "Bishop":
-//                            Path draw = _gameState.getChessboard()[j][i].getPiece().getDraw(TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2, TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2);
-//                            g.drawPath(draw, getPaint(Color.RED, 10));
-
                             g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
                                     getPaint(Color.RED, 10));
