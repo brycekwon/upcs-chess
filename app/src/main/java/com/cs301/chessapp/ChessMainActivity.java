@@ -13,9 +13,7 @@ import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
-import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
-import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
 import java.util.ArrayList;
 
