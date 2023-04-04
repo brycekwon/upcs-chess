@@ -44,7 +44,17 @@ public class King extends Piece{
     }
 
     public Path getDraw(float x, float y) {
-        return new Path();
+        float[] vertices = { 20, 80, 80, 80, 80, 20, 60, 20, 60, 10, 50, 10, 50, 20, 40, 20, 40, 10, 30, 10, 30, 20, 20, 20, 20, 50, 10, 50, 20, 0, 20, 0, 30, 10, 30, 10, 60, 20, 60, 20, 70, 10, 70, 10, 80, 20, 80 };
+
+        // Create a Path object representing the king polygon
+        Path kingPath = new Path();
+        kingPath.moveTo(vertices[0], vertices[1]);
+        for (int i = 2; i < vertices.length; i += 2) {
+            kingPath.lineTo(x+vertices[i], y+vertices[i+1]);
+        }
+        kingPath.close();
+
+        return kingPath;
     }
 
     /**
