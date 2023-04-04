@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.ChessMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gameframework.utilities.IPCoder;

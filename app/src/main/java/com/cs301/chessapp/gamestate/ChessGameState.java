@@ -6,6 +6,7 @@ import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
+import com.cs301.chessapp.gamestate.utilities.*;
 
 /**
  * MainGameState
@@ -26,6 +27,7 @@ public class ChessGameState extends GameState {
     // these variables define the game state
     private int _playerTurn;
     private final ChessSquare[][] _chessboard;
+    private ChessTimer timer;
 
     /**
      * ChessGameState constructor
@@ -74,6 +76,7 @@ public class ChessGameState extends GameState {
         for (int i = 0; i < 8; i++) {
             this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
         }
+//        timer.start();
     }
 
     /**
