@@ -76,8 +76,8 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
                 if (_gameState.getChessboard()[j][i].getPiece() != null) {
                     switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
                         case "Bishop":
-//                            Path draw = _gameState.getChessboard()[j][i].getPiece().getDraw(TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2, TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2);
-//                            g.drawPath(draw, getPaint(Color.RED, 10));
+                            Path draw = _gameState.getChessboard()[j][i].getPiece().getDraw(TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2, TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2);
+                            g.drawPath(draw, getPaint(Color.RED, 10));
 
                             g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,

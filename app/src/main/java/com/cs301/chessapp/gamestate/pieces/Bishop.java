@@ -42,7 +42,7 @@ public class Bishop extends Piece {
 
     public Path getDraw(float x, float y) {
         // Define the vertices of the bishop polygon
-        float[] vertices = { 20, 80, 40, 60, 60, 80, 60, 20, 40, 40 };
+        float[] vertices = { x+20, y+80, x+40, y+60, x+60, y+80, x+60, y+20, x+40, y+40 };
 
         // Create a Path object representing the bishop polygon
         Path bishopPath = new Path();
@@ -52,10 +52,10 @@ public class Bishop extends Piece {
         }
         bishopPath.close();
         //bishop hat
-        bishopPath.moveTo(40, 40);
-        bishopPath.lineTo(60, 60);
-        bishopPath.moveTo(60, 40);
-        bishopPath.lineTo(40, 60);
+        bishopPath.moveTo(x+40, y+40);
+        bishopPath.lineTo(x+60, y+60);
+        bishopPath.moveTo(x+60, y+40);
+        bishopPath.lineTo(x+40, y+60);
         return bishopPath;
     }
     /**
