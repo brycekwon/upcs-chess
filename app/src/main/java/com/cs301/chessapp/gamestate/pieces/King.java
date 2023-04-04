@@ -43,9 +43,7 @@ public class King extends Piece{
         this._canCastle = true;
     }
 
-    public Path drawKing(float x, float y) {
 
-    }
 
     /**
      * getMoves
