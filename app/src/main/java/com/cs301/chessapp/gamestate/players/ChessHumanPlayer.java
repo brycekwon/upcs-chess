@@ -73,6 +73,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         Log.d(TAG, "onTouch: " + row + ", " + col);
 
+        view.invalidate();
         return true;
     }
 
