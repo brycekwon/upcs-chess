@@ -51,7 +51,7 @@ public class ChessGameState extends GameState {
             }
         }
 
-        // set up the board with the initial white pieces
+        // set up the board with the initial black pieces
         this._chessboard[0][0].setPiece(new Rook(Color.WHITE));
         this._chessboard[0][1].setPiece(new Knight(Color.WHITE));
         this._chessboard[0][2].setPiece(new Bishop(Color.WHITE));
@@ -64,7 +64,7 @@ public class ChessGameState extends GameState {
             this._chessboard[1][i].setPiece(new Pawn(Color.WHITE));
         }
 
-        // set up the board with the initial black pieces
+        // set up the board with the initial white pieces
         this._chessboard[7][0].setPiece(new Rook(Color.BLACK));
         this._chessboard[7][1].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][2].setPiece(new Bishop(Color.BLACK));
@@ -73,9 +73,9 @@ public class ChessGameState extends GameState {
         this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
         this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
-        for (int i = 0; i < 8; i++) {
-            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
-        }
+//        for (int i = 0; i < 8; i++) {
+//            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+//        }
     }
 
     /**
