@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import android.graphics.Canvas;
+import android.graphics.Path;
 
 /**
  * Pawn
@@ -37,6 +39,19 @@ public class Pawn extends Piece {
         this._value = 1;
         this._type = "Pawn";
 
+    }
+
+    public Path drawPawn(float x, float y) {
+        float[] vertices = { 20, 80, 80, 80, 80, 20, 60, 20, 60, 10, 50, 10, 50, 20, 40, 20, 40, 10, 30, 10, 30, 20, 20, 20 };
+
+        // Create a Path object representing the pawn polygon
+        Path pawnPath = new Path();
+        pawnPath.moveTo(vertices[0], vertices[1]);
+        for (int i = 2; i < vertices.length; i += 2) {
+            pawnPath.lineTo(x+vertices[i], y+vertices[i+1]);
+        }
+        pawnPath.close();
+        return pawnPath;
     }
 
     /**
