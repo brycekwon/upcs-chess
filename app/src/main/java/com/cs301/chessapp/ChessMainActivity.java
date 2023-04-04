@@ -23,8 +23,7 @@ public class ChessMainActivity extends GameMainActivity {
     private static final String TAG = "ChessMainActivity";
     private static final int PORT_NUMBER = 5213;
 
-    private static ChessHumanPlayer player1;
-    private static ChessTimer timer;
+    private ChessHumanPlayer player1;
 
     /**
      * @return defaultConfig
