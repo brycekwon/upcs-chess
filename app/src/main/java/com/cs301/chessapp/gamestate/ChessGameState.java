@@ -1,6 +1,7 @@
 package com.cs301.chessapp.gamestate;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
@@ -108,18 +109,15 @@ public class ChessGameState extends GameState {
         ChessSquare fromSquare = this._chessboard[action.getStartX()][action.getStartY()];
         Piece piece = fromSquare.getPiece();
 
-        // check if the move is valid
-        if (piece.getMoves(action.getStartX(), action.getStartY(), this._chessboard).contains(action)) {
-            // get the square to move to
-            ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
+        // get the square to move to
+        ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
 
-            // move the piece
-            toSquare.setPiece(piece);
-            fromSquare.setPiece(null);
+        // move the piece
+        toSquare.setPiece(piece);
+        fromSquare.setPiece(null);
 
-            // increment the turn
-            this.nextTurn();
-        }
+        // increment the turn
+        this.nextTurn();
     }
 
     /**

@@ -84,6 +84,10 @@ public class PieceMove {
         return _y2;
     }
 
+    public boolean equals(PieceMove other) {
+        return this._x1 == other._x1 && this._x2 == other._x2 && this._y1 == other._y1 && this._y2 == other._y2;
+    }
+
     /**
      * toString
      * <p>
