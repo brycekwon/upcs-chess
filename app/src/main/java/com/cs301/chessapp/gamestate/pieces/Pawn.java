@@ -2,7 +2,7 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.MoveAction;
 
 /**
@@ -50,51 +50,54 @@ public class Pawn extends Piece {
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<MoveAction> getMoves(int x, int y, ChessBoard board) {
+    public ArrayList<MoveAction> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<MoveAction> valid = new ArrayList<MoveAction>();
 
-        //white piece... bottom of the board
-        if(this._player == 0 ) {
-            if (y == 6) {//checks if it is starting position
-                if(board.isOccupied(x, y-1) == false) {
-                    valid.add(new MoveAction(x, x, y, y - 1));
-                    if (board.isOccupied(x, y-2) == false) {
-                        valid.add(new MoveAction(x, x, y, y - 2));
-                    }
-                }
+        // Check if the pawn is in its starting position
+        if (this._player == 1 && y == 1) {
+            // Check if the pawn can move two squares forward
+            if (board[x][y + 2].getPiece() == null) {
+                valid.add(new MoveAction(x, y, x, y + 2));
             }
-            //else if(y == 0){
-            //}
-            else {
-                if (isValid(x, y - 1)) {
-                    if(board.isOccupied(x,y-1)) {
-                        valid.add(new MoveAction(x, x, y, y - 1));
-                    }
-                }
+        } else if (this._player == 2 && y == 6) {
+            // Check if the pawn can move two squares forward
+            if (board[x][y - 2].getPiece() == null) {
+                valid.add(new MoveAction(x, y, x, y - 2));
             }
         }
 
-        //black pieces... top of the board
-        else {
-            if (y == 1) {
-                if(board.isOccupied(x, y-1) == false) {
-                    valid.add(new MoveAction(x, x, y, y + 1));
-                    if (board.isOccupied(x, y-2) == false) {
-                        valid.add(new MoveAction(x, x, y, y + 2));
-                    }
-                }
+        // Check if the pawn can move one square forward
+        if (this._player == 1 && y < 7) {
+            // Check if the square is empty
+            if (board[x][y + 1].getPiece() == null) {
+                valid.add(new MoveAction(x, y, x, y + 1));
             }
-            else{
-                if (isValid(x, y + 1)) {
-                    if(board.isOccupied(x, y+1)== false) {
-                        valid.add(new MoveAction(x, x, y, y + 1));
-                    }
-                }
+        } else if (this._player == 2 && y > 0) {
+            // Check if the square is empty
+            if (board[x][y - 1].getPiece() == null) {
+                valid.add(new MoveAction(x, y, x, y - 1));
             }
         }
 
-    return valid;
+        // Check if the pawn can capture an enemy piece
+        if (this._player == 1 && y < 7) {
+            // Check if the square is occupied by an enemy piece
+            if (x > 0 && board[x - 1][y + 1].getPiece() != null && board[x - 1][y + 1].getPiece().getPlayer() == 2) {
+                valid.add(new MoveAction(x, y, x - 1, y + 1));
+            }
+            if (x < 7 && board[x + 1][y + 1].getPiece() != null && board[x + 1][y + 1].getPiece().getPlayer() == 2) {
+                valid.add(new MoveAction(x, y, x + 1, y + 1));
+            }
+        } else if (this._player == 2 && y > 0) {
+            // Check if the square is occupied by an enemy piece
+            if (x > 0 && board[x - 1][y - 1].getPiece() != null && board[x - 1][y - 1].getPiece().getPlayer() == 1) {
+                valid.add(new MoveAction(x, y, x - 1, y - 1));
+            }
+            if (x < 7 && board[x + 1][y - 1].getPiece() != null && board[x + 1][y - 1].getPiece().getPlayer() == 1) {
+                valid.add(new MoveAction(x, y, x + 1, y - 1));
+            }
+        }
+
+        return valid;
     }
-
-
 }

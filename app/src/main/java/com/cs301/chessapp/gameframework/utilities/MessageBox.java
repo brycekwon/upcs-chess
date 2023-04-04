@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.example.chessapp.R;
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 
 /**

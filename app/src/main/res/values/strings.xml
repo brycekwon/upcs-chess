@@ -1,5 +1,4 @@
 <resources>
-    <!--These are strings unique to Tic-Tac-Toe-->
+    <!--These are strings unique to Chess-->
     <string name="app_name">Chess</string>
-    <string name="hello_world">Hello world!</string>
 </resources>

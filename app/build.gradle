@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.chessapp'
+    namespace 'com.cs301.chessapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.chessapp"
+        applicationId "com.cs301.chessapp"
         minSdk 24
         targetSdk 33
         versionCode 1

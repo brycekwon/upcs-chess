@@ -1,7 +1,12 @@
 package com.cs301.chessapp.gamestate;
 
+import android.graphics.Color;
+
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
-import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
+import com.cs301.chessapp.gamestate.chessboard.MoveAction;
+import com.cs301.chessapp.gamestate.utilities.ChessTimer;
+import com.cs301.chessapp.gamestate.pieces.*;
 
 /**
  * MainGameState
@@ -17,120 +22,177 @@ import com.cs301.chessapp.gamestate.chessboard.ChessBoard;
  * @version March 17, 2023
  */
 public class ChessGameState extends GameState {
+    // Debugging tag used by the Android logger.
     private static final String TAG = "ChessGameState";
 
-    private final int _gamemode;
-    private int _gameturn;
-    private final boolean _timerVisible;
-    private final ChessBoard _gameboard;
+    // these variables define the game state
+    private int _mode;
+    private int _turn;
+
+    // these variables define the game objects
+    private ChessSquare[][] _chessboard;
+    private ChessTimer _whiteTimer;
+    private ChessTimer _blackTimer;
 
     /**
-     * MainGameState constructor
+     * ChessGameState constructor
      * <p>
-     * This constructor initializes the gamemode, gameturn, and gameboard. It
-     * also initializes the timer to be visible if the gamemode is does not
-     * involve an AI.
+     * This constructor initializes the game state.
      *
-     * @param mode      The mode of the game.
-     *                      0 = Player vs Player
-     *                      1 = Player vs AI
-     *                      2 = AI vs AI
+     * @param mode      The game mode. (0 = player, 1 = ai)
      */
     public ChessGameState(int mode) {
-        _gamemode = mode;
-        _gameturn = 0;
+        _mode = mode;
+        _turn = 0;
 
-        _timerVisible = _gamemode == 0;
+        _chessboard = new ChessSquare[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((i + j) % 2 == 0) {
+                    // if the sum of the x and y coordinates is even, the square is white
+                    this._chessboard[i][j] = new ChessSquare(Color.WHITE);
+                } else {
+                    // if the sum of the x and y coordinates is odd, the square is black
+                    this._chessboard[i][j] = new ChessSquare(Color.BLACK);
+                }
+            }
+        }
 
-        _gameboard = new ChessBoard();
+        // set up the board with the initial white pieces
+        this._chessboard[0][0].setPiece(new Rook(Color.WHITE));
+        this._chessboard[0][1].setPiece(new Knight(Color.WHITE));
+        this._chessboard[0][2].setPiece(new Bishop(Color.WHITE));
+        this._chessboard[0][3].setPiece(new Queen(Color.WHITE));
+        this._chessboard[0][4].setPiece(new King(Color.WHITE));
+        this._chessboard[0][5].setPiece(new Bishop(Color.WHITE));
+        this._chessboard[0][6].setPiece(new Knight(Color.WHITE));
+        this._chessboard[0][7].setPiece(new Rook(Color.WHITE));
+        for (int i = 0; i < 8; i++) {
+            this._chessboard[1][i].setPiece(new Pawn(Color.WHITE));
+        }
+
+        // set up the board with the initial black pieces
+        this._chessboard[7][0].setPiece(new Rook(Color.BLACK));
+        this._chessboard[7][1].setPiece(new Knight(Color.BLACK));
+        this._chessboard[7][2].setPiece(new Bishop(Color.BLACK));
+        this._chessboard[7][3].setPiece(new Queen(Color.BLACK));
+        this._chessboard[7][4].setPiece(new King(Color.BLACK));
+        this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
+        this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
+        this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
+        for (int i = 0; i < 8; i++) {
+            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+        }
+
+        this.numSetupTurns = 0;
+
+        // todo: add timer for black and white in player v player mode
     }
 
     /**
-     * MainGameState copy constructor
+     * ChessGameState copy constructor
      * <p>
-     * This constructor creates a copy of a MainGameState.
+     * This constructor initializes the game state with a copy of another game.
      *
-     * @param other     The MainGameState to copy.
+     * @param other     The game state to copy.
      */
     public ChessGameState(ChessGameState other) {
-        _gamemode = other.getGamemode();
-        _gameturn = other.getGameturn();
+        _mode = other.getMode();
+        _turn = other.getTurn();
 
-        _timerVisible = other.getTimerVisible();
+        _chessboard = other.getChessboard();
+        _whiteTimer = other.getWhiteTimer();
+        _blackTimer = other.getBlackTimer();
 
-        _gameboard = other.getGameboard();
+        super.numSetupTurns = other.numSetupTurns;
+        super.currentSetupTurn = other.currentSetupTurn;
     }
 
     /**
      * nextTurn
      * <p>
-     * This method changes the turn to the next player.
+     * This method increments the turn.
      */
     public void nextTurn() {
-        if (_gameturn == 0) {
-            _gameturn = 1;
+        if (_turn == 0) {
+            _turn = 1;
         } else {
-            _gameturn = 0;
+            _turn = 0;
         }
     }
 
+    // todo: error check move action
+    // todo: add functionality for capturing pieces
+    // todo: integrate with piece getMoves function
     /**
-     * getGameboard
+     * moveTo
      * <p>
-     * This method returns the current gameboard state.
+     * This method moves a piece from one square to another.
      *
-     * @return      The current gameboard state.
+     * @param action    The move action to perform.
      */
-    public ChessBoard getGameboard() {
-        return _gameboard;
+    public void moveTo(MoveAction action) {
+        int x1 = action.getStartX();
+        int y1 = action.getStartY();
+        int x2 = action.getEndX();
+        int y2 = action.getEndY();
+
+        _chessboard[x2][y2].setPiece(_chessboard[x1][y1].getPiece());
+        _chessboard[x1][y1].setPiece(null);
     }
 
     /**
-     * getGamemode
+     * getMode
      * <p>
-     * This method returns the current gamemode.
+     * This method returns the game mode.
      *
-     * @return      The current gamemode.
+     * @return          The game mode.
      */
-    public int getGamemode() {
-        return _gamemode;
+    public int getMode() {
+        return _mode;
     }
 
     /**
-     * getGameturn
+     * getTurn
      * <p>
-     * This method returns the current gameturn.
+     * This method returns the current turn.
      *
-     * @return      The current gameturn.
+     * @return          The current turn.
      */
-    public int getGameturn() {
-        return _gameturn;
+    public int getTurn() {
+        return _turn;
     }
 
     /**
-     * getTimerVisible
+     * getChessboard
      * <p>
-     * This method returns whether the timer is visible.
+     * This method returns the chessboard.
      *
-     * @return      True if the timer is visible, false otherwise.
+     * @return          The chessboard.
      */
-    public boolean getTimerVisible() {
-        return _timerVisible;
+    public ChessSquare[][] getChessboard() {
+        return _chessboard;
     }
 
     /**
-     * toString
+     * getWhiteTimer
      * <p>
-     * This method returns a string representation of the game state.
+     * This method returns the white timer.
      *
-     * @return      A string representation of the game state.
+     * @return          The white timer.
      */
-    @Override
-    public String toString() {
-        return "MainGameState {" +
-                "gamemode=" + _gamemode +
-                ", gameturn=" + _gameturn +
-                ", timerVisible=" + _timerVisible +
-                "}\n\n" + _gameboard.toString();
+    public ChessTimer getWhiteTimer() {
+        return _whiteTimer;
+    }
+
+    /**
+     * getBlackTimer
+     * <p>
+     * This method returns the black timer.
+     *
+     * @return          The black timer.
+     */
+    public ChessTimer getBlackTimer() {
+        return _blackTimer;
     }
 }
