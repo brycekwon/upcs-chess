@@ -29,7 +29,7 @@ public class ChessMainActivity extends GameMainActivity {
         // todo: add computer player normal
         // todo: add computer player smart
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Chess", PORT_NUMBER);
-        defaultConfig.addPlayer("Human 1", 0);
+        defaultConfig.addPlayer("Hello Person", 0);
 
         return defaultConfig;
     }

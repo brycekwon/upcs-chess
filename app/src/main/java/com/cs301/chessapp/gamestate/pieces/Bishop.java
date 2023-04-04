@@ -72,98 +72,66 @@ public class Bishop extends Piece {
     public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        for (int i = 0; i < 8; i++) {
-
-            // search for all moves up right
-            if (isValid(x+i, y+i)) {
-
-                // check if a piece is blocking the path
-                if (board[x+i][y+i] != null) {
-
-                    // if the piece is an enemy piece
-                    if (board[x+i][y+i].getPiece().getPlayer() != this._player) {
-                        valid.add(new PieceMove(x, y, x+i, y+i));
-                    }
-
-                    // if the piece is a friendly piece
-                    break;
-                }
-
-                // if the square is empty
-                else {
-                    valid.add(new PieceMove(x, y, x+i, y+i));
-                }
-
+        // check all moves up left
+        for (int i = 1; i < 8; i++) {
+            if (x - i < 0 || y - i < 0) {
+                break;
             }
-
-            // search for all moves up left
-            if (isValid(x-i, y+i)) {
-
-                // check if a piece is blocking the path
-                if (board[x-i][y+i] != null) {
-
-                    // if the piece is an enemy piece
-                    if (board[x-i][y+i].getPiece().getPlayer() != this._player) {
-                        valid.add(new PieceMove(x, y, x-i, y+i));
-                    }
-
-                    // if the piece is a friendly piece
-                    break;
-                }
-
-                // if the square is empty
-                else {
-                    valid.add(new PieceMove(x, y, x-i, y+i));
-                }
-
-            }
-
-            // search for all moves down right
-            if (isValid(x+i, y-i)) {
-
-                // check if a piece is blocking the path
-                if (board[x+i][y-i] != null) {
-
-                    // if the piece is an enemy piece
-                    if (board[x+i][y-i].getPiece().getPlayer() != this._player) {
-                        valid.add(new PieceMove(x, y, x+i, y-i));
-                    }
-
-                    // if the piece is a friendly piece
-                    break;
-                }
-
-                // if the square is empty
-                else {
-                    valid.add(new PieceMove(x, y, x+i, y-i));
-                }
-
-            }
-
-            // search for all moves down left
-            if (isValid(x-i, y-i)) {
-
-                // check if a piece is blocking the path
-                if (board[x-i][y-i] != null) {
-
-                    // if the piece is an enemy piece
-                    if (board[x-i][y-i].getPiece().getPlayer() != this._player) {
-                        valid.add(new PieceMove(x, y, x-i, y-i));
-                    }
-
-                    // if the piece is a friendly piece
-                    break;
-                }
-
-                // if the square is empty
-                else {
-                    valid.add(new PieceMove(x, y, x-i, y-i));
-                }
-
+            if (board[x - i][y - i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x - i, y - i));
+            } else if (board[x - i][y - i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(x, y, x - i, y - i));
+                break;
+            } else {
+                break;
             }
         }
 
-        // return the list of valid moves
+        // check all moves up right
+        for (int i = 1; i < 8; i++) {
+            if (x + i > 7 || y - i < 0) {
+                break;
+            }
+            if (board[x + i][y - i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x + i, y - i));
+            } else if (board[x + i][y - i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(x, y, x + i, y - i));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        // check all moves down left
+        for (int i = 1; i < 8; i++) {
+            if (x - i < 0 || y + i > 7) {
+                break;
+            }
+            if (board[x - i][y + i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x - i, y + i));
+            } else if (board[x - i][y + i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(x, y, x - i, y + i));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        // check all moves down right
+        for (int i = 1; i < 8; i++) {
+            if (x + i > 7 || y + i > 7) {
+                break;
+            }
+            if (board[x + i][y + i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x + i, y + i));
+            } else if (board[x + i][y + i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(x, y, x + i, y + i));
+                break;
+            } else {
+                break;
+            }
+        }
+
         return valid;
     }
 }

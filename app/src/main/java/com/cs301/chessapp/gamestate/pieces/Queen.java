@@ -57,116 +57,58 @@ public class Queen extends Piece{
     public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // todo: consolidate this code into less for loops
-
-        // search for moves up
+        // Check all squares in the same row.
         for (int i = 0; i < 8; i++) {
-            if (isValid(x, y+i)) {
-                if (board[x][y+i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x, y+i));
-                } else if (board[x][y+i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x, y+i));
-                    break;
-                } else {
-                    break;
+            if (i != x) {
+                if (board[i][y].getPiece() == null) {
+                    valid.add(new PieceMove(x, y, i, y));
+                } else if (board[i][y].getPiece().getPlayer() != this.getPlayer()) {
+                    valid.add(new PieceMove(x, y, i, y));
                 }
             }
         }
 
-        // search for moves down
+        // Check all squares in the same column.
         for (int i = 0; i < 8; i++) {
-            if (isValid(x, y-i)) {
-                if (board[x][y-i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x, y-i));
-                } else if (board[x][y-i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x, y-i));
-                    break;
-                } else {
-                    break;
+            if (i != y) {
+                if (board[x][i].getPiece() == null) {
+                    valid.add(new PieceMove(x, y, x, i));
+                } else if (board[x][i].getPiece().getPlayer() != this.getPlayer()) {
+                    valid.add(new PieceMove(x, y, x, i));
                 }
             }
         }
 
-        // search for moves right
+        // Check all squares in the same diagonal.
         for (int i = 0; i < 8; i++) {
-            if (isValid(x+i, y)) {
-                if (board[x+i][y].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x+i, y));
-                } else if (board[x+i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x+i, y));
-                    break;
-                } else {
-                    break;
+            if (i != x && i != y) {
+                if (x + i < 8 && y + i < 8) {
+                    if (board[x + i][y + i].getPiece() == null) {
+                        valid.add(new PieceMove(x, y, x + i, y + i));
+                    } else if (board[x + i][y + i].getPiece().getPlayer() != this.getPlayer()) {
+                        valid.add(new PieceMove(x, y, x + i, y + i));
+                    }
                 }
-            }
-        }
-
-        // search for moves left
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x-i, y)) {
-                if (board[x-i][y].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x-i, y));
-                } else if (board[x-i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x-i, y));
-                    break;
-                } else {
-                    break;
+                if (x - i >= 0 && y - i >= 0) {
+                    if (board[x - i][y - i].getPiece() == null) {
+                        valid.add(new PieceMove(x, y, x - i, y - i));
+                    } else if (board[x - i][y - i].getPiece().getPlayer() != this.getPlayer()) {
+                        valid.add(new PieceMove(x, y, x - i, y - i));
+                    }
                 }
-            }
-        }
-
-        // search for moves up-right
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x+i, y+i)) {
-                if (board[x+i][y+i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x+i, y+i));
-                } else if (board[x+i][y+i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x+i, y+i));
-                    break;
-                } else {
-                    break;
+                if (x + i < 8 && y - i >= 0) {
+                    if (board[x + i][y - i].getPiece() == null) {
+                        valid.add(new PieceMove(x, y, x + i, y - i));
+                    } else if (board[x + i][y - i].getPiece().getPlayer() != this.getPlayer()) {
+                        valid.add(new PieceMove(x, y, x + i, y - i));
+                    }
                 }
-            }
-        }
-
-        // search for moves up-left
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x-i, y+i)) {
-                if (board[x-i][y+i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x-i, y+i));
-                } else if (board[x-i][y+i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x-i, y+i));
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // search for moves down-right
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x+i, y-i)) {
-                if (board[x+i][y-i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x+i, y-i));
-                } else if (board[x+i][y-i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x+i, y-i));
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // search for moves down-left
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x-i, y-i)) {
-                if (board[x-i][y-i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x-i, y-i));
-                } else if (board[x-i][y-i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x-i, y-i));
-                    break;
-                } else {
-                    break;
+                if (x - i >= 0 && y + i < 8) {
+                    if (board[x - i][y + i].getPiece() == null) {
+                        valid.add(new PieceMove(x, y, x - i, y + i));
+                    } else if (board[x - i][y + i].getPiece().getPlayer() != this.getPlayer()) {
+                        valid.add(new PieceMove(x, y, x - i, y + i));
+                    }
                 }
             }
         }

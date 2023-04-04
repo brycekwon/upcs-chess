@@ -69,47 +69,51 @@ public class Pawn extends Piece {
         ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
         // Check if the pawn is in its starting position
-        if (this._player == 1 && y == 1) {
-            // Check if the pawn can move two squares forward
-            if (board[x][y + 2].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x, y + 2));
+        if (this._player == 0 && y == 6) {
+            // Check if the square in front of the pawn is empty
+            if (board[x][y-1].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, y-1));
+                // Check if the square two squares in front of the pawn is empty
+                if (board[x][y-2].getPiece() == null) {
+                    valid.add(new PieceMove(x, y, x, y-2));
+                }
             }
-        } else if (this._player == 2 && y == 6) {
-            // Check if the pawn can move two squares forward
-            if (board[x][y - 2].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x, y - 2));
+        } else if (this._player == 1 && y == 1) {
+            // Check if the square in front of the pawn is empty
+            if (board[x][y+1].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, y+1));
+                // Check if the square two squares in front of the pawn is empty
+                if (board[x][y+2].getPiece() == null) {
+                    valid.add(new PieceMove(x, y, x, y+2));
+                }
+            }
+        } else {
+            // Check if the square in front of the pawn is empty
+            if (this._player == 0 && board[x][y-1].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, y-1));
+            } else if (this._player == 1 && board[x][y+1].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, y+1));
             }
         }
 
-        // Check if the pawn can move one square forward
-        if (this._player == 1 && y < 7) {
-            // Check if the square is empty
-            if (board[x][y + 1].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x, y + 1));
+        // Check if the pawn can capture an enemy piece diagonally in front of it
+        if (this._player == 0) {
+            // Check if the pawn can capture an enemy piece to the left
+            if (x > 0 && board[x-1][y-1].getPiece() != null && board[x-1][y-1].getPiece().getPlayer() == 1) {
+                valid.add(new PieceMove(x, y, x-1, y-1));
             }
-        } else if (this._player == 2 && y > 0) {
-            // Check if the square is empty
-            if (board[x][y - 1].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x, y - 1));
+            // Check if the pawn can capture an enemy piece to the right
+            if (x < 7 && board[x+1][y-1].getPiece() != null && board[x+1][y-1].getPiece().getPlayer() == 1) {
+                valid.add(new PieceMove(x, y, x+1, y-1));
             }
-        }
-
-        // Check if the pawn can capture an enemy piece
-        if (this._player == 1 && y < 7) {
-            // Check if the square is occupied by an enemy piece
-            if (x > 0 && board[x - 1][y + 1].getPiece() != null && board[x - 1][y + 1].getPiece().getPlayer() == 2) {
-                valid.add(new PieceMove(x, y, x - 1, y + 1));
+        } else {
+            // Check if the pawn can capture an enemy piece to the left
+            if (x > 0 && board[x-1][y+1].getPiece() != null && board[x-1][y+1].getPiece().getPlayer() == 0) {
+                valid.add(new PieceMove(x, y, x-1, y+1));
             }
-            if (x < 7 && board[x + 1][y + 1].getPiece() != null && board[x + 1][y + 1].getPiece().getPlayer() == 2) {
-                valid.add(new PieceMove(x, y, x + 1, y + 1));
-            }
-        } else if (this._player == 2 && y > 0) {
-            // Check if the square is occupied by an enemy piece
-            if (x > 0 && board[x - 1][y - 1].getPiece() != null && board[x - 1][y - 1].getPiece().getPlayer() == 1) {
-                valid.add(new PieceMove(x, y, x - 1, y - 1));
-            }
-            if (x < 7 && board[x + 1][y - 1].getPiece() != null && board[x + 1][y - 1].getPiece().getPlayer() == 1) {
-                valid.add(new PieceMove(x, y, x + 1, y - 1));
+            // Check if the pawn can capture an enemy piece to the right
+            if (x < 7 && board[x+1][y+1].getPiece() != null && board[x+1][y+1].getPiece().getPlayer() == 0) {
+                valid.add(new PieceMove(x, y, x+1, y+1));
             }
         }
 
