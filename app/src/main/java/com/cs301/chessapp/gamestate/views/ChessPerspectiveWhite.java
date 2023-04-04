@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 
 import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
@@ -72,43 +73,44 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
         // draw the pieces as text characters (for now)
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (_gameState.getChessboard()[j][i].getPiece() == null) {
-                    return;
-                }
+                if (_gameState.getChessboard()[j][i].getPiece() != null) {
+                    switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
+                        case "Bishop":
+//                            Path draw = _gameState.getChessboard()[j][i].getPiece().getDraw(TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2, TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2);
+//                            g.drawPath(draw, getPaint(Color.RED, 10));
 
-                switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
-                    case "Bishop":
-                        g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    case "King":
-                        g.drawText("K", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    case "Knight":
-                        g.drawText("N", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    case "Pawn":
-                        g.drawText("P", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    case "Queen":
-                        g.drawText("Q", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    case "Rook":
-                        g.drawText("R", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                getPaint(Color.RED, 10));
-                        break;
-                    default:
-                        break;
+                            g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        case "King":
+                            g.drawText("K", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        case "Knight":
+                            g.drawText("N", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        case "Pawn":
+                            g.drawText("P", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        case "Queen":
+                            g.drawText("Q", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        case "Rook":
+                            g.drawText("R", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
+                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
+                                    getPaint(Color.RED, 10));
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import android.graphics.Color;
+import android.graphics.Path;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
@@ -53,6 +54,7 @@ public abstract class Piece {
      * @return          ArrayList of all possible moves
      */
     public abstract ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board);
+    public abstract Path getDraw(float x, float y);
 
     /**
      * isValid

@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+import android.graphics.Path;
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
@@ -35,6 +37,10 @@ public class Queen extends Piece{
         super(player);
         this._value = 9;
         this._type = "Queen";
+    }
+
+    public Path getDraw(float x, float y) {
+        return new Path();
     }
 
     /**

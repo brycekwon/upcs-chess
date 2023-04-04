@@ -40,7 +40,7 @@ public class Bishop extends Piece {
         this._type = "Bishop";
     }
 
-    public Path drawBishop(float x, float y) {
+    public Path getDraw(float x, float y) {
         // Define the vertices of the bishop polygon
         float[] vertices = { 20, 80, 40, 60, 60, 80, 60, 20, 40, 40 };
 

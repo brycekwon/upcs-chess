@@ -41,7 +41,7 @@ public class Pawn extends Piece {
 
     }
 
-    public Path drawPawn(float x, float y) {
+    public Path getDraw(float x, float y) {
         float[] vertices = { 20, 80, 80, 80, 80, 20, 60, 20, 60, 10, 50, 10, 50, 20, 40, 20, 40, 10, 30, 10, 30, 20, 20, 20 };
 
         // Create a Path object representing the pawn polygon
