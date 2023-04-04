@@ -26,6 +26,9 @@ public class ChessMainActivity extends GameMainActivity {
     private static ChessHumanPlayer player1;
     private static ChessTimer timer;
 
+    /**
+     * @return defaultConfig
+     */
     @Override
     public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
@@ -49,17 +52,12 @@ public class ChessMainActivity extends GameMainActivity {
         return defaultConfig;
     }
 
+    /**
+     * @param gameState The desired gameState to start at or null for new game
+     * @return LocalGame
+     */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
         return new ChessLocalGame();
     }
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        View touch = findViewById(R.id.chessPerspectiveWhite2);
-//        touch.setOnTouchListener(player1);
-//        timer.start();
-//        Logger.debugLog("Timer and View", "" + timer.getTicks());
-//    }
 }
