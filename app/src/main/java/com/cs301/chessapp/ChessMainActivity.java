@@ -12,7 +12,9 @@ import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
+import com.cs301.chessapp.gamestate.utilities.ChessTimer;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,8 @@ public class ChessMainActivity extends GameMainActivity {
     private static final String TAG = "ChessMainActivity";
     private static final int PORT_NUMBER = 5213;
 
-    private ChessHumanPlayer player1;
+    private static ChessHumanPlayer player1;
+    private static ChessTimer timer;
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -55,5 +58,7 @@ public class ChessMainActivity extends GameMainActivity {
         super.onCreate(savedInstanceState, persistentState);
         View touch = findViewById(R.id.chessPerspectiveWhite2);
         touch.setOnTouchListener(player1);
+        timer.start();
+        Logger.debugLog("Timer and View", "" + timer.getTicks());
     }
 }
