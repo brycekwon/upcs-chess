@@ -60,61 +60,71 @@ public class Rook extends Piece {
     public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // todo: consolidate this code into less for loops
-
-        // check for moves up
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x, y+i)) {
-                if (board[x][y+i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x, y+i));
-                } else if (board[x][y+i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x, y+i));
-                    break;
-                } else {
-                    break;
-                }
+        // check all squares to the right
+        for (int i = x + 1; i < 8; i++) {
+            // if the square is empty, add it to the list of valid moves
+            if (board[i][y].getPiece() == null) {
+                valid.add(new PieceMove(x, y, i, y));
+            }
+            // if the square is occupied by an enemy piece, add it to the list of valid moves
+            else if (board[i][y].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(x, y, i, y));
+                break;
+            }
+            // if the square is occupied by a friendly piece, stop checking
+            else {
+                break;
             }
         }
 
-        // check for moves down
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x, y-i)) {
-                if (board[x][y-i].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x, y-i));
-                } else if (board[x][y-i].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x, y-i));
-                    break;
-                } else {
-                    break;
-                }
+        // check all squares to the left
+        for (int i = x - 1; i >= 0; i--) {
+            // if the square is empty, add it to the list of valid moves
+            if (board[i][y].getPiece() == null) {
+                valid.add(new PieceMove(x, y, i, y));
+            }
+            // if the square is occupied by an enemy piece, add it to the list of valid moves
+            else if (board[i][y].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(x, y, i, y));
+                break;
+            }
+            // if the square is occupied by a friendly piece, stop checking
+            else {
+                break;
             }
         }
 
-        // check for moves right
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x+i, y)) {
-                if (board[x+i][y].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x+i, y));
-                } else if (board[x+i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x+i, y));
-                    break;
-                } else {
-                    break;
-                }
+        // check all squares above
+        for (int i = y + 1; i < 8; i++) {
+            // if the square is empty, add it to the list of valid moves
+            if (board[x][i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, i));
+            }
+            // if the square is occupied by an enemy piece, add it to the list of valid moves
+            else if (board[x][i].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(x, y, x, i));
+                break;
+            }
+            // if the square is occupied by a friendly piece, stop checking
+            else {
+                break;
             }
         }
 
-        // check for moves left
-        for (int i = 0; i < 8; i++) {
-            if (isValid(x-i, y)) {
-                if (board[x-i][y].getPiece() == null) {
-                    valid.add(new PieceMove(x, y, x-i, y));
-                } else if (board[x-i][y].getPiece().getPlayer() != this._player) {
-                    valid.add(new PieceMove(x, y, x-i, y));
-                    break;
-                } else {
-                    break;
-                }
+        // check all squares below
+        for (int i = y - 1; i >= 0; i--) {
+            // if the square is empty, add it to the list of valid moves
+            if (board[x][i].getPiece() == null) {
+                valid.add(new PieceMove(x, y, x, i));
+            }
+            // if the square is occupied by an enemy piece, add it to the list of valid moves
+            else if (board[x][i].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(x, y, x, i));
+                break;
+            }
+            // if the square is occupied by a friendly piece, stop checking
+            else {
+                break;
             }
         }
 

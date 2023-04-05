@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.players;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -7,7 +8,8 @@ import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
-import com.cs301.chessapp.gameframework.utilities.Logger;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
 public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
@@ -15,6 +17,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
     private ChessPerspectiveWhite surfaceView;
     private int layoutId;
+
+    private Piece selectedPiece;
+    private int selectedRow;
+    private int selectedCol;
 
     /**
      * constructor
@@ -39,7 +45,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void setAsGui(GameMainActivity activity) {
         activity.setContentView(layoutId);
 
-        surfaceView = (ChessPerspectiveWhite) activity.findViewById(R.id.chess_perspective_white);
+        surfaceView = activity.findViewById(R.id.chessPerspectiveWhite2);
+        surfaceView.setOnTouchListener(this);
     }
 
     /**
@@ -53,7 +60,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (view == null || motionEvent == null) {
+        if (motionEvent.getAction() != MotionEvent.ACTION_DOWN) {
             return false;
         }
 
@@ -72,8 +79,37 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
 
-        Logger.debugLog(TAG, "onTouch: " + row + ", " + col);
+        if (selectedPiece == null) {
+            // select a piece
+            selectedPiece = surfaceView.getGameState().getChessboard()[row][col].getPiece();
+            selectedRow = row;
+            selectedCol = col;
+        } else {
+            Log.d(TAG, "onTouch: " + surfaceView.getGameState().getChessboard()[selectedRow][selectedCol].getPiece().toString() + "{\n" + surfaceView.getGameState().getChessboard()[selectedRow][selectedCol].getPiece().getMoves(selectedRow, selectedCol, surfaceView.getGameState().getChessboard()) + "\n}");
+            PieceMove move = new PieceMove(selectedRow, selectedCol, row, col);
+            if (surfaceView.getGameState().getChessboard()[selectedRow][selectedCol].getPiece().isValidMove(selectedRow, selectedCol, row, col, surfaceView.getGameState().getChessboard())) {
+                surfaceView.getGameState().moveTo(move);
+            }
 
+            selectedPiece = null;
+            selectedRow = -1;
+            selectedCol = -1;
+        }
+        surfaceView.invalidate();
+
+        view.invalidate();
         return true;
+    }
+
+    /**
+     * toString
+     *
+     */
+    @Override
+    public String toString() {
+        return "ChessHumanPlayer{" +
+                "surfaceView=" + surfaceView +
+                ", layoutId=" + layoutId +
+                '}';
     }
 }

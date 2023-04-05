@@ -118,6 +118,16 @@ public abstract class Piece {
         return this._type;
     }
 
+    public boolean isValidMove(int x, int y, int newX, int newY, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = this.getMoves(x, y, board);
+        for (PieceMove move : valid) {
+            if (move.getEndX() == newX && move.getEndY() == newY) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * toString
      * <p>

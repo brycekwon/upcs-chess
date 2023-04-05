@@ -1,6 +1,7 @@
 package com.cs301.chessapp.gamestate;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
@@ -27,7 +28,6 @@ public class ChessGameState extends GameState {
     // these variables define the game state
     private int _playerTurn;
     private final ChessSquare[][] _chessboard;
-    private ChessTimer timer;
 
     /**
      * ChessGameState constructor
@@ -51,7 +51,7 @@ public class ChessGameState extends GameState {
             }
         }
 
-        // set up the board with the initial white pieces
+        // set up the board with the initial black pieces
         this._chessboard[0][0].setPiece(new Rook(Color.WHITE));
         this._chessboard[0][1].setPiece(new Knight(Color.WHITE));
         this._chessboard[0][2].setPiece(new Bishop(Color.WHITE));
@@ -64,7 +64,7 @@ public class ChessGameState extends GameState {
             this._chessboard[1][i].setPiece(new Pawn(Color.WHITE));
         }
 
-        // set up the board with the initial black pieces
+        // set up the board with the initial white pieces
         this._chessboard[7][0].setPiece(new Rook(Color.BLACK));
         this._chessboard[7][1].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][2].setPiece(new Bishop(Color.BLACK));
@@ -73,10 +73,9 @@ public class ChessGameState extends GameState {
         this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
         this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
-        for (int i = 0; i < 8; i++) {
-            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
-        }
-//        timer.start();
+//        for (int i = 0; i < 8; i++) {
+//            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+//        }
     }
 
     /**
@@ -110,18 +109,15 @@ public class ChessGameState extends GameState {
         ChessSquare fromSquare = this._chessboard[action.getStartX()][action.getStartY()];
         Piece piece = fromSquare.getPiece();
 
-        // check if the move is valid
-        if (piece.getMoves(action.getStartX(), action.getStartY(), this._chessboard).contains(action)) {
-            // get the square to move to
-            ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
+        // get the square to move to
+        ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
 
-            // move the piece
-            toSquare.setPiece(piece);
-            fromSquare.setPiece(null);
+        // move the piece
+        toSquare.setPiece(piece);
+        fromSquare.setPiece(null);
 
-            // increment the turn
-            this.nextTurn();
-        }
+        // increment the turn
+        this.nextTurn();
     }
 
     /**
