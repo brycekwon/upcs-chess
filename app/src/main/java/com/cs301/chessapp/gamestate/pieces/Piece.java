@@ -22,6 +22,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @version March 17, 2023
  */
 public abstract class Piece {
+    private static final String TAG = "Piece";
 
     protected String _type;
     protected int _player;
@@ -54,7 +55,6 @@ public abstract class Piece {
      * @return          ArrayList of all possible moves
      */
     public abstract ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board);
-    public abstract Path getDraw(float x, float y);
 
     /**
      * isValid
@@ -138,7 +138,5 @@ public abstract class Piece {
     @Override
     public String toString() {
         return _type.charAt(0) + "";
-//        String side = (_player == 0) ? "w" : "b";
-//        return "Piece [player=" + side + ", value=" + _value + "]";
     }
 }
