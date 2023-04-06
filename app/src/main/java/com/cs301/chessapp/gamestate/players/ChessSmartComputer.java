@@ -21,6 +21,9 @@ public class ChessSmartComputer extends GameComputerPlayer {
         super(name);
     }
 
+    /**
+     * @param info the object representing the information from the game
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
 
