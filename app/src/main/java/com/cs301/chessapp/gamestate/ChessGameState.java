@@ -4,7 +4,6 @@ import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
 
 /**
@@ -18,10 +17,14 @@ import com.cs301.chessapp.gamestate.pieces.*;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class ChessGameState extends GameState {
     private static final String TAG = "ChessGameState";
+
+    // these constants define the players
+    private static final int PLAYER_1 = 0;
+    private static final int PLAYER_2 = 1;
 
     // these variables define the game state
     private int _playerTurn;
@@ -50,29 +53,29 @@ public class ChessGameState extends GameState {
         }
 
         // set up the board with the initial black pieces
-        this._chessboard[0][0].setPiece(new Rook(Color.WHITE));
-        this._chessboard[0][1].setPiece(new Knight(Color.WHITE));
-        this._chessboard[0][2].setPiece(new Bishop(Color.WHITE));
-        this._chessboard[0][3].setPiece(new Queen(Color.WHITE));
-        this._chessboard[0][4].setPiece(new King(Color.WHITE));
-        this._chessboard[0][5].setPiece(new Bishop(Color.WHITE));
-        this._chessboard[0][6].setPiece(new Knight(Color.WHITE));
-        this._chessboard[0][7].setPiece(new Rook(Color.WHITE));
+        this._chessboard[0][0].setPiece(new Rook(PLAYER_1));
+        this._chessboard[0][1].setPiece(new Knight(PLAYER_1));
+        this._chessboard[0][2].setPiece(new Bishop(PLAYER_1));
+        this._chessboard[0][3].setPiece(new Queen(PLAYER_1));
+        this._chessboard[0][4].setPiece(new King(PLAYER_1));
+        this._chessboard[0][5].setPiece(new Bishop(PLAYER_1));
+        this._chessboard[0][6].setPiece(new Knight(PLAYER_1));
+        this._chessboard[0][7].setPiece(new Rook(PLAYER_1));
         for (int i = 0; i < 8; i++) {
-            this._chessboard[1][i].setPiece(new Pawn(Color.WHITE));
+            this._chessboard[1][i].setPiece(new Pawn(PLAYER_1));
         }
 
         // set up the board with the initial white pieces
-        this._chessboard[7][0].setPiece(new Rook(Color.BLACK));
-        this._chessboard[7][1].setPiece(new Knight(Color.BLACK));
-        this._chessboard[7][2].setPiece(new Bishop(Color.BLACK));
-        this._chessboard[7][3].setPiece(new Queen(Color.BLACK));
-        this._chessboard[7][4].setPiece(new King(Color.BLACK));
-        this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
-        this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
-        this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
+        this._chessboard[7][0].setPiece(new Rook(PLAYER_2));
+        this._chessboard[7][1].setPiece(new Knight(PLAYER_2));
+        this._chessboard[7][2].setPiece(new Bishop(PLAYER_2));
+        this._chessboard[7][3].setPiece(new Queen(PLAYER_2));
+        this._chessboard[7][4].setPiece(new King(PLAYER_2));
+        this._chessboard[7][5].setPiece(new Bishop(PLAYER_2));
+        this._chessboard[7][6].setPiece(new Knight(PLAYER_2));
+        this._chessboard[7][7].setPiece(new Rook(PLAYER_2));
         for (int i = 0; i < 8; i++) {
-            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+            this._chessboard[6][i].setPiece(new Pawn(PLAYER_2));
         }
     }
 
@@ -85,6 +88,7 @@ public class ChessGameState extends GameState {
      */
     public ChessGameState(ChessGameState other) {
         this._playerTurn = other._playerTurn;
+
         this._chessboard = new ChessSquare[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -94,41 +98,12 @@ public class ChessGameState extends GameState {
     }
 
     /**
-     * moveTo
-     * <p>
-     * This method moves a piece from one square to another. If the move is
-     * invalid, the piece will not move. If the move is valid, the piece will
-     * move and the turn will be incremented.
-     *
-     * @param action    The move action to perform.
-     */
-    public void moveTo(PieceMove action) {
-        // get the piece to move
-        ChessSquare fromSquare = this._chessboard[action.getStartX()][action.getStartY()];
-        Piece piece = fromSquare.getPiece();
-
-        // get the square to move to
-        ChessSquare toSquare = this._chessboard[action.getEndX()][action.getEndY()];
-
-        // move the piece
-        toSquare.setPiece(piece);
-        fromSquare.setPiece(null);
-
-        // increment the turn
-        this.nextTurn();
-    }
-
-    /**
      * nextTurn
      * <p>
      * This method increments the turn between 0 and 1.
      */
     public void nextTurn() {
-        if (_playerTurn == 0) {
-            _playerTurn = 1;
-        } else {
-            _playerTurn = 0;
-        }
+        _playerTurn = _playerTurn == 0 ? 1 : 0;
     }
 
     /**
@@ -151,5 +126,17 @@ public class ChessGameState extends GameState {
      */
     public ChessSquare[][] getChessboard() {
         return _chessboard;
+    }
+
+    /**
+     * getTile
+     * <p>
+     * This method returns the tile at the given coordinates.
+     *
+     * @param row       The row of the tile.
+     * @param col       The column of the tile.
+     */
+    public ChessSquare getTile(int row, int col) {
+        return _chessboard[row][col];
     }
 }

@@ -46,14 +46,10 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
         setBackgroundColor(Color.GREEN);
     }
 
-    // draw the chess board
-    public void onDraw(Canvas g) {
-        // todo: draw board bigger and centered
-        // draw the board
+    private void drawBoard(Canvas g) {
         g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,
                 BOARD_MARGIN + BOARD_LENGTH, getPaint(Color.BLACK, BOARD_STROKE));
 
-        // draw the tiles
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 == 0) {
@@ -67,42 +63,42 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
                 }
             }
         }
+    }
 
-        // todo: draw the pieces as images
-        // draw the pieces as text characters (for now)
+    private void drawPieces(Canvas g) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (_gameState.getChessboard()[j][i].getPiece() != null) {
-                    switch (_gameState.getChessboard()[j][i].getPiece().getType()) {
+                    switch (_gameState.getChessboard()[j][i].getPiece().getName()) {
                         case "Bishop":
                             g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         case "King":
                             g.drawText("K", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         case "Knight":
                             g.drawText("N", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         case "Pawn":
                             g.drawText("P", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         case "Queen":
                             g.drawText("Q", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         case "Rook":
                             g.drawText("R", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
                                     TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(Color.RED, 10));
+                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
                             break;
                         default:
                             break;
@@ -118,6 +114,12 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
         paint.setStrokeWidth(strokeWidth);
         paint.setTextSize(60);
         return paint;
+    }
+
+    // draw the chess board
+    public void onDraw(Canvas g) {
+        drawBoard(g);
+        drawPieces(g);
     }
 
     public ChessGameState getGameState() {

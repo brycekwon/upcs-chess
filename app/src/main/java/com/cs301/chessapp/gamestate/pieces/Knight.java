@@ -1,11 +1,10 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-import android.graphics.Path;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Knight
@@ -19,7 +18,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class Knight extends Piece {
     private static final String TAG = "PieceKnight";
@@ -36,7 +35,7 @@ public class Knight extends Piece {
         super(player);
 
         this._value = 3;
-        this._type = "Knight";
+        this._name = "Knight";
     }
 
     /**
@@ -44,13 +43,13 @@ public class Knight extends Piece {
      * <p>
      * This method returns an ArrayList of all valid moves for the knight.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
+     * @param row         The x coordinate of the piece.
+     * @param col         The y coordinate of the piece.
      * @param board     The board that the piece is on.
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
         // Check all possible moves
@@ -59,14 +58,14 @@ public class Knight extends Piece {
                 // Check if the move is valid
                 if (Math.abs(i) + Math.abs(j) == 3) {
                     // Check if the move is on the board
-                    if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                    if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
                         // Check if the move is on an empty square
-                        if (board[x + i][y + j].getPiece() == null) {
-                            valid.add(new PieceMove(x, y, x + i, y + j));
+                        if (board[row + i][col + j].getPiece() == null) {
+                            valid.add(new PieceMove(row, col, row + i, col + j));
                         }
                         // Check if the move is on an enemy square
-                        else if (board[x + i][y + j].getPiece().getPlayer() != this._player) {
-                            valid.add(new PieceMove(x, y, x + i, y + j));
+                        else if (board[row + i][col + j].getPiece().getPlayer() != this._player) {
+                            valid.add(new PieceMove(row, col, row + i, col + j));
                         }
                     }
                 }

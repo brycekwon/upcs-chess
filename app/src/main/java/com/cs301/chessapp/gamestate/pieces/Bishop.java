@@ -1,11 +1,10 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-import android.graphics.Path;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Bishop
@@ -20,7 +19,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class Bishop extends Piece {
     private static final String TAG = "PieceBishop";
@@ -37,7 +36,7 @@ public class Bishop extends Piece {
         super(player);
 
         this._value = 3;
-        this._type = "Bishop";
+        this._name = "Bishop";
     }
 
     /**
@@ -45,24 +44,24 @@ public class Bishop extends Piece {
      * <p>
      * This method returns an ArrayList of all valid moves for the bishop.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          An ArrayList of all valid moves.
+     * @param row           The x coordinate of the piece.
+     * @param col           The y coordinate of the piece.
+     * @param board         The board that the piece is on.
+     * @return              An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
         // check all moves up left
         for (int i = 1; i < 8; i++) {
-            if (x - i < 0 || y - i < 0) {
+            if (row - i < 0 || col - i < 0) {
                 break;
             }
-            if (board[x - i][y - i].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x - i, y - i));
-            } else if (board[x - i][y - i].getPiece().getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(x, y, x - i, y - i));
+            if (board[row - i][col - i].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row - i, col - i));
+            } else if (board[row - i][col - i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row - i, col - i));
                 break;
             } else {
                 break;
@@ -71,13 +70,13 @@ public class Bishop extends Piece {
 
         // check all moves up right
         for (int i = 1; i < 8; i++) {
-            if (x + i > 7 || y - i < 0) {
+            if (row + i > 7 || col - i < 0) {
                 break;
             }
-            if (board[x + i][y - i].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x + i, y - i));
-            } else if (board[x + i][y - i].getPiece().getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(x, y, x + i, y - i));
+            if (board[row + i][col - i].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row + i, col - i));
+            } else if (board[row + i][col - i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row + i, col - i));
                 break;
             } else {
                 break;
@@ -86,13 +85,13 @@ public class Bishop extends Piece {
 
         // check all moves down left
         for (int i = 1; i < 8; i++) {
-            if (x - i < 0 || y + i > 7) {
+            if (row - i < 0 || col + i > 7) {
                 break;
             }
-            if (board[x - i][y + i].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x - i, y + i));
-            } else if (board[x - i][y + i].getPiece().getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(x, y, x - i, y + i));
+            if (board[row - i][col + i].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row - i, col + i));
+            } else if (board[row - i][col + i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row - i, col + i));
                 break;
             } else {
                 break;
@@ -101,13 +100,13 @@ public class Bishop extends Piece {
 
         // check all moves down right
         for (int i = 1; i < 8; i++) {
-            if (x + i > 7 || y + i > 7) {
+            if (row + i > 7 || col + i > 7) {
                 break;
             }
-            if (board[x + i][y + i].getPiece() == null) {
-                valid.add(new PieceMove(x, y, x + i, y + i));
-            } else if (board[x + i][y + i].getPiece().getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(x, y, x + i, y + i));
+            if (board[row + i][col + i].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row + i, col + i));
+            } else if (board[row + i][col + i].getPiece().getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row + i, col + i));
                 break;
             } else {
                 break;

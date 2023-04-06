@@ -1,17 +1,12 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
-
-import java.util.Random;
 
 public class ChessNormalComputer extends GameComputerPlayer {
     private static final String TAG = "ChessNormalComputer";
@@ -31,17 +26,21 @@ public class ChessNormalComputer extends GameComputerPlayer {
             return;
         }
 
+        ChessGameState gamestate = (ChessGameState) info;
+
         sleep(1);
 
         int x = (int) (Math.random() * 8);
         int y = (int) (Math.random() * 8);
 
-        while (((ChessGameState) info).getChessboard()[x][y].getPiece() == null || ((ChessGameState) info).getChessboard()[x][y].getPiece().getPlayer() == Color.BLACK || ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size() < 1) {
+        while (gamestate.getTile(x, y).getPiece() == null ||
+                (gamestate.getTile(x, y).getPiece().getPlayer() == 1 ||
+                (gamestate.getTile(x, y).getPiece().getMoves(x, y, gamestate.getChessboard()).size() < 1))) {
             x = (int) (Math.random() * 8);
             y = (int) (Math.random() * 8);
         }
 
-        PieceMove moveX1 = ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).get((int) (Math.random() * ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size()));
+        PieceMove moveX1 = (gamestate.getTile(x, y).getPiece().getMoves(x, y, (gamestate.getChessboard())).get((int) (Math.random() * (gamestate.getTile(x, y)).getPiece().getMoves(x, y, (gamestate.getChessboard())).size())));
 
         game.sendAction(new ChessMoveAction(this, moveX1));
     }
