@@ -42,13 +42,14 @@ public class Pawn extends Piece {
     }
 
     public Path getDraw(float x, float y) {
-        float[] vertices = { 20, 80, 80, 80, 80, 20, 60, 20, 60, 10, 50, 10, 50, 20, 40, 20, 40, 10, 30, 10, 30, 20, 20, 20 };
+        float[] xvertices = {2,6,6,5,5,6,6,5,6,6,5,7,7,8,8,0,0,1,1,2,2,3,3,2,2,3,3,2 };
+        float[] yvertices = {2,2,5,5,5.5f,5.5f,6,6,9,9,11,11,12,12,13,13,12,12,11,11,9,9,8 };
 
         // Create a Path object representing the pawn polygon
         Path pawnPath = new Path();
-        pawnPath.moveTo(vertices[0], vertices[1]);
-        for (int i = 2; i < vertices.length; i += 2) {
-            pawnPath.lineTo(x+vertices[i], y+vertices[i+1]);
+        pawnPath.moveTo(xvertices[0], yvertices[1]);
+        for (int i = 2; i < xvertices.length; i += 2) {
+            pawnPath.lineTo(x+xvertices[i], y+yvertices[i]);
         }
         pawnPath.close();
         return pawnPath;

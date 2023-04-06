@@ -73,9 +73,9 @@ public class ChessGameState extends GameState {
         this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
         this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
-//        for (int i = 0; i < 8; i++) {
-//            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
-//        }
+        for (int i = 0; i < 8; i++) {
+            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+        }
     }
 
     /**
