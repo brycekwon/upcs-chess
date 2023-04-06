@@ -7,9 +7,13 @@
     tools:context="com.cs301.chessapp.ChessMainActivity">
 
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite
             android:id="@+id/chessPerspectiveWhite2"

@@ -27,12 +27,10 @@ public class Checkmate {
     public void setKing(int player){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getPlayer() == player){
-                    if(board[i][j].getPiece().getValue() == 100){
+                if(board[i][j].getPiece().getPlayer() == player && (board[i][j].getPiece().getValue() == 100)){
                         kingX = i;
                         kingY = j;
                         return;
-                    }
                 }
             }
         }
@@ -116,7 +114,7 @@ public class Checkmate {
         for (int i = 0 ; i < kingMove.size(); i ++){
             a = kingMove.get(i).getEndRow();
             b = kingMove.get(i).getEndCol();
-            if(checkCMP(a, b, check) != true) {//if checkCMP is false, valid move for the king to move
+            if(!checkCMP(a, b, check)) {//if checkCMP is false, valid move for the king to move
                 blocks.add(new PieceMove(x, a, y, b));
             }
         }

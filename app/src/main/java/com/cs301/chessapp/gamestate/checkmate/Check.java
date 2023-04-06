@@ -27,7 +27,7 @@ public class Check {
             //compare each pieces' valid move
 
         opponentPieces = checker.getOpponentPieces(_player);//collects all the opponents pieces
-        Iterator it = opponentPieces.iterator(); //iterator over arraylist
+        Iterator<Piece> it = opponentPieces.iterator(); //iterator over arraylist
         int index = -1;
         while(it.hasNext()){//while the arraylist has elements
             index ++;
@@ -36,7 +36,7 @@ public class Check {
                 inCheck = true;
                 //checks if all king's valid moves are being attacked
                 if(checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index))) == null){
-                    System.out.println("Checkmate");
+                    System.err.println("Checkmate");
                 }
                 else{//returns king's valid moves
                     kingMove = checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index)));
@@ -46,7 +46,7 @@ public class Check {
             else{
                 inCheck = false;
                 if(checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index))) == null){
-                    System.out.println("Stalemate");
+                    System.err.println("Stalemate");
                 }
                 else{
                     kingMove = checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index)));
