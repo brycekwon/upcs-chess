@@ -124,11 +124,11 @@ public class ChessGameState extends GameState {
      * This method increments the turn between 0 and 1.
      */
     public void nextTurn() {
-        if (_playerTurn == 0) {
+        /*if (_playerTurn == 0) {
             _playerTurn = 1;
         } else {
             _playerTurn = 0;
-        }
+        }*/
     }
 
     /**

@@ -114,7 +114,13 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
 
     private Paint getPaint(int color, float strokeWidth) {
         android.graphics.Paint paint = new android.graphics.Paint();
-        paint.setColor(color);
+        if () {
+            paint.setColor(Color.RED);
+        }
+        else if () {
+            paint.setColor(Color.BLUE);
+        }
+
         paint.setStrokeWidth(strokeWidth);
         paint.setTextSize(60);
         return paint;
