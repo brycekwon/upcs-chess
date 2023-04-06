@@ -1,7 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-import static java.sql.Types.NULL;
-
 import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
@@ -34,5 +32,15 @@ public class ChessNormalComputer extends GameComputerPlayer {
         }
 
         sleep(1);
+
+        // get all pieces
+//        int m = (int) (Math.random() * 1) + 6;
+//        int n = (int) (Math.random() * 7) + 1;
+//
+//        // get random piece
+//        Piece piece = ((ChessGameState) this.game.getGameState()).getChessboard()[m][n].getPiece();
+//        if
+
+        game.sendAction(new ChessMoveAction(this, new PieceMove(0, 1, 2, 2)));
     }
 }
