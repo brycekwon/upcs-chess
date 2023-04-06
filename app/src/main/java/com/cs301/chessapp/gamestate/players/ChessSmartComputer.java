@@ -3,6 +3,7 @@ package com.cs301.chessapp.gamestate.players;
 import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
+import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
@@ -25,8 +26,11 @@ public class ChessSmartComputer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
+        if (info instanceof NotYourTurnInfo) {
+            return;
+        }
+        ChessGameState cgm = (ChessGameState) info;
 
-        ChessGameState cgm = (ChessGameState) this.game.getGameState();
 
         sleep(1);
 
@@ -41,7 +45,7 @@ public class ChessSmartComputer extends GameComputerPlayer {
                         game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
                     }
                 }
-                catch(NullPointerException npe) {
+                catch(NullPointerException ignored) {
 
                 }
             }
