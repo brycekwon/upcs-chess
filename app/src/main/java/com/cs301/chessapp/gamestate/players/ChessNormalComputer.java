@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.players;
 
+import android.graphics.Color;
+
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
@@ -27,6 +29,16 @@ public class ChessNormalComputer extends GameComputerPlayer {
 
         sleep(1);
 
-        game.sendAction(new ChessMoveAction(this, new PieceMove(0, 1, 2, 2)));
+        int x = (int) (Math.random() * 8);
+        int y = (int) (Math.random() * 8);
+
+        while (((ChessGameState) info).getChessboard()[x][y].getPiece() == null || ((ChessGameState) info).getChessboard()[x][y].getPiece().getPlayer() == Color.BLACK || ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size() < 1) {
+            x = (int) (Math.random() * 8);
+            y = (int) (Math.random() * 8);
+        }
+
+        PieceMove moveX1 = ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).get((int) (Math.random() * ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size()));
+
+        game.sendAction(new ChessMoveAction(this, moveX1));
     }
 }
