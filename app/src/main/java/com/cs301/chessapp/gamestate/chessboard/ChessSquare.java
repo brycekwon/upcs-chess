@@ -12,27 +12,25 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class ChessSquare {
-    // Debugging tag used by the Android logger.
     private static final String TAG = "ChessSquare";
-    private static final boolean DEBUG = true;
 
+    private final int _color;
     private Piece _piece;
-    private int _color;
 
     /**
      * ChessSquare constructor
      * <p>
      * This constructor initializes a square with a piece.
      *
-     * @param color     The color of the square. (0 = white, 1 = black)
+     * @param color     The color of the square.
      * @param piece     The piece on the square.
      */
     public ChessSquare(int color, Piece piece) {
-        _piece = piece;
         _color = color;
+        _piece = piece;
     }
 
     /**
@@ -40,7 +38,7 @@ public class ChessSquare {
      * <p>
      * This constructor initializes an empty square.
      *
-     * @param color     The color of the square. (0 = white, 1 = black)
+     * @param color     The color of the square.
      */
     public ChessSquare(int color) {
         this(color, null);
@@ -95,13 +93,13 @@ public class ChessSquare {
      * <p>
      * This method returns a string representation of the square.
      *
-     * @return          A string representation of the square.
+     * @return      A string representation of the square.
      */
     @Override
     public String toString() {
-        return "ChessSquare{" +
+        return "ChessSquare { " +
                 "_piece=" + _piece +
                 ", _color=" + _color +
-                '}';
+                " }";
     }
 }

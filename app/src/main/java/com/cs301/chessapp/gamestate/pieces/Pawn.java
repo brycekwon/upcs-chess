@@ -1,11 +1,12 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+
 import android.graphics.Color;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Pawn
@@ -37,7 +38,7 @@ public class Pawn extends Piece {
     public Pawn(int player) {
         super(player);
         this._value = 1;
-        this._type = "Pawn";
+        this._name = "Pawn";
 
     }
 
@@ -55,7 +56,7 @@ public class Pawn extends Piece {
     public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
-        if (this._player == Color.WHITE) {
+        if (this._player == 0) {
             // check if pawn can move forward
             if (row + 1 < 8 && board[row + 1][col].getPiece() == null) {
                 valid.add(new PieceMove(row, col, row + 1, col));

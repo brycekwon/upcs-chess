@@ -38,6 +38,7 @@ import com.cs301.chessapp.gameframework.utilities.Saving;
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
+import com.google.android.material.navigation.NavigationView;
 
 /**
  * class GameMainActivity
@@ -97,7 +98,6 @@ public abstract class GameMainActivity extends AppCompatActivity implements
 
     //Keeping the user's configuration for restarting
     private GameConfig restartConfig = null;
-
 
     /*
      * ====================================================================

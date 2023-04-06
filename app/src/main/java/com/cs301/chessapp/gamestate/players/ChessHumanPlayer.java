@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -23,7 +22,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     private final float boardBottom = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
 
     private ChessPerspectiveWhite surfaceView;
-    private int layoutId;
+    private final int layoutId;
 
     private Piece selectedPiece;
     private int selectedRow;
@@ -46,15 +45,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
     @Override
     public void receiveInfo(GameInfo info) {
-        if (surfaceView == null) {
-            return;
-        }
-
-        else if (!(info instanceof ChessGameState)) {
-            return;
-        }
-
-        else {
+        if (info instanceof ChessGameState) {
             ChessGameState state = (ChessGameState) info;
             surfaceView.setGameState(state);
             surfaceView.invalidate();
@@ -76,10 +67,11 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      * the game.
      * @param view          the view that was touched
      * @param motionEvent   the MotionEvent object that contains the information
-     * @return      true if the touch was handled, false otherwise
+     * @return              true if the touch was handled, false otherwise
      */
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        // do not track sliding movements
         if (motionEvent.getAction() != MotionEvent.ACTION_DOWN) {
             return false;
         }
@@ -95,11 +87,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
 
-        Log.d(TAG, "onTouch: " + row + ", " + col);
-
         if (selectedPiece == null) {
-            // select a piece
-            selectedPiece = surfaceView.getGameState().getChessboard()[row][col].getPiece();
+            selectedPiece = surfaceView.getGameState().getTile(row, col).getPiece();
             selectedRow = row;
             selectedCol = col;
         } else {
@@ -121,9 +110,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     @Override
     public String toString() {
-        return "ChessHumanPlayer{" +
+        return "ChessHumanPlayer { " +
                 "surfaceView=" + surfaceView +
                 ", layoutId=" + layoutId +
-                '}';
+                " }";
     }
 }

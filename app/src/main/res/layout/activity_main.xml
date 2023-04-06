@@ -31,13 +31,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:clickable="false"
-                        android:text="@string/Computer_Dumb_Name" />
+                    android:id="@+id/player2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="@string/player2" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -56,13 +56,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/player1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:clickable="false"
-                    android:text="@string/Human_Player_Name" />
+                    android:text="@string/player1" />
 
                 <ImageView
                     android:id="@+id/imageView3"

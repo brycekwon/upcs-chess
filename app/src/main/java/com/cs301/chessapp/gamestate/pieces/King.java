@@ -1,11 +1,10 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-import android.graphics.Path;
 
 import java.util.ArrayList;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * King
@@ -20,7 +19,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class King extends Piece{
     private static final String TAG = "PieceKing";
@@ -39,7 +38,7 @@ public class King extends Piece{
         super(player);
 
         this._value = 100;
-        this._type = "King";
+        this._name = "King";
         this._canCastle = true;
     }
 
@@ -48,26 +47,26 @@ public class King extends Piece{
      * <p>
      * This method returns an ArrayList of all valid moves for the king.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
+     * @param row         The x coordinate of the piece.
+     * @param col         The y coordinate of the piece.
      * @param board     The board that the piece is on.
      * @return          An ArrayList of all valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
         // Check all squares around the king
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 // Check if the square is on the board
-                if (isValid(x + i, y + j)) {
+                if (hasValidBounds(row + i, col + j)) {
                     // Check if the square is occupied by a friendly piece
-                    if (board[x + i][y + j].getPiece() == null || board[x + i][y + j].getPiece().getPlayer() != this._player) {
+                    if (board[row + i][col + j].getPiece() == null || board[row + i][col + j].getPiece().getPlayer() != _player) {
                         // Check if the king is in check
-                        if (!inCheck(x + i, y + j, board)) {
+                        if (!inCheck(row + i, col + j, board)) {
                             // Add the move to the list of valid moves
-                            valid.add(new PieceMove(x, y, x + i, y + j));
+                            valid.add(new PieceMove(row, col, row + i, col + j));
                         }
                     }
                 }
@@ -82,21 +81,21 @@ public class King extends Piece{
      * <p>
      * This method checks if the king is in check.
      *
-     * @param x         The x coordinate of the king.
-     * @param y         The y coordinate of the king.
+     * @param row         The x coordinate of the king.
+     * @param col         The y coordinate of the king.
      * @param board     The board that the king is on.
      * @return          True if the king is in check, false otherwise.
      */
-    public boolean inCheck(int x, int y, ChessSquare[][] board) {
+    public boolean inCheck(int row, int col, ChessSquare[][] board) {
         // Check all squares around the king
         for (int i = - 1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
                 // Check if the square is on the board
-                if (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
+                if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
                     // Check if the square is occupied by an enemy piece
-                    if (board[x + i][y + j].getPiece() != null && board[x + i][y + j].getPiece().getPlayer() != this._player) {
+                    if (board[row + i][col + j].getPiece() != null && board[row + i][col + j].getPiece().getPlayer() != _player) {
                         // Check if the piece can move to the king's square
-                        if (board[x + i][y + j].getPiece().getMoves(x + i, y + j, board).contains(new PieceMove(x + i, y + j, x, y))) {
+                        if (board[row + i][col + j].getPiece().getMoves(row + i, col + j, board).contains(new PieceMove(row + i, col + j, row, col))) {
                             return true;
                         }
                     }

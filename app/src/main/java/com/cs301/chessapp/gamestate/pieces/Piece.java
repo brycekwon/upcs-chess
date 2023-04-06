@@ -1,12 +1,12 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+
 import java.util.ArrayList;
 
 import android.graphics.Color;
-import android.graphics.Path;
 
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Piece
@@ -24,10 +24,13 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 public abstract class Piece {
     private static final String TAG = "Piece";
 
-    protected String _type;
+    // these variables contain information about the piece
     protected int _player;
-    protected int _color;
     protected int _value;
+
+    // these variables contain information for the surface view
+    protected String _name;
+    protected int _color;
 
     /**
      * Piece constructor
@@ -40,7 +43,7 @@ public abstract class Piece {
      */
     public Piece(int player) {
         this._player = player;
-        this._color = player == 0 ? Color.WHITE : Color.BLACK;
+        this._color = player == 0 ? Color.BLUE : Color.RED;
     }
 
     /**
@@ -49,24 +52,59 @@ public abstract class Piece {
      * This method returns an ArrayList of all the possible moves that a piece
      * can make. It is an abstract method, and is implemented by the subclass.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
+     * @param row         The x coordinate of the piece.
+     * @param col         The y coordinate of the piece.
      * @param board     The board that the piece is on.
      * @return          ArrayList of all possible moves
      */
-    public abstract ArrayList<PieceMove> getMoves(int x, int y, ChessSquare[][] board);
+    public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board);
 
     /**
-     * isValid
+     * isValidMove
+     * <p>
+     * This method checks if a provided move is valid by checking if the move
+     * is in the list of valid moves.
+     *
+     * @param x         The x coordinate of the piece.
+     * @param y         The y coordinate of the piece.
+     * @param newX
+     * @param newY
+     * @param board
+     * @return
+     */
+    public boolean isValidMove(int x, int y, int newX, int newY, ChessSquare[][] board) {
+        ArrayList<PieceMove> valid = this.getMoves(x, y, board);
+        for (PieceMove move : valid) {
+            if (move.getEndRow() == newX && move.getEndCol() == newY) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isValidMove(PieceMove move, ChessSquare[][] board) {
+        ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), board);
+        for (PieceMove validMove : validMoves) {
+            if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
+                    move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * hasValidBounds
      * <p>
      * This method checks if the x and y coordinates are within the bounds of
-     * the gameboard.
+     * the chessboard.
      *
      * @param x     The x coordinate to check.
      * @param y     The y coordinate to check.
      * @return      True if the x and y coordinate is valid, false otherwise.
      */
-    public boolean isValid(int x, int y) {
+    public boolean hasValidBounds(int x, int y) {
         return x >= 0 && x <= 7 && y >= 0 && y <= 7;
     }
 
@@ -79,7 +117,7 @@ public abstract class Piece {
      * @return  The player that the piece belongs to.
      */
     public int getPlayer() {
-        return this._player;
+        return _player;
     }
 
     /**
@@ -91,7 +129,7 @@ public abstract class Piece {
      * @return  The color of the piece.
      */
     public int getColor() {
-        return this._color;
+        return _color;
     }
 
     /**
@@ -103,29 +141,19 @@ public abstract class Piece {
      * @return  The value of the piece.
      */
     public int getValue() {
-        return this._value;
+        return _value;
     }
 
     /**
-     * getType
+     * getName
      * <p>
-     * This method returns the type of the piece. The type is determined by
+     * This method returns the name of the piece. The value is determined by
      * the subclass and cannot be changed.
      *
-     * @return  The type of the piece.
+     * @return  The name of the piece.
      */
-    public String getType() {
-        return this._type;
-    }
-
-    public boolean isValidMove(int x, int y, int newX, int newY, ChessSquare[][] board) {
-        ArrayList<PieceMove> valid = this.getMoves(x, y, board);
-        for (PieceMove move : valid) {
-            if (move.getEndX() == newX && move.getEndY() == newY) {
-                return true;
-            }
-        }
-        return false;
+    public String getName() {
+        return _name;
     }
 
     /**
@@ -137,6 +165,8 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        return _type.charAt(0) + "";
+        return _name + " { _player=" + _player +
+                ", _value=" + _value +
+                " }";
     }
 }

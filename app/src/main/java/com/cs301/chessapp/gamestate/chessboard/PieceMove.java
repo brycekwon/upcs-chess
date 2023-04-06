@@ -12,32 +12,33 @@ package com.cs301.chessapp.gamestate.chessboard;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class PieceMove {
-    private static final String TAG = "MoveAction";
+    private static final String TAG = "PieceMove";
 
-    private final int _x1;
-    private final int _x2;
-    private final int _y1;
-    private final int _y2;
+    private final int _row1;
+    private final int _col1;
+    private final int _row2;
+    private final int _col2;
 
     /**
-     * Move constructor
+     * PieceMove constructor
      * <p>
-     * This constructor creates a new Move object starting x y coordinates
-     * and ending x y coordinates.
+     * This constructor creates an object that contains the starting and ending
+     * positions of a piece. The coordinates are immutable after the object is
+     * created.
      *
-     * @param x1        x coordinate of starting position
-     * @param y1        y coordinate of starting position
-     * @param x2        x coordinate of ending position
-     * @param y2        y coordinate of ending position
+     * @param row1        row of starting position
+     * @param col1        col of starting position
+     * @param row2        row of ending position
+     * @param col2        col of ending position
      */
-    public PieceMove(int x1, int y1, int x2, int y2) {
-        this._x1 = x1;
-        this._y1 = y1;
-        this._x2 = x2;
-        this._y2 = y2;
+    public PieceMove(int row1, int col1, int row2, int col2) {
+        this._row1 = row1;
+        this._col1 = col1;
+        this._row2 = row2;
+        this._col2 = col2;
     }
 
     /**
@@ -47,8 +48,8 @@ public class PieceMove {
      *
      * @return      x coordinate of starting position
      */
-    public int getStartX() {
-        return _x1;
+    public int getStartRow() {
+        return _row1;
     }
 
     /**
@@ -58,8 +59,8 @@ public class PieceMove {
      *
      * @return      x coordinate of ending position
      */
-    public int getEndX() {
-        return _x2;
+    public int getEndRow() {
+        return _row2;
     }
 
     /**
@@ -69,8 +70,8 @@ public class PieceMove {
      *
      * @return      y coordinate of starting position
      */
-    public int getStartY() {
-        return _y1;
+    public int getStartCol() {
+        return _col1;
     }
 
     /**
@@ -80,12 +81,8 @@ public class PieceMove {
      *
      * @return      y coordinate of ending position
      */
-    public int getEndY() {
-        return _y2;
-    }
-
-    public boolean equals(PieceMove other) {
-        return this._x1 == other._x1 && this._x2 == other._x2 && this._y1 == other._y1 && this._y2 == other._y2;
+    public int getEndCol() {
+        return _col2;
     }
 
     /**
@@ -97,11 +94,11 @@ public class PieceMove {
      */
     @Override
     public String toString() {
-        return "MoveAction{" +
-                "_x1=" + _x1 +
-                ", _x2=" + _x2 +
-                ", _y1=" + _y1 +
-                ", _y2=" + _y2 +
-                '}';
+        return "MoveAction {" +
+                "_row1=" + _row1 +
+                ", _col1=" + _col1 +
+                ", _row2=" + _row2 +
+                ", _col2=" + _col2 +
+                " }";
     }
 }

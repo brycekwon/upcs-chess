@@ -5,7 +5,6 @@ import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
 /**
@@ -19,10 +18,9 @@ import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 26, 2023
+ * @version Spring 2023
  */
 public class ChessLocalGame extends LocalGame {
-    // Debugging and logging tools
     private static final String TAG = "ChessLocalGame";
 
     public ChessLocalGame() {
@@ -52,23 +50,19 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
-        ChessGameState gameState = (ChessGameState) this.state;
-        ChessMoveAction chessMoveAction = (ChessMoveAction) action;
+        ChessGameState gamestate = (ChessGameState) state;
+        ChessMoveAction moveAction = (ChessMoveAction) action;
 
-        if (gameState.getChessboard()[chessMoveAction.getMove().getStartX()][chessMoveAction.getMove().getStartY()].getPiece().isValidMove(chessMoveAction.getMove().getStartX(), chessMoveAction.getMove().getStartY(), chessMoveAction.getMove().getEndX(), chessMoveAction.getMove().getEndY(), gameState.getChessboard())) {
-            ChessSquare fromSquare = gameState.getChessboard()[chessMoveAction.getMove().getStartX()][chessMoveAction.getMove().getStartY()];
-            Piece piece = fromSquare.getPiece();
+        if (gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol()).getPiece().isValidMove(moveAction.getMove(), (gamestate.getChessboard()))) {
+            ChessSquare from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
+            ChessSquare to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
 
-            // get the square to move to
-            ChessSquare toSquare = gameState.getChessboard()[chessMoveAction.getMove().getEndX()][chessMoveAction.getMove().getEndY()];
+            to.setPiece(from.getPiece());
+            from.setPiece(null);
 
-            // move the piece
-            toSquare.setPiece(piece);
-            fromSquare.setPiece(null);
-
-            // increment the turn
-            gameState.nextTurn();
+            gamestate.nextTurn();
         }
+
         return true;
     }
 

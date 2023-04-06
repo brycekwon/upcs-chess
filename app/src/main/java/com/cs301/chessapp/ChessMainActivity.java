@@ -38,10 +38,10 @@ public class ChessMainActivity extends GameMainActivity {
             }
         });
 
-        playerTypes.add(new GamePlayerType("Local Human Player 2") {
+        playerTypes.add(new GamePlayerType("Local Computer Player 1") {
             @Override
             public GamePlayer createPlayer(String name) {
-                return new ChessNormalComputer("Dingus");
+                return new ChessNormalComputer(name);
             }
         });
 
