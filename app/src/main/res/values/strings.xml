@@ -1,4 +1,6 @@
 <resources>
     <!--These are strings unique to Chess-->
     <string name="app_name">Chess</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
 </resources>

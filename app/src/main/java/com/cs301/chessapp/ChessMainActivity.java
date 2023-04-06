@@ -1,5 +1,9 @@
 package com.cs301.chessapp;
 
+import static android.widget.TextView.*;
+
+import android.widget.TextView;
+
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
@@ -30,7 +34,6 @@ public class ChessMainActivity extends GameMainActivity {
         // todo: add computer player smart
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Hello Person", 0);
-
         return defaultConfig;
     }
 

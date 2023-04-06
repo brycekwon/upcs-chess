@@ -3,7 +3,9 @@ package com.cs301.chessapp.gamestate.players;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
+import com.cs301.chessapp.ChessMainActivity;
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
