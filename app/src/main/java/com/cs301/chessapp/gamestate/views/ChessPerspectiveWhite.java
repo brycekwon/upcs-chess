@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
 import com.cs301.chessapp.gamestate.ChessGameState;
 
@@ -20,7 +19,7 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
     public static final float TILE_LENGTH = BOARD_LENGTH / 8;
     public static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
 
-    private final ChessGameState _gameState;
+    private ChessGameState _gameState;
 
     public ChessPerspectiveWhite(Context context) {
         super(context);
@@ -123,5 +122,9 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
 
     public ChessGameState getGameState() {
         return this._gameState;
+    }
+
+    public void setGameState(ChessGameState gameState) {
+        this._gameState = gameState;
     }
 }

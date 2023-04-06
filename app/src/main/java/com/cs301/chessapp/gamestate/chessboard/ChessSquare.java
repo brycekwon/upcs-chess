@@ -17,6 +17,7 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
 public class ChessSquare {
     // Debugging tag used by the Android logger.
     private static final String TAG = "ChessSquare";
+    private static final boolean DEBUG = true;
 
     private Piece _piece;
     private int _color;
