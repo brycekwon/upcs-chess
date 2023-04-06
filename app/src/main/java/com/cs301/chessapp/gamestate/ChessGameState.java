@@ -1,13 +1,11 @@
 package com.cs301.chessapp.gamestate;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
-import com.cs301.chessapp.gamestate.utilities.*;
 
 /**
  * MainGameState
@@ -73,9 +71,9 @@ public class ChessGameState extends GameState {
         this._chessboard[7][5].setPiece(new Bishop(Color.BLACK));
         this._chessboard[7][6].setPiece(new Knight(Color.BLACK));
         this._chessboard[7][7].setPiece(new Rook(Color.BLACK));
-//        for (int i = 0; i < 8; i++) {
-//            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
-//        }
+        for (int i = 0; i < 8; i++) {
+            this._chessboard[6][i].setPiece(new Pawn(Color.BLACK));
+        }
     }
 
     /**
