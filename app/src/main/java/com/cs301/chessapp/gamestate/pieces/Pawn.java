@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
@@ -44,8 +46,8 @@ public class Pawn extends Piece {
      * <p>
      * This method returns an ArrayList of all valid moves for the pawn.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
+     * @param row         The x coordinate of the piece.
+     * @param col         The y coordinate of the piece.
      * @param board     The board that the piece is on.
      * @return          An ArrayList of all valid moves.
      */
@@ -53,64 +55,41 @@ public class Pawn extends Piece {
     public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
         ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
-        // move pawn one square forward
-        if (row == 6) {
-            if (board[row - 1][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row - 1, col));
-                if (board[row - 2][col].getPiece() == null) {
-                    valid.add(new PieceMove(row, col, row - 2, col));
-                }
+        if (this._player == Color.WHITE) {
+            // check if pawn can move forward
+            if (row + 1 < 8 && board[row + 1][col].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row + 1, col));
+            }
+            // check if pawn can move forward two spaces
+            if (row == 1 && board[row + 1][col].getPiece() == null && board[row + 2][col].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row + 2, col));
+            }
+            // check if pawn can capture a piece diagonally
+            if (row + 1 < 8 && col + 1 < 8 && board[row + 1][col + 1].getPiece() != null && board[row + 1][col + 1].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(row, col, row + 1, col + 1));
+            }
+            // check if pawn can capture a piece diagonally
+            if (row + 1 < 8 && col - 1 >= 0 && board[row + 1][col - 1].getPiece() != null && board[row + 1][col - 1].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(row, col, row + 1, col - 1));
             }
         } else {
-            if (board[row - 1][col].getPiece() == null) {
+            // check if pawn can move forward
+            if (row - 1 >= 0 && board[row - 1][col].getPiece() == null) {
                 valid.add(new PieceMove(row, col, row - 1, col));
+            }
+            // check if pawn can move forward two spaces
+            if (row == 6 && board[row - 1][col].getPiece() == null && board[row - 2][col].getPiece() == null) {
+                valid.add(new PieceMove(row, col, row - 2, col));
+            }
+            // check if pawn can capture a piece diagonally
+            if (row - 1 >= 0 && col + 1 < 8 && board[row - 1][col + 1].getPiece() != null && board[row - 1][col + 1].getPiece().getPlayer() != this._player) {
+                valid.add(new PieceMove(row, col, row - 1, col + 1));
             }
         }
 
-        if (row == 1) {
-            if (board[row + 1][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row + 1, col));
-                if (board[row + 2][col].getPiece() == null) {
-                    valid.add(new PieceMove(row, col, row + 2, col));
-                }
-            }
-        } else {
-            if (board[row + 1][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row + 1, col));
-            }
-        }
-
-        // capture enemy piece diagonally
-        if (row == 6) {
-            if (col != 0) {
-                if (board[row - 1][col - 1].getPiece() != null) {
-                    if (board[row - 1][col - 1].getPiece().getPlayer() != this.getPlayer()) {
-                        valid.add(new PieceMove(row, col, row - 1, col - 1));
-                    }
-                }
-            }
-            if (col != 7) {
-                if (board[row - 1][col + 1].getPiece() != null) {
-                    if (board[row - 1][col + 1].getPiece().getPlayer() != this.getPlayer()) {
-                        valid.add(new PieceMove(row, col, row - 1, col + 1));
-                    }
-                }
-            }
-        } else {
-            if (col != 0) {
-                if (board[row + 1][col - 1].getPiece() != null) {
-                    if (board[row + 1][col - 1].getPiece().getPlayer() != this.getPlayer()) {
-                        valid.add(new PieceMove(row, col, row + 1, col - 1));
-                    }
-                }
-            }
-            if (col != 7) {
-                if (board[row + 1][col + 1].getPiece() != null) {
-                    if (board[row + 1][col + 1].getPiece().getPlayer() != this.getPlayer()) {
-                        valid.add(new PieceMove(row, col, row + 1, col + 1));
-                    }
-                }
-            }
+        // check if pawn can capture a piece diagonally
+        if (row - 1 >= 0 && col - 1 >= 0 && board[row - 1][col - 1].getPiece() != null && board[row - 1][col - 1].getPiece().getPlayer() != this._player) {
+            valid.add(new PieceMove(row, col, row - 1, col - 1));
         }
 
         return valid;
