@@ -6,9 +6,11 @@ import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
 import com.cs301.chessapp.gameframework.gameConfiguration.GamePlayerType;
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 import com.cs301.chessapp.gamestate.players.ChessNormalComputer;
+import com.cs301.chessapp.gamestate.players.ChessSmartComputer;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,13 @@ public class ChessMainActivity extends GameMainActivity {
             @Override
             public GamePlayer createPlayer(String name) {
                 return new ChessNormalComputer(name);
+            }
+        });
+
+        playerTypes.add(new GamePlayerType("Local Computer Player Smart") {
+            @Override
+            public GamePlayer createPlayer(String name) {
+                return new ChessSmartComputer(name);
             }
         });
 

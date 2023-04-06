@@ -13,7 +13,7 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
     private static final String TAG = "ChessPerspectiveWhite";
 
     // these constants define the dimensions of the board
-    public static final float BOARD_LENGTH = 1400f;
+    public static final float BOARD_LENGTH = 900f;
     public static final float BOARD_MARGIN = 50f;
     public static final float BOARD_STROKE = 5f;
     public static final float TILE_LENGTH = BOARD_LENGTH / 8;
