@@ -39,10 +39,6 @@ public class Knight extends Piece {
         this._type = "Knight";
     }
 
-    public Path getDraw(float x, float y) {
-        return new Path();
-    }
-
     /**
      * getMoves
      * <p>

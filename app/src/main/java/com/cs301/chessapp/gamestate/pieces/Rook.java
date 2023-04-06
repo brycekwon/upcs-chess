@@ -42,10 +42,6 @@ public class Rook extends Piece {
         this._canCastle = true;
     }
 
-    public Path getDraw(float x, float y) {
-        return new Path();
-    }
-
     /**
      * getMoves
      * <p>

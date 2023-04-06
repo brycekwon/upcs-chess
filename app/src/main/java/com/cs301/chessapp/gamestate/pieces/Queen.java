@@ -39,10 +39,6 @@ public class Queen extends Piece{
         this._type = "Queen";
     }
 
-    public Path getDraw(float x, float y) {
-        return new Path();
-    }
-
     /**
      * getMoves
      * <p>

@@ -40,24 +40,6 @@ public class Bishop extends Piece {
         this._type = "Bishop";
     }
 
-    public Path getDraw(float x, float y) {
-        // Define the vertices of the bishop polygon
-        float[] vertices = { x+20, y+80, x+40, y+60, x+60, y+80, x+60, y+20, x+40, y+40 };
-
-        // Create a Path object representing the bishop polygon
-        Path bishopPath = new Path();
-        bishopPath.moveTo(vertices[0], vertices[1]);
-        for (int i = 2; i < vertices.length; i += 2) {
-            bishopPath.lineTo(x+vertices[i], y+vertices[i+1]);
-        }
-        bishopPath.close();
-        //bishop hat
-        bishopPath.moveTo(x+40, y+40);
-        bishopPath.lineTo(x+60, y+60);
-        bishopPath.moveTo(x+60, y+40);
-        bishopPath.lineTo(x+40, y+60);
-        return bishopPath;
-    }
     /**
      * getMoves
      * <p>
