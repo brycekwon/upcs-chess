@@ -33,14 +33,16 @@ public class ChessNormalComputer extends GameComputerPlayer {
 
         sleep(1);
 
-        // get all pieces
-//        int m = (int) (Math.random() * 1) + 6;
-//        int n = (int) (Math.random() * 7) + 1;
-//
-//        // get random piece
-//        Piece piece = ((ChessGameState) this.game.getGameState()).getChessboard()[m][n].getPiece();
-//        if
+        int x = (int) (Math.random() * 8);
+        int y = (int) (Math.random() * 8);
 
-        game.sendAction(new ChessMoveAction(this, new PieceMove(0, 1, 2, 2)));
+        while (((ChessGameState) info).getChessboard()[x][y].getPiece() == null || ((ChessGameState) info).getChessboard()[x][y].getPiece().getPlayer() == Color.BLACK || ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size() < 1) {
+            x = (int) (Math.random() * 8);
+            y = (int) (Math.random() * 8);
+        }
+
+        PieceMove moveX1 = ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).get((int) (Math.random() * ((ChessGameState) info).getChessboard()[x][y].getPiece().getMoves(x, y, ((ChessGameState) info).getChessboard()).size()));
+
+        game.sendAction(new ChessMoveAction(this, moveX1));
     }
 }

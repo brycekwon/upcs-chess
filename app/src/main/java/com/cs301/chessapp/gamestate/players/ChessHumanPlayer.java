@@ -97,14 +97,13 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
 
-        Log.d(TAG, "onTouch: " + row + ", " + col);
-
         if (selectedPiece == null) {
             // select a piece
             selectedPiece = surfaceView.getGameState().getChessboard()[row][col].getPiece();
             selectedRow = row;
             selectedCol = col;
         } else {
+            Log.d(TAG, "onTouch: " + selectedPiece.getMoves(selectedRow, selectedCol, surfaceView.getGameState().getChessboard()));
             move = new PieceMove(selectedRow, selectedCol, row, col);
             game.sendAction(new ChessMoveAction(this, move));
 
