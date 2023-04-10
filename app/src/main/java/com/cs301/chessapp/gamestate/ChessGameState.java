@@ -3,6 +3,7 @@ package com.cs301.chessapp.gamestate;
 import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
+import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.pieces.*;
 
@@ -87,7 +88,7 @@ public class ChessGameState extends GameState {
      * @param other     The game state to copy.
      */
     public ChessGameState(ChessGameState other) {
-        this._playerTurn = other._playerTurn;
+        this._playerTurn = other.getTurn();
 
         this._chessboard = new ChessSquare[8][8];
         for (int i = 0; i < 8; i++) {

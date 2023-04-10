@@ -19,18 +19,17 @@ import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public abstract class Piece {
-    private static final String TAG = "Piece";
 
     // these variables contain information about the piece
-    protected int _player;
+    protected final int _player;
     protected int _value;
 
     // these variables contain information for the surface view
+    protected final int _color;
     protected String _name;
-    protected int _color;
 
     /**
      * Piece constructor
@@ -65,23 +64,10 @@ public abstract class Piece {
      * This method checks if a provided move is valid by checking if the move
      * is in the list of valid moves.
      *
-     * @param x         The x coordinate of the piece.
-     * @param y         The y coordinate of the piece.
-     * @param newX
-     * @param newY
-     * @param board
-     * @return
+     * @param move      The move to check.
+     * @param board     The board that the piece is on.
+     * @return          True if the move is valid, false otherwise.
      */
-    public boolean isValidMove(int x, int y, int newX, int newY, ChessSquare[][] board) {
-        ArrayList<PieceMove> valid = this.getMoves(x, y, board);
-        for (PieceMove move : valid) {
-            if (move.getEndRow() == newX && move.getEndCol() == newY) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean isValidMove(PieceMove move, ChessSquare[][] board) {
         ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), board);
         for (PieceMove validMove : validMoves) {

@@ -63,46 +63,13 @@ public class King extends Piece{
                 if (hasValidBounds(row + i, col + j)) {
                     // Check if the square is occupied by a friendly piece
                     if (board[row + i][col + j].getPiece() == null || board[row + i][col + j].getPiece().getPlayer() != _player) {
-                        // Check if the king is in check
-                        if (!inCheck(row + i, col + j, board)) {
-                            // Add the move to the list of valid moves
-                            valid.add(new PieceMove(row, col, row + i, col + j));
-                        }
+                        // Add the move to the list of valid moves
+                        valid.add(new PieceMove(row, col, row + i, col + j));
                     }
                 }
             }
         }
 
         return valid;
-    }
-
-    /**
-     * inCheck
-     * <p>
-     * This method checks if the king is in check.
-     *
-     * @param row         The x coordinate of the king.
-     * @param col         The y coordinate of the king.
-     * @param board     The board that the king is on.
-     * @return          True if the king is in check, false otherwise.
-     */
-    public boolean inCheck(int row, int col, ChessSquare[][] board) {
-        // Check all squares around the king
-        for (int i = - 1; i <= 1; i++) {
-            for (int j = - 1; j <= 1; j++) {
-                // Check if the square is on the board
-                if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
-                    // Check if the square is occupied by an enemy piece
-                    if (board[row + i][col + j].getPiece() != null && board[row + i][col + j].getPiece().getPlayer() != _player) {
-                        // Check if the piece can move to the king's square
-                        if (board[row + i][col + j].getPiece().getMoves(row + i, col + j, board).contains(new PieceMove(row + i, col + j, row, col))) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 }

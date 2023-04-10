@@ -23,6 +23,8 @@ import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 public class ChessLocalGame extends LocalGame {
     private static final String TAG = "ChessLocalGame";
 
+    private int totalMoves;
+
     public ChessLocalGame() {
         super();
         super.state = new ChessGameState();
