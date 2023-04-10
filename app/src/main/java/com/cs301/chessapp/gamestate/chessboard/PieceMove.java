@@ -4,9 +4,9 @@ package com.cs301.chessapp.gamestate.chessboard;
 /**
  * MoveAction
  * <p>
- * This class represents a move in a chess game. It contains the x and y
- * coordinates of the starting and ending positions of the piece that is being
- * moved. The coordinates are immutable after the object is created.
+ * This class represents a move in a chess game. It contains the row and col
+ * of the starting and ending positions of the piece that is being moved. The
+ * coordinates are immutable after the object is created.
  *
  * @author Bryce Kwon
  * @author Marshall Zhang
@@ -42,44 +42,44 @@ public class PieceMove {
     }
 
     /**
-     * getStart1
+     * getStartRow
      * <p>
-     * This method returns the x coordinate of the starting position.
+     * This method returns the row of the starting position.
      *
-     * @return      x coordinate of starting position
+     * @return      row of starting position
      */
     public int getStartRow() {
         return _row1;
     }
 
     /**
-     * getEndX
+     * getStartCol
      * <p>
-     * This method returns the x coordinate of the ending position.
+     * This method returns the column of the starting position.
      *
-     * @return      x coordinate of ending position
-     */
-    public int getEndRow() {
-        return _row2;
-    }
-
-    /**
-     * getStartY
-     * <p>
-     * This method returns the y coordinate of the starting position.
-     *
-     * @return      y coordinate of starting position
+     * @return      column of starting position
      */
     public int getStartCol() {
         return _col1;
     }
 
     /**
-     * getEndY
+     * getEndRow
      * <p>
-     * This method returns the y coordinate of the ending position.
+     * This method returns the row of the ending position.
      *
-     * @return      y coordinate of ending position
+     * @return      row of ending position
+     */
+    public int getEndRow() {
+        return _row2;
+    }
+
+    /**
+     * getEndCol
+     * <p>
+     * This method returns the column of the ending position.
+     *
+     * @return      column of ending position
      */
     public int getEndCol() {
         return _col2;

@@ -27,8 +27,8 @@ public class Queen extends Piece{
     /**
      * Queen constructor
      * <p>
-     * This constructor extends the Piece constructor and sets the value of the
-     * queen to 7. This value is determined by: https://www.officialgamerules.org/chess
+     * This constructor extends the Piece constructor and sets the value and
+     * name of the piece.
      *
      * @param player        The player the piece belongs to.
      */
@@ -43,10 +43,10 @@ public class Queen extends Piece{
      * <p>
      * This method returns an ArrayList of all valid moves for the queen.
      *
-     * @param row         The x coordinate of the piece.
-     * @param col         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          An ArrayList of all valid moves.
+     * @param row           The current row of the piece.
+     * @param col           The current col of the piece.
+     * @param board         The board that the piece is on.
+     * @return              The list of valid moves.
      */
     @Override
     public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {

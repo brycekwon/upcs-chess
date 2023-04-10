@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
@@ -41,7 +40,7 @@ public class ChessSmartComputer extends GameComputerPlayer {
             for(int z = 0; z < cgm.getChessboard()[i].length; z++) {
                 ChessSquare square = cgm.getChessboard()[i][z];
                 try {
-                    if (square.getPiece().getPlayer() == Color.WHITE && square.getPiece().hasValidBounds(x, y)) {
+                    if (square.getPiece().getPlayer() == 0 && square.getPiece().hasValidBounds(x, y)) {
                         game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
                     }
                 }
