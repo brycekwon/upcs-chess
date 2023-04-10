@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import android.graphics.Color;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Piece
@@ -53,10 +53,10 @@ public abstract class Piece {
      *
      * @param row         The x coordinate of the piece.
      * @param col         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          ArrayList of all possible moves
+     * @param gamestate   The board that the piece is on.
+     * @return            ArrayList of all possible moves
      */
-    public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board);
+    public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate);
 
     /**
      * isValidMove
@@ -64,12 +64,12 @@ public abstract class Piece {
      * This method checks if a provided move is valid by checking if the move
      * is in the list of valid moves.
      *
-     * @param move      The move to check.
-     * @param board     The board that the piece is on.
-     * @return          True if the move is valid, false otherwise.
+     * @param move          The move to check.
+     * @param gamestate     The board that the piece is on.
+     * @return              True if the move is valid, false otherwise.
      */
-    public boolean isValidMove(PieceMove move, ChessSquare[][] board) {
-        ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), board);
+    public boolean isValidMove(PieceMove move, ChessGameState gamestate) {
+        ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate);
         for (PieceMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
                     move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
@@ -152,6 +152,7 @@ public abstract class Piece {
     @Override
     public String toString() {
         return _name + " { _player=" + _player +
+                ", _color=" + _color +
                 ", _value=" + _value +
                 " }";
     }

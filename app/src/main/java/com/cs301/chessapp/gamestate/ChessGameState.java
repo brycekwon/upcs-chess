@@ -3,7 +3,6 @@ package com.cs301.chessapp.gamestate;
 import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
-import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.pieces.*;
 
@@ -24,8 +23,8 @@ public class ChessGameState extends GameState {
     private static final String TAG = "ChessGameState";
 
     // these constants define the players
-    private static final int PLAYER_1 = 0;
-    private static final int PLAYER_2 = 1;
+    public static final int PLAYER_1 = 0;
+    public static final int PLAYER_2 = 1;
 
     // these variables define the game state
     private int _playerTurn;
@@ -104,7 +103,7 @@ public class ChessGameState extends GameState {
      * This method increments the turn between 0 and 1.
      */
     public void nextTurn() {
-        _playerTurn = _playerTurn == 0 ? 1 : 0;
+        _playerTurn = _playerTurn == PLAYER_1 ? PLAYER_2 : PLAYER_1;
     }
 
     /**
@@ -119,13 +118,13 @@ public class ChessGameState extends GameState {
     }
 
     /**
-     * getChessboard
+     * getBoard
      * <p>
      * This method returns the chessboard.
      *
-     * @return          The chessboard.
+     * @return          The current chessboard.
      */
-    public ChessSquare[][] getChessboard() {
+    public ChessSquare[][] getBoard() {
         return _chessboard;
     }
 
@@ -136,8 +135,22 @@ public class ChessGameState extends GameState {
      *
      * @param row       The row of the tile.
      * @param col       The column of the tile.
+     * @return          The tile at the given coordinates.
      */
     public ChessSquare getTile(int row, int col) {
         return _chessboard[row][col];
+    }
+
+    /**
+     * getPiece
+     *
+     * This method returns the piece at the given coordinates.
+     *
+     * @param row       The row of the piece.
+     * @param col       The column of the piece.
+     * @return          The piece at the given coordinates.
+     */
+    public Piece getPiece(int row, int col) {
+        return _chessboard[row][col].getPiece();
     }
 }

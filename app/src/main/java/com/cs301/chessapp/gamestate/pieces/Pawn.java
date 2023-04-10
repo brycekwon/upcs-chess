@@ -1,12 +1,10 @@
 package com.cs301.chessapp.gamestate.pieces;
 
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Pawn
@@ -49,48 +47,62 @@ public class Pawn extends Piece {
      *
      * @param row           The current row of the piece.
      * @param col           The current col of the piece.
-     * @param board         The board that the piece is on.
+     * @param gamestate     The board that the piece is on.
      * @return              The list of valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
 
-        if (this._player == 0) {
+        if (this._player == ChessGameState.PLAYER_1) {
             // check if pawn can move forward
-            if (row + 1 < 8 && board[row + 1][col].getPiece() == null) {
+            if (row + 1 < 8 && gamestate.getPiece(row + 1, col) == null) {
                 valid.add(new PieceMove(row, col, row + 1, col));
-            }
-            // check if pawn can move forward two spaces
-            if (row == 1 && board[row + 1][col].getPiece() == null && board[row + 2][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row + 2, col));
-            }
-            // check if pawn can capture a piece diagonally
-            if (row + 1 < 8 && col + 1 < 8 && board[row + 1][col + 1].getPiece() != null && board[row + 1][col + 1].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, row + 1, col + 1));
-            }
-            // check if pawn can capture a piece diagonally
-            if (row + 1 < 8 && col - 1 >= 0 && board[row + 1][col - 1].getPiece() != null && board[row + 1][col - 1].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, row + 1, col - 1));
-            }
-        } else {
-            // check if pawn can move forward
-            if (row - 1 >= 0 && board[row - 1][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row - 1, col));
-            }
-            // check if pawn can move forward two spaces
-            if (row == 6 && board[row - 1][col].getPiece() == null && board[row - 2][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row - 2, col));
-            }
-            // check if pawn can capture a piece diagonally
-            if (row - 1 >= 0 && col + 1 < 8 && board[row - 1][col + 1].getPiece() != null && board[row - 1][col + 1].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, row - 1, col + 1));
-            }
-        }
 
-        // check if pawn can capture a piece diagonally
-        if (row - 1 >= 0 && col - 1 >= 0 && board[row - 1][col - 1].getPiece() != null && board[row - 1][col - 1].getPiece().getPlayer() != this._player) {
-            valid.add(new PieceMove(row, col, row - 1, col - 1));
+                // check if pawn can move forward two spaces
+                if (row == 1 && gamestate.getPiece(row + 2, col) == null) {
+                    valid.add(new PieceMove(row, col, row + 2, col));
+                }
+            }
+
+            // check if pawn can capture diagonally
+            if (hasValidBounds(row + 1, col + 1)) {
+                if (gamestate.getPiece(row + 1, col + 1) != null && gamestate.getPiece(row + 1, col + 1).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row + 1, col + 1));
+                }
+            }
+
+            // check if pawn can capture diagonally
+            if (hasValidBounds(row + 1, col - 1)) {
+                if (gamestate.getPiece(row + 1, col - 1) != null && gamestate.getPiece(row + 1, col - 1).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row + 1, col - 1));
+                }
+            }
+
+        } else if (this._player == ChessGameState.PLAYER_2) {
+            // check if pawn can move forward
+            if (row - 1 >= 0 && gamestate.getPiece(row - 1, col) == null) {
+                valid.add(new PieceMove(row, col, row - 1, col));
+
+                // check if pawn can move forward two spaces
+                if (row == 6 && gamestate.getPiece(row - 2, col) == null) {
+                    valid.add(new PieceMove(row, col, row - 2, col));
+                }
+            }
+
+            // check if pawn can capture diagonally
+            if (hasValidBounds(row - 1, col + 1)) {
+                if (gamestate.getPiece(row - 1, col + 1) != null && gamestate.getPiece(row - 1, col + 1).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row - 1, col + 1));
+                }
+            }
+
+            // check if pawn can capture diagonally
+            if (hasValidBounds(row - 1, col - 1)) {
+                if (gamestate.getPiece(row - 1, col - 1) != null && gamestate.getPiece(row - 1, col - 1).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row - 1, col - 1));
+                }
+            }
         }
 
         return valid;

@@ -3,8 +3,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Knight
@@ -45,26 +45,20 @@ public class Knight extends Piece {
      *
      * @param row           The current row of the piece.
      * @param col           The current col of the piece.
-     * @param board         The board that the piece is on.
+     * @param gamestate     The board that the piece is on.
      * @return              The list of valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // Check all possible moves
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
-                // Check if the move is valid
                 if (Math.abs(i) + Math.abs(j) == 3) {
-                    // Check if the move is on the board
                     if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
-                        // Check if the move is on an empty square
-                        if (board[row + i][col + j].getPiece() == null) {
+                        if (gamestate.getPiece(row + i, col + j) == null) {
                             valid.add(new PieceMove(row, col, row + i, col + j));
-                        }
-                        // Check if the move is on an enemy square
-                        else if (board[row + i][col + j].getPiece().getPlayer() != this._player) {
+                        } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
                             valid.add(new PieceMove(row, col, row + i, col + j));
                         }
                     }

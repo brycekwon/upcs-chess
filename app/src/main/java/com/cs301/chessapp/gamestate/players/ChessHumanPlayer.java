@@ -1,7 +1,6 @@
 package com.cs301.chessapp.gamestate.players;
 
 
-import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -50,6 +49,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void receiveInfo(GameInfo info) {
         if (info instanceof ChessGameState) {
             ChessGameState state = (ChessGameState) info;
+
             surfaceView.setGameState(state);
             surfaceView.invalidate();
         }
@@ -93,7 +93,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         Piece piece = surfaceView.getGameState().getTile(row, col).getPiece();
 
         // if no piece is selected, select the piece at the touch location
-        if (selectedPiece == null && piece != null) {
+        if (piece != null && selectedPiece == null) {
             selectedPiece = piece;
             selectedRow = row;
             selectedCol = col;
@@ -110,16 +110,16 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         else {
             // create a move object and send it to the game
             PieceMove move = new PieceMove(selectedRow, selectedCol, row, col);
-            game.sendAction(new ChessMoveAction(this, move));
+
+            if (selectedPiece.isValidMove(move, (ChessGameState) (game.getGameState()))) {
+                game.sendAction(new ChessMoveAction(this, move));
+            }
 
             // reset the selected piece
             selectedPiece = null;
             selectedRow = -1;
             selectedCol = -1;
         }
-
-        // redraw the board
-        surfaceView.invalidate();
 
         return true;
     }
