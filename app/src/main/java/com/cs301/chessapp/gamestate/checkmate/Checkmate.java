@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.*;
@@ -13,13 +14,13 @@ public class Checkmate {
     boolean inCheck = false; // true if king is in check
     private int kingX; // position of king x
     private int kingY; // position of king y
-    ChessSquare[][] board; //board state
+    ChessGameState gamestate; //board state
 
     Piece k;
-    public Checkmate(int player, ChessSquare[][] boardstate){
+    public Checkmate(int player, ChessGameState boardstate){
         _player = player;
         inCheck = false;
-        this.board = boardstate;
+        this.gamestate = boardstate;
     }
 
 
@@ -27,7 +28,7 @@ public class Checkmate {
     public void setKing(int player){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getPlayer() == player && (board[i][j].getPiece().getValue() == 100)){
+                if(gamestate.getPiece(i, j).getPlayer() == player && (gamestate.getPiece(i, j).getValue() == 100)){
                         kingX = i;
                         kingY = j;
                         return;
@@ -45,9 +46,9 @@ public class Checkmate {
     public ArrayList<PieceMove> getKingMoves(){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getValue() == 100){
-                    k = board[i][j].getPiece();
-                    return k.getMoves(i, j, board);
+                if(gamestate.getPiece(i, j).getValue() == 100){
+                    k = gamestate.getPiece(i, j);
+                    return k.getMoves(i, j, gamestate);
                 }
             }
         }
@@ -59,8 +60,8 @@ public class Checkmate {
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (board[i][j].getPiece().getValue() == p.getValue()) {
-                        return p.getMoves(i,j,board);
+                    if (gamestate.getPiece(i, j).getValue() == p.getValue()) {
+                        return p.getMoves(i,j, gamestate);
                     }
                 }
             }
@@ -79,8 +80,8 @@ public class Checkmate {
         ArrayList<Piece> oppositePiece = new ArrayList<Piece>();
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(board[i][j].getPiece().getPlayer() == _player){
-                    oppositePiece.add(board[i][j].getPiece());
+                if(gamestate.getPiece(i, j).getPlayer() == _player){
+                    oppositePiece.add(gamestate.getPiece(i, j));
                 }
             }
         }

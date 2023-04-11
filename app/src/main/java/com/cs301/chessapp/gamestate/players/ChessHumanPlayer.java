@@ -1,15 +1,16 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.view.MotionEvent;
+
 import android.view.View;
+import android.view.MotionEvent;
 
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.Piece;
+import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
@@ -35,6 +36,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     public ChessHumanPlayer(String name, int layoutId) {
         super(name);
+
         this.layoutId = layoutId;
     }
 
@@ -47,6 +49,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void receiveInfo(GameInfo info) {
         if (info instanceof ChessGameState) {
             ChessGameState state = (ChessGameState) info;
+
             surfaceView.setGameState(state);
             surfaceView.invalidate();
         }
@@ -56,7 +59,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void setAsGui(GameMainActivity activity) {
         activity.setContentView(layoutId);
 
-        surfaceView = activity.findViewById(R.id.chessPerspectiveWhite2);
+        surfaceView = activity.findViewById(R.id.chessWhitePerspective);
         surfaceView.setOnTouchListener(this);
     }
 
@@ -65,6 +68,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      * This method is called when the user touches the screen. It is used to
      * determine the location of the touch and then pass that information to
      * the game.
+     *
      * @param view          the view that was touched
      * @param motionEvent   the MotionEvent object that contains the information
      * @return              true if the touch was handled, false otherwise
@@ -73,33 +77,49 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public boolean onTouch(View view, MotionEvent motionEvent) {
         // do not track sliding movements
         if (motionEvent.getAction() != MotionEvent.ACTION_DOWN) {
-            return false;
+            return true;
         }
 
-        PieceMove move = null;
+        // get the location of the touch and ensure it is on the board
         float x = motionEvent.getX();
         float y = motionEvent.getY();
-
         if (x < boardLeft || x > boardRight || y < boardTop || y > boardBottom) {
             return true;
         }
 
+        // determine the row and column of the touch
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
+        Piece piece = surfaceView.getGameState().getTile(row, col).getPiece();
 
-        if (selectedPiece == null) {
-            selectedPiece = surfaceView.getGameState().getTile(row, col).getPiece();
+        // if no piece is selected, select the piece at the touch location
+        if (piece != null && selectedPiece == null) {
+            selectedPiece = piece;
             selectedRow = row;
             selectedCol = col;
-        } else {
-            move = new PieceMove(selectedRow, selectedCol, row, col);
-            game.sendAction(new ChessMoveAction(this, move));
+        }
 
+        // if the selected piece and new piece belong to the same player, select the new piece
+        else if (piece != null && selectedPiece.getPlayer() == piece.getPlayer()) {
+            selectedPiece = piece;
+            selectedRow = row;
+            selectedCol = col;
+        }
+
+        // if a piece is already selected, move it to the touch location
+        else {
+            // create a move object and send it to the game
+            PieceMove move = new PieceMove(selectedRow, selectedCol, row, col);
+
+            if (selectedPiece.isValidMove(move, (ChessGameState) (game.getGameState()))) {
+                game.sendAction(new ChessMoveAction(this, move));
+            }
+
+            // reset the selected piece
             selectedPiece = null;
             selectedRow = -1;
             selectedCol = -1;
         }
-        surfaceView.invalidate();
 
         return true;
     }

@@ -9,8 +9,8 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
-import com.cs301.chessapp.gamestate.players.ChessNormalComputer;
-import com.cs301.chessapp.gamestate.players.ChessSmartComputer;
+import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
+import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 
 import java.util.ArrayList;
 
@@ -34,30 +34,30 @@ public class ChessMainActivity extends GameMainActivity {
     public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
 
-        playerTypes.add(new GamePlayerType("Local Human Player 1") {
+        playerTypes.add(new GamePlayerType("Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new ChessHumanPlayer(name, R.layout.activity_main);
             }
         });
 
-        playerTypes.add(new GamePlayerType("Local Computer Player 1") {
+        playerTypes.add(new GamePlayerType("Computer Player: Normal") {
             @Override
             public GamePlayer createPlayer(String name) {
-                return new ChessNormalComputer(name);
+                return new ChessComputerNormal(name);
             }
         });
 
-        playerTypes.add(new GamePlayerType("Local Computer Player Smart") {
+        playerTypes.add(new GamePlayerType("Computer Player: Smart") {
             @Override
             public GamePlayer createPlayer(String name) {
-                return new ChessSmartComputer(name);
+                return new ChessComputerSmart(name);
             }
         });
 
         // Create a game configuration class for Chess
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
-        defaultConfig.addPlayer("Human Person 1", 0);
-        defaultConfig.addPlayer("Computer Person 2", 1);
+        defaultConfig.addPlayer("Player 1", 0);
+        defaultConfig.addPlayer("Player 2", 1);
 
         return defaultConfig;
     }
