@@ -10,6 +10,9 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 public class ChessComputerSmart extends GameComputerPlayer {
     private static final String TAG = "ChessSmartComputer";
+    //The smart vibes; provides x and y cords for capturing pieces
+    int xGetYa;
+    int yGetYa;
 
     /**
      * constructor
@@ -30,7 +33,6 @@ public class ChessComputerSmart extends GameComputerPlayer {
         }
         ChessGameState cgm = (ChessGameState) info;
 
-
         sleep(1);
 
         //pieces 0,0 - 2,7
@@ -49,6 +51,27 @@ public class ChessComputerSmart extends GameComputerPlayer {
                 }
             }
         }
+    }
 
+    /**
+     * TODO: Chris
+     * @param chessGameState
+     * @return capture
+     */
+    private static boolean capture(ChessGameState chessGameState, int x, int y) {
+        ChessSquare cs = chessGameState.getTile(x,y);
+
+        for(int i = 0; i < chessGameState.getBoard().length; i++) {
+            for (int z = 0; z < chessGameState.getBoard()[i].length; z++) {
+                ChessSquare square = chessGameState.getBoard()[i][z];
+                try {
+//                    if(cs.getPiece() )
+                        chessGameState.getTile(x,y);
+                }catch(NullPointerException npe) {
+
+                }
+            }
+        }
+        return false;
     }
 }
