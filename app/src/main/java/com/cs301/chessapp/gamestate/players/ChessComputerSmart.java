@@ -61,9 +61,9 @@ public class ChessComputerSmart extends GameComputerPlayer {
     private static boolean capture(ChessGameState chessGameState, int x, int y) {
         ChessSquare cs = chessGameState.getTile(x,y);
 
-        for(int i = 0; i < chessGameState.getChessboard().length; i++) {
-            for (int z = 0; z < chessGameState.getChessboard()[i].length; z++) {
-                ChessSquare square = chessGameState.getChessboard()[i][z];
+        for(int i = 0; i < chessGameState.getBoard().length; i++) {
+            for (int z = 0; z < chessGameState.getBoard()[i].length; z++) {
+                ChessSquare square = chessGameState.getBoard()[i][z];
                 try {
 //                    if(cs.getPiece() )
                         chessGameState.getTile(x,y);
