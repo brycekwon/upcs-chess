@@ -1,16 +1,33 @@
 package com.cs301.chessapp.gamestate.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
 import com.cs301.chessapp.gamestate.ChessGameState;
 
 public class ChessPerspectiveWhite extends FlashSurfaceView {
     private static final String TAG = "ChessPerspectiveWhite";
+    Bitmap bBishop = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bbishop), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap bKing = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bking), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap bKnight = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bknight), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap bPawn = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bpawn), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap bRook = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.brook), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap bQueen = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bqueen), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+
+    Bitmap wBishop = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wbishop), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap wKing = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wking), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap wKnight = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wknight), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap wPawn = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wpawn), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap wRook = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wrook), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+    Bitmap wQueen = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wqueen), (int)TILE_LENGTH, (int)TILE_LENGTH, false);
+
 
     // these constants define the dimensions of the board
     public static final float BOARD_LENGTH = 1400f;
@@ -56,6 +73,7 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
                     g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH,
                             TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH,
                             getPaint(_gameState.getChessboard()[j][i].getColor(), 0));
+
                 } else {
                     g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH,
                             TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH,
@@ -71,34 +89,52 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
                 if (_gameState.getChessboard()[j][i].getPiece() != null) {
                     switch (_gameState.getChessboard()[j][i].getPiece().getName()) {
                         case "Bishop":
-                            g.drawText("B", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wBishop, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bBishop, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         case "King":
-                            g.drawText("K", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wKing, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bKing, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         case "Knight":
-                            g.drawText("N", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wKnight, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bKnight, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         case "Pawn":
-                            g.drawText("P", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wPawn, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bPawn, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         case "Queen":
-                            g.drawText("Q", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wQueen, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bQueen, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         case "Rook":
-                            g.drawText("R", TILE_MARGIN + i * TILE_LENGTH + TILE_LENGTH / 2,
-                                    TILE_MARGIN + j * TILE_LENGTH + TILE_LENGTH / 2,
-                                    getPaint(_gameState.getTile(j, i).getPiece().getColor(), 10));
+                            if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 0) {
+                                g.drawBitmap(wRook, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
+                            else if (_gameState.getChessboard()[j][i].getPiece().getPlayer() == 1) {
+                                g.drawBitmap(bRook, TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, null);
+                            }
                             break;
                         default:
                             break;
@@ -110,12 +146,11 @@ public class ChessPerspectiveWhite extends FlashSurfaceView {
 
     private Paint getPaint(int color, float strokeWidth) {
         android.graphics.Paint paint = new android.graphics.Paint();
-        if () {
-            paint.setColor(Color.RED);
-        }
-        else if () {
+
+            paint.setColor(color);
+
             paint.setColor(Color.BLUE);
-        }
+
 
         paint.setStrokeWidth(strokeWidth);
         paint.setTextSize(60);
