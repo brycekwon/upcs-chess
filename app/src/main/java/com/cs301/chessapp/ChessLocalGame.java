@@ -53,15 +53,13 @@ public class ChessLocalGame extends LocalGame {
         ChessGameState gamestate = (ChessGameState) state;
         ChessMoveAction moveAction = (ChessMoveAction) action;
 
-        if (gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol()).getPiece().isValidMove(moveAction.getMove(), (gamestate.getChessboard()))) {
-            ChessSquare from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
-            ChessSquare to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
+        ChessSquare from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
+        ChessSquare to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
 
-            to.setPiece(from.getPiece());
-            from.setPiece(null);
+        to.setPiece(from.getPiece());
+        from.setPiece(null);
 
-            gamestate.nextTurn();
-        }
+        gamestate.nextTurn();
 
         return true;
     }

@@ -6,7 +6,7 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
  * ChessSquare
  * <p>
  * This class represents a single tile on the chess board. It contains
- * information on if the square is occupied.
+ * information on if the square is occupied and the color of the square.
  *
  * @author Bryce Kwon
  * @author Marshall Zhang
@@ -47,7 +47,7 @@ public class ChessSquare {
     /**
      * ChessSquare copy constructor
      * <p>
-     * This constructor initializes a square with another square.
+     * This constructor initializes a copy of another square.
      *
      * @param other    The square to copy.
      */

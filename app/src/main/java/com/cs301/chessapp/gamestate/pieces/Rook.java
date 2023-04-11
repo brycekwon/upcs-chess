@@ -3,8 +3,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Rook
@@ -19,7 +19,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class Rook extends Piece {
     private static final String TAG = "PieceRook";
@@ -29,13 +29,14 @@ public class Rook extends Piece {
     /**
      * Rook constructor
      * <p>
-     * This constructor extends the Piece constructor and sets the value of the
-     * rook to t. This value is determined by: https://www.officialgamerules.org/chess
+     * This constructor extends the Piece constructor and sets the value and
+     * name of the piece.
      *
      * @param player        The player the piece belongs to.
      */
     public Rook(int player) {
         super(player);
+
         this._value = 5;
         this._name = "Rook";
         this._canCastle = true;
@@ -46,80 +47,68 @@ public class Rook extends Piece {
      * <p>
      * This method returns an ArrayList of all valid moves for the rook.
      *
-     * @param row         The x coordinate of the piece.
-     * @param col         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          An ArrayList of all valid moves.
+     * @param row           The current row of the piece.
+     * @param col           The current col of the piece.
+     * @param gamestate     The board that the piece is on.
+     * @return              The list of valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
         // check all squares to the right
-        for (int i = row + 1; i < 8; i++) {
-            // if the square is empty, add it to the list of valid moves
-            if (board[i][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, i, col));
-            }
-            // if the square is occupied by an enemy piece, add it to the list of valid moves
-            else if (board[i][col].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, i, col));
-                break;
-            }
-            // if the square is occupied by a friendly piece, stop checking
-            else {
-                break;
+        for (int i = 1; i < 8; i++) {
+            if (row + i < 8) {
+                if (gamestate.getPiece(row + i, col) == null) {
+                    valid.add(new PieceMove(row, col, row + i, col));
+                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row + i, col));
+                    break;
+                } else {
+                    break;
+                }
             }
         }
 
         // check all squares to the left
-        for (int i = row - 1; i >= 0; i--) {
-            // if the square is empty, add it to the list of valid moves
-            if (board[i][col].getPiece() == null) {
-                valid.add(new PieceMove(row, col, i, col));
-            }
-            // if the square is occupied by an enemy piece, add it to the list of valid moves
-            else if (board[i][col].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, i, col));
-                break;
-            }
-            // if the square is occupied by a friendly piece, stop checking
-            else {
-                break;
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0) {
+                if (gamestate.getPiece(row - i, col) == null) {
+                    valid.add(new PieceMove(row, col, row - i, col));
+                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row - i, col));
+                    break;
+                } else {
+                    break;
+                }
             }
         }
 
         // check all squares above
-        for (int i = col + 1; i < 8; i++) {
-            // if the square is empty, add it to the list of valid moves
-            if (board[row][i].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row, i));
-            }
-            // if the square is occupied by an enemy piece, add it to the list of valid moves
-            else if (board[row][i].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, row, i));
-                break;
-            }
-            // if the square is occupied by a friendly piece, stop checking
-            else {
-                break;
+        for (int i = 1; i < 8; i++) {
+            if (col + i < 8) {
+                if (gamestate.getPiece(row, col + i) == null) {
+                    valid.add(new PieceMove(row, col, row, col + i));
+                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row, col + i));
+                    break;
+                } else {
+                    break;
+                }
             }
         }
 
         // check all squares below
-        for (int i = col - 1; i >= 0; i--) {
-            // if the square is empty, add it to the list of valid moves
-            if (board[row][i].getPiece() == null) {
-                valid.add(new PieceMove(row, col, row, i));
-            }
-            // if the square is occupied by an enemy piece, add it to the list of valid moves
-            else if (board[row][i].getPiece().getPlayer() != this._player) {
-                valid.add(new PieceMove(row, col, row, i));
-                break;
-            }
-            // if the square is occupied by a friendly piece, stop checking
-            else {
-                break;
+        for (int i = 1; i < 8; i++) {
+            if (col - i >= 0) {
+                if (gamestate.getPiece(row, col - i) == null) {
+                    valid.add(new PieceMove(row, col, row, col - i));
+                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row, col - i));
+                    break;
+                } else {
+                    break;
+                }
             }
         }
 

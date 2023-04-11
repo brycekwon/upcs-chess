@@ -3,8 +3,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * Queen
@@ -27,8 +27,8 @@ public class Queen extends Piece{
     /**
      * Queen constructor
      * <p>
-     * This constructor extends the Piece constructor and sets the value of the
-     * queen to 7. This value is determined by: https://www.officialgamerules.org/chess
+     * This constructor extends the Piece constructor and sets the value and
+     * name of the piece.
      *
      * @param player        The player the piece belongs to.
      */
@@ -43,22 +43,21 @@ public class Queen extends Piece{
      * <p>
      * This method returns an ArrayList of all valid moves for the queen.
      *
-     * @param row         The x coordinate of the piece.
-     * @param col         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          An ArrayList of all valid moves.
+     * @param row           The current row of the piece.
+     * @param col           The current col of the piece.
+     * @param gamestate     The board that the piece is on.
+     * @return              The list of valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // check all directions
+        // check all directions left
         for (int i = 1; i < 8; i++) {
-            // check up
             if (col - i >= 0) {
-                if (board[row][col - i].getPiece() == null) {
+                if (gamestate.getPiece(row, col - i) == null) {
                     valid.add(new PieceMove(row, col, row, col - i));
-                } else if (board[row][col - i].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row, col - i));
                     break;
                 } else {
@@ -67,12 +66,12 @@ public class Queen extends Piece{
             }
         }
 
+        // check all directions right
         for (int i = 1; i < 8; i++) {
-            // check down
             if (col + i < 8) {
-                if (board[row][col + i].getPiece() == null) {
+                if (gamestate.getPiece(row, col + i) == null) {
                     valid.add(new PieceMove(row, col, row, col + i));
-                } else if (board[row][col + i].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row, col + i));
                     break;
                 } else {
@@ -81,12 +80,12 @@ public class Queen extends Piece{
             }
         }
 
+        // check all directions down
         for (int i = 1; i < 8; i++) {
-            // check left
             if (row - i >= 0) {
-                if (board[row - i][col].getPiece() == null) {
+                if (gamestate.getPiece(row - i, col) == null) {
                     valid.add(new PieceMove(row, col, row - i, col));
-                } else if (board[row - i][col].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row - i, col));
                     break;
                 } else {
@@ -95,12 +94,12 @@ public class Queen extends Piece{
             }
         }
 
+        // check all directions up
         for (int i = 1; i < 8; i++) {
-            // check right
             if (row + i < 8) {
-                if (board[row + i][col].getPiece() == null) {
+                if (gamestate.getPiece(row + i, col) == null) {
                     valid.add(new PieceMove(row, col, row + i, col));
-                } else if (board[row + i][col].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row + i, col));
                     break;
                 } else {
@@ -109,26 +108,12 @@ public class Queen extends Piece{
             }
         }
 
+        // check all directions up-left
         for (int i = 1; i < 8; i++) {
-            // check up-left
-            if (row - i >= 0 && col - i >= 0) {
-                if (board[row - i][col - i].getPiece() == null) {
-                    valid.add(new PieceMove(row, col, row - i, col - i));
-                } else if (board[row - i][col - i].getPiece().getPlayer() != this.getPlayer()) {
-                    valid.add(new PieceMove(row, col, row - i, col - i));
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        for (int i = 1; i < 8; i++) {
-            // check up-right
             if (row + i < 8 && col - i >= 0) {
-                if (board[row + i][col - i].getPiece() == null) {
+                if (gamestate.getPiece(row + i, col - i) == null) {
                     valid.add(new PieceMove(row, col, row + i, col - i));
-                } else if (board[row + i][col - i].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row + i, col - i));
                     break;
                 } else {
@@ -137,27 +122,41 @@ public class Queen extends Piece{
             }
         }
 
+        // check all directions up-right
         for (int i = 1; i < 8; i++) {
-            // check down-left
-            if (row - i >= 0 && col + i < 8) {
-                if (board[row - i][col + i].getPiece() == null) {
-                    valid.add(new PieceMove(row, col, row - i, col + i));
-                } else if (board[row - i][col + i].getPiece().getPlayer() != this.getPlayer()) {
-                    valid.add(new PieceMove(row, col, row - i, col + i));
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        for (int i = 1; i < 8; i++) {
-            // check down-right
             if (row + i < 8 && col + i < 8) {
-                if (board[row + i][col + i].getPiece() == null) {
+                if (gamestate.getPiece(row + i, col + i) == null) {
                     valid.add(new PieceMove(row, col, row + i, col + i));
-                } else if (board[row + i][col + i].getPiece().getPlayer() != this.getPlayer()) {
+                } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
                     valid.add(new PieceMove(row, col, row + i, col + i));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions down-left
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0 && col - i >= 0) {
+                if (gamestate.getPiece(row - i, col - i) == null) {
+                    valid.add(new PieceMove(row, col, row - i, col - i));
+                } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row - i, col - i));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions down-right
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0 && col + i < 8) {
+                if (gamestate.getPiece(row - i, col + i) == null) {
+                    valid.add(new PieceMove(row, col, row - i, col + i));
+                } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
+                    valid.add(new PieceMove(row, col, row - i, col + i));
                     break;
                 } else {
                     break;

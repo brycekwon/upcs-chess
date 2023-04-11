@@ -3,8 +3,8 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 
 /**
  * King
@@ -29,8 +29,8 @@ public class King extends Piece{
     /**
      * King constructor
      * <p>
-     * This constructor extends the Piece constructor and sets the value of the
-     * king to 100. This value is determined by: https://www.officialgamerules.org/chess
+     * This constructor extends the Piece constructor and sets the value and
+     * name of the piece.
      *
      * @param player        The player the piece belongs to.
      */
@@ -47,62 +47,28 @@ public class King extends Piece{
      * <p>
      * This method returns an ArrayList of all valid moves for the king.
      *
-     * @param row         The x coordinate of the piece.
-     * @param col         The y coordinate of the piece.
-     * @param board     The board that the piece is on.
-     * @return          An ArrayList of all valid moves.
+     * @param row           The current row of the piece.
+     * @param col           The current col of the piece.
+     * @param gamestate     The board that the piece is on.
+     * @return              The list of valid moves.
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessSquare[][] board) {
-        ArrayList<PieceMove> valid = new ArrayList<PieceMove>();
+    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
+        ArrayList<PieceMove> valid = new ArrayList<>();
 
         // Check all squares around the king
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                // Check if the square is on the board
+        for (int i = - 1; i <= 1; i++) {
+            for (int j = - 1; j <= 1; j++) {
                 if (hasValidBounds(row + i, col + j)) {
-                    // Check if the square is occupied by a friendly piece
-                    if (board[row + i][col + j].getPiece() == null || board[row + i][col + j].getPiece().getPlayer() != _player) {
-                        // Check if the king is in check
-                        if (!inCheck(row + i, col + j, board)) {
-                            // Add the move to the list of valid moves
-                            valid.add(new PieceMove(row, col, row + i, col + j));
-                        }
+                    if (gamestate.getPiece(row + i, col + j) == null) {
+                        valid.add(new PieceMove(row, col, row + i, col + j));
+                    } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
+                        valid.add(new PieceMove(row, col, row + i, col + j));
                     }
                 }
             }
         }
 
         return valid;
-    }
-
-    /**
-     * inCheck
-     * <p>
-     * This method checks if the king is in check.
-     *
-     * @param row         The x coordinate of the king.
-     * @param col         The y coordinate of the king.
-     * @param board     The board that the king is on.
-     * @return          True if the king is in check, false otherwise.
-     */
-    public boolean inCheck(int row, int col, ChessSquare[][] board) {
-        // Check all squares around the king
-        for (int i = - 1; i <= 1; i++) {
-            for (int j = - 1; j <= 1; j++) {
-                // Check if the square is on the board
-                if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
-                    // Check if the square is occupied by an enemy piece
-                    if (board[row + i][col + j].getPiece() != null && board[row + i][col + j].getPiece().getPlayer() != _player) {
-                        // Check if the piece can move to the king's square
-                        if (board[row + i][col + j].getPiece().getMoves(row + i, col + j, board).contains(new PieceMove(row + i, col + j, row, col))) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 }
