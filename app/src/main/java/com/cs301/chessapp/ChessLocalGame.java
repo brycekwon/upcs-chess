@@ -4,6 +4,7 @@ import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.Check;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
@@ -66,6 +67,9 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        return null;
+        String checkState;
+            Check C = new Check((ChessGameState) state);
+            checkState = C.checked();
+            return checkState;
     }
 }
