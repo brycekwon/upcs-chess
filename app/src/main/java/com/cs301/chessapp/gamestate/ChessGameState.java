@@ -37,7 +37,7 @@ public class ChessGameState extends GameState {
      */
     public ChessGameState() {
         // white always goes first
-        this._playerTurn = 0;
+        this._playerTurn = 1;
 
         // initialize the chessboard
         this._chessboard = new ChessSquare[8][8];
@@ -47,7 +47,7 @@ public class ChessGameState extends GameState {
                 if ((i + j) % 2 == 0) {
                     this._chessboard[i][j] = new ChessSquare(Color.WHITE);
                 } else {
-                    this._chessboard[i][j] = new ChessSquare(Color.BLACK);
+                    this._chessboard[i][j] = new ChessSquare(Color.DKGRAY);
                 }
             }
         }
