@@ -23,6 +23,8 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 public class Knight extends Piece {
     private static final String TAG = "PieceKnight";
 
+    private boolean _canCastle;
+
     /**
      * Knight constructor
      * <p>
@@ -36,6 +38,7 @@ public class Knight extends Piece {
 
         this._value = 3;
         this._name = "Knight";
+        this._canCastle = true;
     }
 
     /**

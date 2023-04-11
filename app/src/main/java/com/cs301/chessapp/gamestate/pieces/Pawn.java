@@ -20,7 +20,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
- * @version March 17, 2023
+ * @version Spring 2023
  */
 public class Pawn extends Piece {
     private static final String TAG = "PiecePawn";

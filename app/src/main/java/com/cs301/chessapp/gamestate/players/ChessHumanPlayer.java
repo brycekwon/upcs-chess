@@ -108,6 +108,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         // if a piece is already selected, move it to the touch location
         else {
+            if (selectedPiece == null) {
+                return true;
+            }
+
             // create a move object and send it to the game
             PieceMove move = new PieceMove(selectedRow, selectedCol, row, col);
 
