@@ -31,7 +31,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
                 row = (int) (Math.random() * 8);
                 col = (int) (Math.random() * 8);
             } while (gamestate.getPiece(row, col) == null ||
-                    gamestate.getPiece(row, col).getPlayer() == this.playerNum ||
+                    gamestate.getPiece(row, col).getPlayer() != this.playerNum ||
                     gamestate.getPiece(row, col).getMoves(row, col, gamestate).size() < 1);
 
             // delay

@@ -8,6 +8,7 @@ import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
+import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
@@ -92,11 +93,14 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
         Piece piece = surfaceView.getGameState().getTile(row, col).getPiece();
 
+        Logger.debugLog(TAG, "Touched: " + surfaceView.getGameState().getTile(row, col));
+
         // if no piece is selected, select the piece at the touch location
         if (piece != null && selectedPiece == null) {
             selectedPiece = piece;
             selectedRow = row;
             selectedCol = col;
+            Logger.debugLog(TAG, "Selected: " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
         // if the selected piece and new piece belong to the same player, select the new piece
@@ -104,6 +108,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             selectedPiece = piece;
             selectedRow = row;
             selectedCol = col;
+            Logger.debugLog(TAG, "Selected: " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
         // if a piece is already selected, move it to the touch location
@@ -118,11 +123,6 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             if (selectedPiece.isValidMove(move, (ChessGameState) (game.getGameState()))) {
                 game.sendAction(new ChessMoveAction(this, move));
             }
-
-            // reset the selected piece
-            selectedPiece = null;
-            selectedRow = -1;
-            selectedCol = -1;
         }
 
         return true;
