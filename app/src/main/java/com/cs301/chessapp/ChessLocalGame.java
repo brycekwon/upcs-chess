@@ -1,10 +1,11 @@
 package com.cs301.chessapp;
 
+
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.checkmate.Check;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
@@ -46,7 +47,12 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return playerIdx == ((ChessGameState) state).getTurn();
+        if (playerIdx == ((ChessGameState) state).getTurn()) {
+            Logger.debugLog(TAG, "Player " + (playerIdx == 0 ? "1" : "2") + " move!");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -60,6 +66,8 @@ public class ChessLocalGame extends LocalGame {
         to.setPiece(from.getPiece());
         from.setPiece(null);
 
+        Logger.debugLog(TAG, "Player " + (gamestate.getTurn() == 0 ? "1" : "2") + ": moved " + "[" + moveAction.getStartRow() + ", " + moveAction.getStartCol() + "]" + " to " + "[" + moveAction.getEndRow() + ", " + moveAction.getEndCol() + "]");
+
         gamestate.nextTurn();
 
         return true;
@@ -67,9 +75,6 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        String checkState;
-            Check C = new Check((ChessGameState) state);
-            checkState = C.checked();
-            return checkState;
+        return null;
     }
 }

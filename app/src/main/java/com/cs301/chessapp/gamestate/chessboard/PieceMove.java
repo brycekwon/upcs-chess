@@ -21,6 +21,7 @@ public class PieceMove {
     private final int _col1;
     private final int _row2;
     private final int _col2;
+    private final boolean _isCastle;
 
     /**
      * PieceMove constructor
@@ -39,6 +40,7 @@ public class PieceMove {
         this._col1 = col1;
         this._row2 = row2;
         this._col2 = col2;
+        this._isCastle = false;
     }
 
     /**
@@ -83,6 +85,17 @@ public class PieceMove {
      */
     public int getEndCol() {
         return _col2;
+    }
+
+    /**
+     * isCastle
+     * <p>
+     * This method returns whether or not the move is a castle.
+     *
+     * @return      whether or not the move is a castle
+     */
+    public boolean isCastle() {
+        return _isCastle;
     }
 
     /**

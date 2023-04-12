@@ -37,7 +37,7 @@ public class ChessGameState extends GameState {
      */
     public ChessGameState() {
         // white always goes first
-        this._playerTurn = 1;
+        this._playerTurn = PLAYER_1;
 
         // initialize the chessboard
         this._chessboard = new ChessSquare[8][8];
@@ -52,30 +52,30 @@ public class ChessGameState extends GameState {
             }
         }
 
-        // set up the board with the initial black pieces
-        this._chessboard[0][0].setPiece(new Rook(PLAYER_1));
-        this._chessboard[0][1].setPiece(new Knight(PLAYER_1));
-        this._chessboard[0][2].setPiece(new Bishop(PLAYER_1));
-        this._chessboard[0][3].setPiece(new Queen(PLAYER_1));
-        this._chessboard[0][4].setPiece(new King(PLAYER_1));
-        this._chessboard[0][5].setPiece(new Bishop(PLAYER_1));
-        this._chessboard[0][6].setPiece(new Knight(PLAYER_1));
-        this._chessboard[0][7].setPiece(new Rook(PLAYER_1));
+        // set up the board with the initial white pieces
+        this._chessboard[7][0].setPiece(new Rook(PLAYER_1));
+        this._chessboard[7][1].setPiece(new Knight(PLAYER_1));
+        this._chessboard[7][2].setPiece(new Bishop(PLAYER_1));
+        this._chessboard[7][3].setPiece(new Queen(PLAYER_1));
+        this._chessboard[7][4].setPiece(new King(PLAYER_1));
+        this._chessboard[7][5].setPiece(new Bishop(PLAYER_1));
+        this._chessboard[7][6].setPiece(new Knight(PLAYER_1));
+        this._chessboard[7][7].setPiece(new Rook(PLAYER_1));
         for (int i = 0; i < 8; i++) {
-            this._chessboard[1][i].setPiece(new Pawn(PLAYER_1));
+            this._chessboard[6][i].setPiece(new Pawn(PLAYER_1));
         }
 
-        // set up the board with the initial white pieces
-        this._chessboard[7][0].setPiece(new Rook(PLAYER_2));
-        this._chessboard[7][1].setPiece(new Knight(PLAYER_2));
-        this._chessboard[7][2].setPiece(new Bishop(PLAYER_2));
-        this._chessboard[7][3].setPiece(new Queen(PLAYER_2));
-        this._chessboard[7][4].setPiece(new King(PLAYER_2));
-        this._chessboard[7][5].setPiece(new Bishop(PLAYER_2));
-        this._chessboard[7][6].setPiece(new Knight(PLAYER_2));
-        this._chessboard[7][7].setPiece(new Rook(PLAYER_2));
+        // set up the board with the initial black pieces
+        this._chessboard[0][0].setPiece(new Rook(PLAYER_2));
+        this._chessboard[0][1].setPiece(new Knight(PLAYER_2));
+        this._chessboard[0][2].setPiece(new Bishop(PLAYER_2));
+        this._chessboard[0][3].setPiece(new Queen(PLAYER_2));
+        this._chessboard[0][4].setPiece(new King(PLAYER_2));
+        this._chessboard[0][5].setPiece(new Bishop(PLAYER_2));
+        this._chessboard[0][6].setPiece(new Knight(PLAYER_2));
+        this._chessboard[0][7].setPiece(new Rook(PLAYER_2));
         for (int i = 0; i < 8; i++) {
-            this._chessboard[6][i].setPiece(new Pawn(PLAYER_2));
+            this._chessboard[1][i].setPiece(new Pawn(PLAYER_2));
         }
     }
 

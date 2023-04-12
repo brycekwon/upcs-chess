@@ -34,7 +34,7 @@ public class ChessMainActivity extends GameMainActivity {
     public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
 
-        playerTypes.add(new GamePlayerType("Human Player") {
+        playerTypes.add(new GamePlayerType("Human Player: White") {
             public GamePlayer createPlayer(String name) {
                 return new ChessHumanPlayer(name, R.layout.activity_main);
             }

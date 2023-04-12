@@ -98,8 +98,7 @@ public class ChessSquare {
     @Override
     public String toString() {
         return "ChessSquare { " +
-                "_piece=" + _piece +
-                ", _color=" + _color +
+                "_piece=" + (_piece == null ? "empty" : _piece) +
                 " }";
     }
 }
