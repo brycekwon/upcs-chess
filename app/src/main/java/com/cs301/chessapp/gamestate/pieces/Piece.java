@@ -4,6 +4,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
@@ -70,6 +71,7 @@ public abstract class Piece {
      */
     public boolean isValidMove(PieceMove move, ChessGameState gamestate) {
         ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate);
+//        Log.d("Piece", "Valid moves: " + validMoves.toString());
         for (PieceMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
                     move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
@@ -152,7 +154,6 @@ public abstract class Piece {
     @Override
     public String toString() {
         return _name + " { _player=" + _player +
-                ", _color=" + _color +
                 ", _value=" + _value +
                 " }";
     }
