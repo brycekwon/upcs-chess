@@ -56,7 +56,7 @@ public class Pawn extends Piece {
 
         if (_player == ChessGameState.PLAYER_1) {
             // can move forward
-            if (row - 1 > 0 && gamestate.getPiece(row - 1, col) == null) {
+            if (row - 1 >= 0 && gamestate.getPiece(row - 1, col) == null) {
                 valid.add(new PieceMove(row, col, row - 1, col));
 
                 // can move 2 forward

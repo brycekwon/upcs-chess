@@ -24,8 +24,6 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 public class Rook extends Piece {
     private static final String TAG = "PieceRook";
 
-    private boolean _canCastle;
-
     /**
      * Rook constructor
      * <p>
@@ -39,7 +37,6 @@ public class Rook extends Piece {
 
         this._value = 5;
         this._name = "Rook";
-        this._canCastle = true;
     }
 
     /**
@@ -56,59 +53,51 @@ public class Rook extends Piece {
     public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
 
-        // check all squares to the right
-        for (int i = 1; i < 8; i++) {
-            if (row + i < 8) {
-                if (gamestate.getPiece(row + i, col) == null) {
-                    valid.add(new PieceMove(row, col, row + i, col));
-                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + i, col));
-                    break;
-                } else {
-                    break;
-                }
+        // Check all squares to the right of the piece
+        for (int i = col + 1; i < 8; i++) {
+            if (gamestate.getPiece(row, i) == null) {
+                valid.add(new PieceMove(row, col, row, i));
+            } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row, i));
+                break;
+            } else {
+                break;
             }
         }
 
-        // check all squares to the left
-        for (int i = 1; i < 8; i++) {
-            if (row - i >= 0) {
-                if (gamestate.getPiece(row - i, col) == null) {
-                    valid.add(new PieceMove(row, col, row - i, col));
-                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - i, col));
-                    break;
-                } else {
-                    break;
-                }
+        // Check all squares to the left of the piece
+        for (int i = col - 1; i >= 0; i--) {
+            if (gamestate.getPiece(row, i) == null) {
+                valid.add(new PieceMove(row, col, row, i));
+            } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, row, i));
+                break;
+            } else {
+                break;
             }
         }
 
-        // check all squares above
-        for (int i = 1; i < 8; i++) {
-            if (col + i < 8) {
-                if (gamestate.getPiece(row, col + i) == null) {
-                    valid.add(new PieceMove(row, col, row, col + i));
-                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row, col + i));
-                    break;
-                } else {
-                    break;
-                }
+        // Check all squares above the piece
+        for (int i = row - 1; i >= 0; i--) {
+            if (gamestate.getPiece(i, col) == null) {
+                valid.add(new PieceMove(row, col, i, col));
+            } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, i, col));
+                break;
+            } else {
+                break;
             }
         }
 
-        // check all squares below
-        for (int i = 1; i < 8; i++) {
-            if (col - i >= 0) {
-                if (gamestate.getPiece(row, col - i) == null) {
-                    valid.add(new PieceMove(row, col, row, col - i));
-                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row, col - i));
-                    break;
-                } else {
-                    break;
-                }
+        // Check all squares below the piece
+        for (int i = row + 1; i < 8; i++) {
+            if (gamestate.getPiece(i, col) == null) {
+                valid.add(new PieceMove(row, col, i, col));
+            } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
+                valid.add(new PieceMove(row, col, i, col));
+                break;
+            } else {
+                break;
             }
         }
 

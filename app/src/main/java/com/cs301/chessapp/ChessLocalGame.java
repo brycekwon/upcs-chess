@@ -48,7 +48,7 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        if (playerIdx == ((ChessGameState) state).getTurn()) {
+        if (playerIdx == (((ChessGameState) this.getGameState()).getTurn())) {
             Logger.debugLog(TAG, "Player " + (playerIdx == 0 ? "1" : "2") + "'s turn");
             return true;
         } else {
@@ -72,18 +72,18 @@ public class ChessLocalGame extends LocalGame {
             if (from.getPiece().getPlayer() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_1));
                 from.setPiece(null);
+                gamestate.nextTurn();
                 return true;
             } else if (from.getPiece().getPlayer() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_2));
                 from.setPiece(null);
+                gamestate.nextTurn();
                 return true;
             }
         }
 
         to.setPiece(from.getPiece());
         from.setPiece(null);
-
-        Logger.debugLog(TAG, "Player " + (gamestate.getTurn() == 0 ? "1" : "2") + ": moved " + "[" + moveAction.getStartRow() + ", " + moveAction.getStartCol() + "]" + " to " + "[" + moveAction.getEndRow() + ", " + moveAction.getEndCol() + "]");
 
         gamestate.nextTurn();
 
