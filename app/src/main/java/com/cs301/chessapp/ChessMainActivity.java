@@ -1,5 +1,7 @@
 package com.cs301.chessapp;
 
+import android.widget.TextView;
+
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;
@@ -19,6 +21,8 @@ public class ChessMainActivity extends GameMainActivity {
 
     private static final int PORT_NUMBER = 5213;
 
+    public static String username = "Human Player";
+
     /**
      * createDefaultConfig
      * <p>
@@ -36,6 +40,7 @@ public class ChessMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Human Player: White") {
             public GamePlayer createPlayer(String name) {
+                username = name;
                 return new ChessHumanPlayer(name, R.layout.activity_main);
             }
         });
@@ -58,6 +63,14 @@ public class ChessMainActivity extends GameMainActivity {
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Player 1", 0);
         defaultConfig.addPlayer("Player 2", 1);
+
+        TextView view = findViewById(R.id.player1Name);
+        try {
+            view.setText(username);
+        }
+        catch(NullPointerException ignored) {
+
+        }
 
         return defaultConfig;
     }
