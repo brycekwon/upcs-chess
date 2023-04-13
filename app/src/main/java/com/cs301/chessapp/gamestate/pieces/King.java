@@ -1,6 +1,7 @@
 package com.cs301.chessapp.gamestate.pieces;
 
 
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -66,18 +67,34 @@ public class King extends Piece{
             System.out.print("King in Check!");
             //return checker.safeKing(row, col, gamestate);
         }
-        // Check all squares around the king
+
         for (int i = - 1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
                 if (hasValidBounds(row + i, col + j)) {
-                    if (gamestate.getPiece(row + i, col + j) == null) {
-                        valid.add(new PieceMove(row, col, row + i, col + j));
-                    } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
+                    if(gamestate.getPiece(row + i, col + j) == null){
+                        if (false == checker.checked(row + i, col + j, gamestate)) {
+                            valid.add(new PieceMove(row, col, row + i, col + j));
+                            Log.d("King move", "king valid move checker");
+                        }
+                    }
+                    else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
                         valid.add(new PieceMove(row, col, row + i, col + j));
                     }
                 }
             }
         }
+        // Check all squares around the king
+//        for (int i = - 1; i <= 1; i++) {
+//            for (int j = - 1; j <= 1; j++) {
+//                if (hasValidBounds(row + i, col + j)) {
+//                    if (gamestate.getPiece(row + i, col + j) == null) {
+//                        valid.add(new PieceMove(row, col, row + i, col + j));
+//                    } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
+//                        valid.add(new PieceMove(row, col, row + i, col + j));
+//                    }
+//                }
+//            }
+//        }
 
         return valid;
     }
