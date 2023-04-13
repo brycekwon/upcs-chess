@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gameframework;
 
+import com.cs301.chessapp.ChessMainActivity;
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.actionMessage.EndTurnAction;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.actionMessage.GameOverAckAction;
@@ -20,6 +22,8 @@ import com.cs301.chessapp.gameframework.utilities.Tickable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
+import android.widget.TextView;
 
 /**
  * A class that knows how to play the game. The data in this class represent the

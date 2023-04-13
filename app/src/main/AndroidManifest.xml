@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="31">
+        tools:targetApi="33"
+        android:enableOnBackInvokedCallback="true">
         <activity android:name="com.cs301.chessapp.ChessMainActivity"
             android:exported="true"
             android:screenOrientation="landscape"

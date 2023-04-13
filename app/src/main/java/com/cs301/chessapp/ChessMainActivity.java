@@ -1,5 +1,6 @@
 package com.cs301.chessapp;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import com.cs301.chessapp.gameframework.GameMainActivity;
@@ -21,7 +22,8 @@ public class ChessMainActivity extends GameMainActivity {
 
     private static final int PORT_NUMBER = 5213;
 
-    public static String username = "Human Player";
+    public String username = "Human Player";
+    public String computer = "Computer Player";
 
     /**
      * createDefaultConfig
@@ -48,6 +50,7 @@ public class ChessMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player: Normal") {
             @Override
             public GamePlayer createPlayer(String name) {
+                computer = name;
                 return new ChessComputerNormal(name);
             }
         });
@@ -55,6 +58,7 @@ public class ChessMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player: Smart") {
             @Override
             public GamePlayer createPlayer(String name) {
+                computer = name;
                 return new ChessComputerSmart(name);
             }
         });
@@ -63,14 +67,6 @@ public class ChessMainActivity extends GameMainActivity {
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
         defaultConfig.addPlayer("Player 1", 0);
         defaultConfig.addPlayer("Player 2", 1);
-
-        TextView view = findViewById(R.id.player1Name);
-        try {
-            view.setText(username);
-        }
-        catch(NullPointerException ignored) {
-
-        }
 
         return defaultConfig;
     }
@@ -86,10 +82,23 @@ public class ChessMainActivity extends GameMainActivity {
      */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
+        nameChange(gameState);
         if (gameState == null) {
             return new ChessLocalGame();
         } else {
             return new ChessLocalGame((ChessGameState) gameState);
+        }
+    }
+
+    protected void nameChange(GameState context) {
+        Log.d("Name", "Hits");
+        try {
+            TextView view = findViewById(R.id.player1Name);
+            view.setText(username);
+            TextView viewTwo = findViewById(R.id.player2Name);
+            viewTwo.setText(computer);
+        }
+        catch(NullPointerException ignored) {
         }
     }
 }
