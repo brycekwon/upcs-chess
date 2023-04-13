@@ -61,8 +61,13 @@ public class ChessComputerSmart extends GameComputerPlayer {
             x = r.nextInt(7);
             y = r.nextInt(7);
         }
-        int randomIndex = (r.nextInt() * cgm.getPiece(x, y).getMoves(x, y, cgm).size());
-        PieceMove move = cgm.getPiece(x, y).getMoves(x, y, cgm).get(randomIndex);
+
+        PieceMove move;
+        do {
+            int randomIndex = (r.nextInt() * cgm.getPiece(x, y).getMoves(x, y, cgm).size());
+            move = cgm.getPiece(x, y).getMoves(x, y, cgm).get(randomIndex);
+        } while (cgm.getPiece(x, y).isValidMove(move, cgm));
+
         sleep(.5);
         game.sendAction(new ChessMoveAction(this, move));
     }

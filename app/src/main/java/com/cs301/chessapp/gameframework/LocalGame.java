@@ -179,16 +179,6 @@ public abstract class LocalGame implements Game, Tickable {
         if (msg.obj instanceof GameAction) { // ignore if not GameAction
             GameAction action = (GameAction)msg.obj;
 
-//            Log.d("Name", "Hits");
-//            try {
-//                TextView view = null;
-//                assert false;
-//                view = view.findViewById(R.id.player1Name);
-//                view.setText(ChessMainActivity.username);
-//            }
-//            catch(NullPointerException ignored) {
-//            }
-
             // CASE 1: the game is at the stage where we we waiting for
             // players to tell us their names. In this case, we expect
             // a MyNameIsAction object. Once each player have told us its

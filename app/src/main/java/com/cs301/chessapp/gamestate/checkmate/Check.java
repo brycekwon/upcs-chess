@@ -226,7 +226,7 @@ public class Check {
         //3. determine the piece in path
         //4. if black check its move
         //5. stop if it's a white piece
-
+return false;
     }
 
     public ArrayList<PieceMove> getAttackMove(){return attackMove;}

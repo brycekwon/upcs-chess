@@ -79,17 +79,20 @@ public class ChessMainActivity extends GameMainActivity {
      */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
-        Log.d("Name", "Hits");
-        TextView view = findViewById(R.id.player1Name);
-        try {
-            view.setText(username);
-        }
-        catch(NullPointerException ignored) {
-        }
         if (gameState == null) {
             return new ChessLocalGame();
         } else {
             return new ChessLocalGame((ChessGameState) gameState);
+        }
+    }
+
+    protected void nameChange(GameState context) {
+        Log.d("Name", "Hits");
+        try {
+            TextView view = findViewById(R.id.player1Name);
+            view.setText(ChessMainActivity.username);
+        }
+        catch(NullPointerException ignored) {
         }
     }
 }
