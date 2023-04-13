@@ -22,7 +22,8 @@ public class ChessMainActivity extends GameMainActivity {
 
     private static final int PORT_NUMBER = 5213;
 
-    public static String username = "Human Player";
+    public String username = "Human Player";
+    public String computer = "Computer Player";
 
     /**
      * createDefaultConfig
@@ -49,6 +50,7 @@ public class ChessMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player: Normal") {
             @Override
             public GamePlayer createPlayer(String name) {
+                computer = name;
                 return new ChessComputerNormal(name);
             }
         });
@@ -56,6 +58,7 @@ public class ChessMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player: Smart") {
             @Override
             public GamePlayer createPlayer(String name) {
+                computer = name;
                 return new ChessComputerSmart(name);
             }
         });
@@ -79,6 +82,7 @@ public class ChessMainActivity extends GameMainActivity {
      */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
+        nameChange(gameState);
         if (gameState == null) {
             return new ChessLocalGame();
         } else {
@@ -90,7 +94,9 @@ public class ChessMainActivity extends GameMainActivity {
         Log.d("Name", "Hits");
         try {
             TextView view = findViewById(R.id.player1Name);
-            view.setText(ChessMainActivity.username);
+            view.setText(username);
+            TextView viewTwo = findViewById(R.id.player2Name);
+            viewTwo.setText(computer);
         }
         catch(NullPointerException ignored) {
         }
