@@ -217,7 +217,7 @@ public class Check {
         //4. if black check its move
         //5. stop if it's a white piece
 
-
+        return false;
     }
 }
 
