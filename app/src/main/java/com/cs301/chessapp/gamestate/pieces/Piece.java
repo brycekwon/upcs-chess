@@ -153,7 +153,7 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        return _name + " { _player=" + _player +
+        return _name + " { _player=" + (_player == ChessGameState.PLAYER_1 ? "1" : "2") +
                 ", _value=" + _value +
                 " }";
     }

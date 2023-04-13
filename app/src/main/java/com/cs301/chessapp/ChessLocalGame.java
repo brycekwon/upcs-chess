@@ -7,6 +7,7 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
+import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
 /**
@@ -48,7 +49,7 @@ public class ChessLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         if (playerIdx == ((ChessGameState) state).getTurn()) {
-            Logger.debugLog(TAG, "Player " + (playerIdx == 0 ? "1" : "2") + " move!");
+            Logger.debugLog(TAG, "Player " + (playerIdx == 0 ? "1" : "2") + "'s turn");
             return true;
         } else {
             return false;
@@ -62,6 +63,22 @@ public class ChessLocalGame extends LocalGame {
 
         ChessSquare from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
         ChessSquare to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
+
+        if (from.getPiece() == null) {
+            return true;
+        }
+
+        if (from.getPiece().getName().equals("Pawn")) {
+            if (from.getPiece().getPlayer() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
+                to.setPiece(new Queen(ChessGameState.PLAYER_1));
+                from.setPiece(null);
+                return true;
+            } else if (from.getPiece().getPlayer() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
+                to.setPiece(new Queen(ChessGameState.PLAYER_2));
+                from.setPiece(null);
+                return true;
+            }
+        }
 
         to.setPiece(from.getPiece());
         from.setPiece(null);

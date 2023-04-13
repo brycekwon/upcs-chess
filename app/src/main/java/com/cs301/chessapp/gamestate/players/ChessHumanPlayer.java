@@ -97,6 +97,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         // if no piece is selected, select the piece at the touch location
         if (piece != null && selectedPiece == null) {
+            if (piece.getPlayer() != this.playerNum) {
+                return true;
+            }
+
             selectedPiece = piece;
             selectedRow = row;
             selectedCol = col;
