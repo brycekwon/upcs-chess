@@ -41,7 +41,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:clickable="false"
-                    android:text="@string/player2" />
+                    android:text="Player 2" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -66,7 +66,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:clickable="false"
-                    android:text="@string/player1" />
+                    android:text="Player 1" />
 
                 <ImageView
                     android:id="@+id/imageView3"
