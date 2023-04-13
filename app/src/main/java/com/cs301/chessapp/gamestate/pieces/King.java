@@ -1,10 +1,13 @@
 package com.cs301.chessapp.gamestate.pieces;
 
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.checkmate.Check;
+import com.cs301.chessapp.gamestate.checkmate.Checkmate;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
@@ -57,9 +60,11 @@ public class King extends Piece{
     @Override
     public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
+        Checkmate cm = new Checkmate(this._player, gamestate);
         Check checker = new Check(gamestate);
         if(checker.checked(row, col, gamestate) == true){
-            return null;
+            System.out.print("King in Check!");
+            //return checker.safeKing(row, col, gamestate);
         }
         // Check all squares around the king
         for (int i = - 1; i <= 1; i++) {
