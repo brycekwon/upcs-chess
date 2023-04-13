@@ -170,8 +170,6 @@ public class Check {
         //5. stop if it's a white piece
 
         return false;
+
     }
 }
-
-
-

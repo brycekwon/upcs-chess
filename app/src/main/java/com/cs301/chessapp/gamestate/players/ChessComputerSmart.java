@@ -1,17 +1,12 @@
 package com.cs301.chessapp.gamestate.players;
 
 
-import android.util.Log;
-
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
-
-import java.util.Random;
 
 public class ChessComputerSmart extends GameComputerPlayer {
     private static final String TAG = "ChessSmartComputer";
@@ -33,37 +28,42 @@ public class ChessComputerSmart extends GameComputerPlayer {
         if (info instanceof NotYourTurnInfo) {
             return;
         }
-        ChessGameState cgm = (ChessGameState) info;
+        ChessGameState gamestate = (ChessGameState) info;
 
-        //pieces 0,0 - 2,7
-        Random r = new Random();
-        int x = r.nextInt(7);
-        int y = r.nextInt(7);
-        for (int i = 0; i < cgm.getBoard().length; i++) {
-            for (int z = 0; z < cgm.getBoard()[i].length; z++) {
-                ChessSquare square = cgm.getBoard()[i][z];
-                try {
-                    if (square.getPiece().hasValidBounds(x, y) &&
-                            !square.getPiece().getMoves(i, z, cgm).isEmpty() &&
-                            square.getPiece().getPlayer() == this.playerNum &&
-                            cgm.getPiece(i, z).getPlayer() != this.playerNum &&
-                            cgm.getTurn() == this.playerNum) {
-                        sleep(.5);
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (gamestate.getPiece(row, col) == null) {
+                    continue;
+                } else if (gamestate.getPiece(row, col).getPlayer() != this.playerNum) {
+                    continue;
+                }
 
-                            game.sendAction(new ChessMoveAction(this, new PieceMove(i, z, x, y)));
+
+
+                // check for any capture moves
+                for (PieceMove move : gamestate.getPiece(row, col).getMoves(row, col, gamestate)) {
+                    if (gamestate.getPiece(move.getEndRow(), move.getEndCol()) != null && gamestate.getPiece(move.getEndRow(), move.getEndCol()).getPlayer() != this.playerNum) {
+                        game.sendAction(new ChessMoveAction(this, move));
+                        return;
                     }
-                } catch (NullPointerException ignored) {
-
                 }
             }
         }
-        while(cgm.getPiece(x, y) == null || cgm.getPiece(x, y).getPlayer() != this.playerNum || cgm.getPiece(x, y).getMoves(x, y, cgm).isEmpty()) {
-            x = r.nextInt(7);
-            y = r.nextInt(7);
-        }
-        int randomIndex = (r.nextInt() * cgm.getPiece(x, y).getMoves(x, y, cgm).size());
-        PieceMove move = cgm.getPiece(x, y).getMoves(x, y, cgm).get(randomIndex);
-        sleep(.5);
+
+        int row;
+        int col;
+        do {
+            row = (int) (Math.random() * 8);
+            col = (int) (Math.random() * 8);
+        } while (gamestate.getPiece(row, col) == null ||
+                gamestate.getPiece(row, col).getPlayer() != this.playerNum ||
+                gamestate.getPiece(row, col).getMoves(row, col, gamestate).size() < 1);
+
+        int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate).size());
+        PieceMove move = gamestate.getPiece(row, col).getMoves(row, col, gamestate).get(index);
+
+        sleep(0.5);
+
         game.sendAction(new ChessMoveAction(this, move));
     }
 }
