@@ -3,9 +3,6 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
-import android.graphics.Color;
-import android.util.Log;
-
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
@@ -29,7 +26,6 @@ public abstract class Piece {
     protected int _value;
 
     // these variables contain information for the surface view
-    protected final int _color;
     protected String _name;
 
     /**
@@ -43,7 +39,6 @@ public abstract class Piece {
      */
     public Piece(int player) {
         this._player = player;
-        this._color = player == 0 ? Color.BLUE : Color.RED;
     }
 
     /**
@@ -109,18 +104,6 @@ public abstract class Piece {
     }
 
     /**
-     * getColor
-     * <p>
-     * This method returns the color of the piece. The color is determined by
-     * the constructor and cannot be changed.
-     *
-     * @return  The color of the piece.
-     */
-    public int getColor() {
-        return _color;
-    }
-
-    /**
      * getValue
      * <p>
      * This method returns the value of the piece. The value is determined by
@@ -153,7 +136,7 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        return _name + " { _player=" + _player +
+        return _name + " { _player=" + (_player == ChessGameState.PLAYER_1 ? "1" : "2") +
                 ", _value=" + _value +
                 " }";
     }

@@ -91,37 +91,45 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // determine the row and column of the touch
         int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
-        Piece piece = surfaceView.getGameState().getTile(row, col).getPiece();
+        Piece touchedPiece = surfaceView.getGameState().getPiece(row, col);
 
-        Logger.debugLog(TAG, "Touched: " + surfaceView.getGameState().getTile(row, col));
+        // selecting a new piece
+        if (touchedPiece != null && selectedPiece == null) {
+            // do nothing if trying to select opponent piece
+            if (touchedPiece.getPlayer() != this.playerNum) {
+                return true;
+            }
 
-        // if no piece is selected, select the piece at the touch location
-        if (piece != null && selectedPiece == null) {
-            selectedPiece = piece;
+            // save newly selected piece into memory
+            selectedPiece = touchedPiece;
             selectedRow = row;
             selectedCol = col;
-            Logger.debugLog(TAG, "Selected: " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
+
+            Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
-        // if the selected piece and new piece belong to the same player, select the new piece
-        else if (piece != null && selectedPiece.getPlayer() == piece.getPlayer()) {
-            selectedPiece = piece;
+        // selecting another one of own piece
+        else if (touchedPiece != null && selectedPiece.getPlayer() == touchedPiece.getPlayer()) {
+            selectedPiece = touchedPiece;
             selectedRow = row;
             selectedCol = col;
-            Logger.debugLog(TAG, "Selected: " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
+
+            Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
-        // if a piece is already selected, move it to the touch location
+        // otherwise
         else {
+            // if no piece is currently selected do nothing
             if (selectedPiece == null) {
                 return true;
             }
 
-            // create a move object and send it to the game
+            // attempt to move selected piece into selected location
             PieceMove move = new PieceMove(selectedRow, selectedCol, row, col);
-
-            if (selectedPiece.isValidMove(move, (ChessGameState) (game.getGameState()))) {
+            if (selectedPiece.isValidMove(move, surfaceView.getGameState())) {
                 game.sendAction(new ChessMoveAction(this, move));
+
+                Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": moved " + selectedPiece + " from [" + selectedRow + ", " + selectedCol + "]" + " to [" + row + ", " + col + "]");
             }
         }
 

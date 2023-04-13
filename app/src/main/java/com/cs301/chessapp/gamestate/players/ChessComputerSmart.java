@@ -39,26 +39,30 @@ public class ChessComputerSmart extends GameComputerPlayer {
             for (int z = 0; z < cgm.getBoard()[i].length; z++) {
                 ChessSquare square = cgm.getBoard()[i][z];
                 try {
-                    if (square.getPiece().getPlayer() == 0 && square.getPiece().hasValidBounds(x, y) && (square.getPiece().getMoves(i, z, cgm).isEmpty())) {
+                    if (square.getPiece().hasValidBounds(x, y) &&
+                            !square.getPiece().getMoves(i, z, cgm).isEmpty() &&
+                            square.getPiece().getPlayer() == this.playerNum &&
+                            cgm.getPiece(i, z).getPlayer() != this.playerNum && cgm.getTurn() == this.playerNum) {
                             game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
-
                     }
                 } catch (NullPointerException ignored) {
 
                 }
             }
         }
-//        for (int i = 0; i < cgm.getBoard().length; i++) {
-//            for (int z = 0; z < cgm.getBoard()[i].length; z++) {
-//                ChessSquare square = cgm.getBoard()[i][z];
-//                try {
-//                    if (square.getPiece().getPlayer() == 0 && square.getPiece().hasValidBounds(x, y)) {
-//                        game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
-//                    }
-//                } catch (NullPointerException ignored) {
-//
-//                }
-//            }
-//        }
+        for (int i = 0; i < cgm.getBoard().length; i++) {
+            for (int z = 0; z < cgm.getBoard()[i].length; z++) {
+                ChessSquare square = cgm.getBoard()[i][z];
+                try {
+                    if (square.getPiece().getPlayer() == this.playerNum &&
+                            square.getPiece().hasValidBounds(x, y) &&
+                            cgm.getTurn() == this.playerNum) {
+                        game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
+                    }
+                } catch (NullPointerException ignored) {
+
+                }
+            }
+        }
     }
 }
