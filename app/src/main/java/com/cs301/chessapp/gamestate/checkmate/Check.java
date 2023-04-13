@@ -29,35 +29,139 @@ public class Check {
         //compare each pieces' valid move
     }
 
-    public String checked() {
-        opponentPieces = checker.getOpponentPieces(_player);//collects all the opponents pieces
-        Iterator<Piece> it = opponentPieces.iterator(); //iterator over arraylist
-        int index = -1;
-        while (it.hasNext()) {//while the arraylist has elements
-            index++;
-            //compare the king's current position versus all the opposite pieces
-            if (checker.checkCMP(kingX, kingY, checker.getPieceMoves(opponentPieces.get(index)))) {
-                inCheck = true;
-                //checks if all king's valid moves are being attacked
-                if (checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index))) == null) {
-                    checkState = "Checkmate";
-                    return checkState;
-                } else {//returns king's valid moves
-                    kingMove = checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index)));
-                }
+    public void checked(int row, int col, ChessGameState gamestate) {
+        //1.get king's position
 
-            } else {
-                inCheck = false;
-                if (checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index))) == null) {
-                    checkState = "Stalemate";
-                    return checkState;
+
+        //2.check for all possible attack paths
+        // check all directions left
+        for (int i = 1; i < 8; i++) {
+            if (col - i >= 0) {
+                if (gamestate.getPiece(row, col - i) == null) {
+
+                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
+
                 } else {
-                    kingMove = checker.validMoveCMP(kingX, kingY, checker.getKingMoves(), checker.getPieceMoves(opponentPieces.get(index)));
-                }
 
+                }
             }
         }
-        return checkState;
+
+        // check all directions right
+        for (int i = 1; i < 8; i++) {
+            if (col + i < 8) {
+                if (gamestate.getPiece(row, col + i) == null) {
+
+                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
+
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions down
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0) {
+                if (gamestate.getPiece(row - i, col) == null) {
+
+                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
+
+                } else {
+
+                }
+            }
+        }
+
+        // check all directions up
+        for (int i = 1; i < 8; i++) {
+            if (row + i < 8) {
+                if (gamestate.getPiece(row + i, col) == null) {
+
+                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
+
+                } else {
+
+                }
+            }
+        }
+
+        // check all directions up-left
+        for (int i = 1; i < 8; i++) {
+            if (row + i < 8 && col - i >= 0) {
+                if (gamestate.getPiece(row + i, col - i) == null) {
+
+                } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions up-right
+        for (int i = 1; i < 8; i++) {
+            if (row + i < 8 && col + i < 8) {
+                if (gamestate.getPiece(row + i, col + i) == null) {
+
+                } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions down-left
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0 && col - i >= 0) {
+                if (gamestate.getPiece(row - i, col - i) == null) {
+
+                } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // check all directions down-right
+        for (int i = 1; i < 8; i++) {
+            if (row - i >= 0 && col + i < 8) {
+                if (gamestate.getPiece(row - i, col + i) == null) {
+
+                } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        //check for knights
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+                if (Math.abs(i) + Math.abs(j) == 3) {
+                    if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
+                        if (gamestate.getPiece(row + i, col + j) == null) {
+
+                        } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        //3. determine the piece in path
+        //4. if black check its move
+        //5. stop if it's a white piece
+
+
     }
 }
 
