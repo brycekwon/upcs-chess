@@ -37,8 +37,8 @@ public class ChessComputerSmart extends GameComputerPlayer {
 
         //pieces 0,0 - 2,7
         Random r = new Random();
-        int x = r.nextInt(7);
-        int y = r.nextInt(7);
+        int x = r.nextInt(8);
+        int y = r.nextInt(8);
         for (int i = 0; i < cgm.getBoard().length; i++) {
             for (int z = 0; z < cgm.getBoard()[i].length; z++) {
                 ChessSquare square = cgm.getBoard()[i][z];
@@ -58,8 +58,8 @@ public class ChessComputerSmart extends GameComputerPlayer {
             }
         }
         while(cgm.getPiece(x, y) == null || cgm.getPiece(x, y).getPlayer() != this.playerNum || cgm.getPiece(x, y).getMoves(x, y, cgm).isEmpty()) {
-            x = r.nextInt(7);
-            y = r.nextInt(7);
+            x = r.nextInt(8);
+            y = r.nextInt(8);
         }
 
         PieceMove move;
