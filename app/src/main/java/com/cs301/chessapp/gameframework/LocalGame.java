@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gameframework;
 
+import com.cs301.chessapp.ChessMainActivity;
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.actionMessage.EndTurnAction;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.actionMessage.GameOverAckAction;
@@ -20,6 +22,8 @@ import com.cs301.chessapp.gameframework.utilities.Tickable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
+import android.widget.TextView;
 
 /**
  * A class that knows how to play the game. The data in this class represent the
@@ -174,6 +178,16 @@ public abstract class LocalGame implements Game, Tickable {
     private void receiveMessage(Message msg) {
         if (msg.obj instanceof GameAction) { // ignore if not GameAction
             GameAction action = (GameAction)msg.obj;
+
+//            Log.d("Name", "Hits");
+//            try {
+//                TextView view = null;
+//                assert false;
+//                view = view.findViewById(R.id.player1Name);
+//                view.setText(ChessMainActivity.username);
+//            }
+//            catch(NullPointerException ignored) {
+//            }
 
             // CASE 1: the game is at the stage where we we waiting for
             // players to tell us their names. In this case, we expect

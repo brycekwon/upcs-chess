@@ -196,7 +196,7 @@ public class Check {
                         if (gamestate.getPiece(row + i, col + i) != null) {//checks if there's a piece
                             if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {//checks if the piece is an opponent piece
                                 attackMove = gamestate.getPiece(row + i, col + i).getMoves(row + i, col+i, gamestate);
-                                if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                                if(checker.checkCMP(row, col, attackMove)){//is attacking
                                     Log.d("Check", "King in check from the knight");
                                     return true;
                                 }
@@ -210,8 +210,6 @@ public class Check {
                 }
             }
         }
-
-        return false;
 
         //3. determine the piece in path
         //4. if black check its move

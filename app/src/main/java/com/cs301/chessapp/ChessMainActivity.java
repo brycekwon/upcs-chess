@@ -1,5 +1,6 @@
 package com.cs301.chessapp;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import com.cs301.chessapp.gameframework.GameMainActivity;
@@ -64,14 +65,6 @@ public class ChessMainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Player 1", 0);
         defaultConfig.addPlayer("Player 2", 1);
 
-        TextView view = findViewById(R.id.player1Name);
-        try {
-            view.setText(username);
-        }
-        catch(NullPointerException ignored) {
-
-        }
-
         return defaultConfig;
     }
 
@@ -86,6 +79,13 @@ public class ChessMainActivity extends GameMainActivity {
      */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
+        Log.d("Name", "Hits");
+        TextView view = findViewById(R.id.player1Name);
+        try {
+            view.setText(username);
+        }
+        catch(NullPointerException ignored) {
+        }
         if (gameState == null) {
             return new ChessLocalGame();
         } else {
