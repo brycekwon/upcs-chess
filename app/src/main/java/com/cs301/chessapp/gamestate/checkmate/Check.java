@@ -49,21 +49,27 @@ public class Check {
                     }
                     else{
                         Log.d("No Check", "King safe");
-                        return false;
+
                     }
                 }
             }
         }
 
         // check all directions right
-        for (int i = 1; i < 8; i++) {
+        for(int i = 1; i < 8; i++) {
             if (col + i < 8) {
-                if (gamestate.getPiece(row, col + i) == null) {
+                if (gamestate.getPiece(row, col + i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row, col + i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row, col + i).getMoves(row, col+i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the right");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
-
-                } else {
-                    break;
+                    }
                 }
             }
         }
@@ -71,12 +77,18 @@ public class Check {
         // check all directions down
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0) {
-                if (gamestate.getPiece(row - i, col) == null) {
+                if (gamestate.getPiece(row-i, col) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row-i, col).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row-i, col).getMoves(row-i, col, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the bottom");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
-
-                } else {
-
+                    }
                 }
             }
         }
@@ -84,12 +96,18 @@ public class Check {
         // check all directions up
         for (int i = 1; i < 8; i++) {
             if (row + i < 8) {
-                if (gamestate.getPiece(row + i, col) == null) {
+                if (gamestate.getPiece(row + i, col) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row + i, col).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row + i, col).getMoves(row + i, col, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the top");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
-
-                } else {
-
+                    }
                 }
             }
         }
@@ -97,13 +115,18 @@ public class Check {
         // check all directions up-left
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col - i >= 0) {
-                if (gamestate.getPiece(row + i, col - i) == null) {
+                if (gamestate.getPiece(row + i, col - i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row + i, col - i).getMoves(row + i, col-i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the up - left");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
-
-                    break;
-                } else {
-                    break;
+                    }
                 }
             }
         }
@@ -111,13 +134,18 @@ public class Check {
         // check all directions up-right
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col + i < 8) {
-                if (gamestate.getPiece(row + i, col + i) == null) {
+                if (gamestate.getPiece(row + i, col + i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row + i, col + i).getMoves(row + i, col+i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the up - right");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
-
-                    break;
-                } else {
-                    break;
+                    }
                 }
             }
         }
@@ -125,13 +153,18 @@ public class Check {
         // check all directions down-left
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col - i >= 0) {
-                if (gamestate.getPiece(row - i, col - i) == null) {
+                if (gamestate.getPiece(row - i, col - i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row - i, col - i).getMoves(row - i, col-i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the down-left");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
-
-                    break;
-                } else {
-                    break;
+                    }
                 }
             }
         }
@@ -139,13 +172,18 @@ public class Check {
         // check all directions down-right
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col + i < 8) {
-                if (gamestate.getPiece(row - i, col + i) == null) {
+                if (gamestate.getPiece(row - i, col + i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row - i, col + i).getMoves(row - i, col + i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the down-right");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
 
-                } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
-
-                    break;
-                } else {
-                    break;
+                    }
                 }
             }
         }
@@ -155,15 +193,25 @@ public class Check {
             for (int j = -2; j <= 2; j++) {
                 if (Math.abs(i) + Math.abs(j) == 3) {
                     if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
-                        if (gamestate.getPiece(row + i, col + j) == null) {
+                        if (gamestate.getPiece(row + i, col + i) != null) {//checks if there's a piece
+                            if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                                attackMove = gamestate.getPiece(row + i, col + i).getMoves(row + i, col+i, gamestate);
+                                if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                                    Log.d("Check", "King in check from the knight");
+                                    return true;
+                                }
+                            }
+                            else{
+                                Log.d("No Check", "King safe");
 
-                        } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
-
+                            }
                         }
                     }
                 }
             }
         }
+
+        return false;
 
         //3. determine the piece in path
         //4. if black check its move
