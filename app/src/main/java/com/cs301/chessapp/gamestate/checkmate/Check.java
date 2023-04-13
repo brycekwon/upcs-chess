@@ -54,7 +54,6 @@ public class Check {
                 }
             }
         }
-        return false;
 
         // check all directions right
         for (int i = 1; i < 8; i++) {
@@ -170,7 +169,7 @@ public class Check {
         //4. if black check its move
         //5. stop if it's a white piece
 
-
+        return false;
     }
 }
 

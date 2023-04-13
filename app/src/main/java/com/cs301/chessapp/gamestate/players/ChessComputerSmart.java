@@ -1,12 +1,17 @@
 package com.cs301.chessapp.gamestate.players;
 
 
+import android.util.Log;
+
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
+
+import java.util.Random;
 
 public class ChessComputerSmart extends GameComputerPlayer {
     private static final String TAG = "ChessSmartComputer";
@@ -30,11 +35,10 @@ public class ChessComputerSmart extends GameComputerPlayer {
         }
         ChessGameState cgm = (ChessGameState) info;
 
-        sleep(.5);
-
         //pieces 0,0 - 2,7
-        int x = (int) (Math.random() * 8);
-        int y = (int) (Math.random() * 8);
+        Random r = new Random();
+        int x = r.nextInt(7);
+        int y = r.nextInt(7);
         for (int i = 0; i < cgm.getBoard().length; i++) {
             for (int z = 0; z < cgm.getBoard()[i].length; z++) {
                 ChessSquare square = cgm.getBoard()[i][z];
@@ -42,27 +46,24 @@ public class ChessComputerSmart extends GameComputerPlayer {
                     if (square.getPiece().hasValidBounds(x, y) &&
                             !square.getPiece().getMoves(i, z, cgm).isEmpty() &&
                             square.getPiece().getPlayer() == this.playerNum &&
-                            cgm.getPiece(i, z).getPlayer() != this.playerNum && cgm.getTurn() == this.playerNum) {
-                            game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
-                    }
-                } catch (NullPointerException ignored) {
-
-                }
-            }
-        }
-        for (int i = 0; i < cgm.getBoard().length; i++) {
-            for (int z = 0; z < cgm.getBoard()[i].length; z++) {
-                ChessSquare square = cgm.getBoard()[i][z];
-                try {
-                    if (square.getPiece().getPlayer() == this.playerNum &&
-                            square.getPiece().hasValidBounds(x, y) &&
+                            cgm.getPiece(i, z).getPlayer() != this.playerNum &&
                             cgm.getTurn() == this.playerNum) {
-                        game.sendAction(new com.cs301.chessapp.gamestate.utilities.ChessMoveAction(this, new PieceMove(i, z, x, y)));
+                        sleep(.5);
+
+                            game.sendAction(new ChessMoveAction(this, new PieceMove(i, z, x, y)));
                     }
                 } catch (NullPointerException ignored) {
 
                 }
             }
         }
+        while(cgm.getPiece(x, y) == null || cgm.getPiece(x, y).getPlayer() != this.playerNum || cgm.getPiece(x, y).getMoves(x, y, cgm).isEmpty()) {
+            x = r.nextInt(7);
+            y = r.nextInt(7);
+        }
+        int randomIndex = (r.nextInt() * cgm.getPiece(x, y).getMoves(x, y, cgm).size());
+        PieceMove move = cgm.getPiece(x, y).getMoves(x, y, cgm).get(randomIndex);
+        sleep(.5);
+        game.sendAction(new ChessMoveAction(this, move));
     }
 }
