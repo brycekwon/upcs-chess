@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
+import android.util.Log;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.Piece;
@@ -15,11 +17,13 @@ public class Check {
     int kingX;
     int kingY;
     ArrayList<Piece> opponentPieces;
-    ArrayList<PieceMove> kingMove;
+    ArrayList<PieceMove> attackMove;
 
     public Check(ChessGameState board) {
+
         _player = board.getTurn();
-        checker.setKing(_player);
+        checker = new Checkmate(_player, board);
+        //checker.setKing(_player);
         kingX = checker.getKingX();
         kingY = checker.getKingY();
         checkState = "No Check";
@@ -29,23 +33,28 @@ public class Check {
         //compare each pieces' valid move
     }
 
-    public void checked(int row, int col, ChessGameState gamestate) {
-        //1.get king's position
-
+    public boolean checked(int row, int col, ChessGameState gamestate) {
 
         //2.check for all possible attack paths
         // check all directions left
         for (int i = 1; i < 8; i++) {
             if (col - i >= 0) {
-                if (gamestate.getPiece(row, col - i) == null) {
-
-                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
-
-                } else {
-
+                if (gamestate.getPiece(row, col - i) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row, col - i).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        attackMove = gamestate.getPiece(row, col - i).getMoves(row, col-i, gamestate);
+                        if(true == checker.checkCMP(row, col, attackMove)){//is attacking
+                            Log.d("Check", "King in check from the left");
+                            return true;
+                        }
+                    }
+                    else{
+                        Log.d("No Check", "King safe");
+                        return false;
+                    }
                 }
             }
         }
+        return false;
 
         // check all directions right
         for (int i = 1; i < 8; i++) {

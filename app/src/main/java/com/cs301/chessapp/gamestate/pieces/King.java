@@ -4,6 +4,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.Check;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
@@ -25,6 +26,7 @@ public class King extends Piece{
     private static final String TAG = "PieceKing";
 
     private boolean _canCastle;
+
 
     /**
      * King constructor
@@ -55,7 +57,10 @@ public class King extends Piece{
     @Override
     public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
         ArrayList<PieceMove> valid = new ArrayList<>();
-
+        Check checker = new Check(gamestate);
+        if(checker.checked(row, col, gamestate) == true){
+            return null;
+        }
         // Check all squares around the king
         for (int i = - 1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
