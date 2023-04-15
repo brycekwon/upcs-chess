@@ -92,6 +92,16 @@ public class ChessLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        return null;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayer() == ((ChessGameState) state).getTurn()) {
+                    if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return "uh oh game over! ";
     }
 }
