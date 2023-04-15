@@ -97,7 +97,7 @@ public class Checkmate {
             a = list.get(i).getEndRow();//indexing the x component of the valid move in the array list
             b = list.get(i).getEndCol();//indexing the y component
 
-            if(x == a && y == b){//check if the current position equals
+            if(a == x && b == y){//check if the current position equals
                 return true;
             }
         }
@@ -113,10 +113,12 @@ public class Checkmate {
         int b;
 
         for (int i = 0 ; i < kingMove.size(); i ++){
-            a = kingMove.get(i).getEndRow();
-            b = kingMove.get(i).getEndCol();
-            if(!checkCMP(a, b, check)) {//if checkCMP is false, valid move for the king to move
-                blocks.add(new PieceMove(x, a, y, b));
+            for(int j = 0; j < kingMove.size(); j++) {
+                a = kingMove.get(i).getEndRow();
+                b = kingMove.get(j).getEndCol();
+                if (!checkCMP(a, b, check)) {//if checkCMP is false, valid move for the king to move
+                    blocks.add(new PieceMove(x, a, y, b));
+                }
             }
         }
         if(blocks.isEmpty()){
