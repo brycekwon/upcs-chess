@@ -239,6 +239,3 @@ public class Check {
         return checker.validMoveCMP(row, col, kingMove);
     }
 }
-
-
-
