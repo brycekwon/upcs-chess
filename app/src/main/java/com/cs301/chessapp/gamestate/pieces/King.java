@@ -65,7 +65,7 @@ public class King extends Piece{
         Check checker = new Check(gamestate);
         if(checker.checked(row, col, gamestate) == true){
             System.out.print("King in Check!");
-            //return checker.safeKing(row, col, gamestate);
+            return checker.safeKing(row, col, gamestate);
         }
 
         for (int i = - 1; i <= 1; i++) {

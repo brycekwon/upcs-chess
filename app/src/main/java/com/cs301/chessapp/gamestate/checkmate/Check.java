@@ -235,8 +235,8 @@ public class Check {
     public ArrayList<PieceMove> safeKing (int row, int col, ChessGameState gamestate){
         King k = new King(this._player);
         kingMove = k.getMoves(row, col, gamestate);
-        checker.validMoveCMP(row, col, kingMove, getAttackMove());
-        return checker.validMoveCMP(row, col, kingMove, getAttackMove());
+        checker.validMoveCMP(row, col, kingMove);
+        return checker.validMoveCMP(row, col, kingMove);
     }
 }
 

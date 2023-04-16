@@ -105,9 +105,9 @@ public class Checkmate {
     }
 
     //returns all valid moves after comparing
-   public ArrayList<PieceMove> validMoveCMP(int x, int y, ArrayList<PieceMove> kingMove, ArrayList<PieceMove> check){
+   public ArrayList<PieceMove> validMoveCMP(int x, int y, ArrayList<PieceMove> kingMove){
         ArrayList<PieceMove> blocks = new ArrayList<PieceMove>();//indexes the possible moves the king can take
-
+        Check checker = new Check(gamestate);
        //index for the king's possible move
         int a;
         int b;
@@ -116,7 +116,7 @@ public class Checkmate {
             for(int j = 0; j < kingMove.size(); j++) {
                 a = kingMove.get(i).getEndRow();
                 b = kingMove.get(j).getEndCol();
-                if (!checkCMP(a, b, check)) {//if checkCMP is false, valid move for the king to move
+                if (false == checker.checked(a,b,gamestate)) {//if checkCMP is false, valid move for the king to move
                     blocks.add(new PieceMove(x, a, y, b));
                 }
             }
