@@ -13,17 +13,16 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
-import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
 public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
     private static final String TAG = "ChessHumanPlayer";
 
     private int turn;
 
-    private final float boardLeft = ChessPerspectiveWhite.BOARD_MARGIN;
-    private final float boardRight = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
-    private final float boardTop = ChessPerspectiveWhite.BOARD_MARGIN;
-    private final float boardBottom = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
+    private final float boardLeft = ChessPerspective.BOARD_MARGIN;
+    private final float boardRight = ChessPerspective.BOARD_MARGIN + ChessPerspective.BOARD_LENGTH;
+    private final float boardTop = ChessPerspective.BOARD_MARGIN;
+    private final float boardBottom = ChessPerspective.BOARD_MARGIN + ChessPerspective.BOARD_LENGTH;
 
     private ChessPerspective surfaceView;
     private final int layoutId;
@@ -94,8 +93,17 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         }
 
         // determine the row and column of the touch
-        int row = (int) ((y - boardTop) / ChessPerspectiveWhite.TILE_LENGTH);
-        int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
+        int row = -1;
+        int col = -1;
+
+        if (this.turn == ChessGameState.PLAYER_1) {
+            row = (int) ((y - boardTop) / ChessPerspective.TILE_LENGTH);
+            col = (int) ((x - boardLeft) / ChessPerspective.TILE_LENGTH);
+        } else if (this.turn == ChessGameState.PLAYER_2) {
+            row = 7 - (int) ((y - boardTop) / ChessPerspective.TILE_LENGTH);
+            col = 7 - (int) ((x - boardLeft) / ChessPerspective.TILE_LENGTH);
+        }
+
         Piece touchedPiece = surfaceView.getGameState().getPiece(row, col);
 
         Logger.debugLog(TAG, "Player " + (this.turn + 1) + ": touched " + touchedPiece);
