@@ -84,7 +84,7 @@ public class Pawn extends Piece {
                 valid.add(new PieceMove(row, col, row + 1, col));
 
                 // can move 2 forward
-                if (row == 2 && gamestate.getPiece(row + 2, col) == null) {
+                if (row == 1 && gamestate.getPiece(row + 2, col) == null) {
                     valid.add(new PieceMove(row, col, row + 2, col));
                 }
             }

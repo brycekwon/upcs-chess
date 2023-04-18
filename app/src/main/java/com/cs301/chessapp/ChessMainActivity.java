@@ -1,7 +1,5 @@
 package com.cs301.chessapp;
 
-import android.util.Log;
-import android.widget.TextView;
 
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.LocalGame;
@@ -18,39 +16,27 @@ import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import java.util.ArrayList;
 
 public class ChessMainActivity extends GameMainActivity {
-    private static final String TAG = "ChessMainActivity";
-
     private static final int PORT_NUMBER = 5213;
 
-    public String username = "Human Player";
-    public String computer = "Computer Player";
-
-    /**
-     * createDefaultConfig
-     * <p>
-     * Creates a default configuration for a game of chess. This is used when
-     * the app is first installed, and also when the user selects "Reset Game"
-     * from the menu. This method should create a new GameConfig object and
-     * return it. It should also create the default players (e.g., human,
-     * computer, etc.) and add them to the GameConfig object.
-     *
-     * @return      a new GameConfig object
-     */
     @Override
     public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
 
         playerTypes.add(new GamePlayerType("Human Player: White") {
             public GamePlayer createPlayer(String name) {
-                username = name;
-                return new ChessHumanPlayer(name, R.layout.activity_main);
+                return new ChessHumanPlayer(name, ChessGameState.PLAYER_1, R.layout.chess_perspective_white, R.id.whitePerspectiveBoard);
+            }
+        });
+
+        playerTypes.add(new GamePlayerType("Human Player: Black") {
+            public GamePlayer createPlayer(String name) {
+                return new ChessHumanPlayer(name, ChessGameState.PLAYER_2, R.layout.chess_perspective_black, R.id.blackPerspectiveBoard);
             }
         });
 
         playerTypes.add(new GamePlayerType("Computer Player: Normal") {
             @Override
             public GamePlayer createPlayer(String name) {
-                computer = name;
                 return new ChessComputerNormal(name);
             }
         });
@@ -58,47 +44,24 @@ public class ChessMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Computer Player: Smart") {
             @Override
             public GamePlayer createPlayer(String name) {
-                computer = name;
                 return new ChessComputerSmart(name);
             }
         });
 
         // Create a game configuration class for Chess
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
-        defaultConfig.addPlayer("Player 1", 0);
-        defaultConfig.addPlayer("Player 2", 1);
+        defaultConfig.addPlayer("Player 1", 1);
+        defaultConfig.addPlayer("Player 2", 3);
 
         return defaultConfig;
     }
 
-    /**
-     * createLocalGame
-     *
-     * Creates a local game. This method should create a new LocalGame object
-     * and return it.
-     * @param gameState     The desired gameState to start at
-     *
-     * @return      a new LocalGame object
-     */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
-        nameChange(gameState);
         if (gameState == null) {
             return new ChessLocalGame();
         } else {
             return new ChessLocalGame((ChessGameState) gameState);
-        }
-    }
-
-    protected void nameChange(GameState context) {
-        Log.d("Name", "Hits");
-        try {
-            TextView view = findViewById(R.id.player1Name);
-            view.setText(username);
-            TextView viewTwo = findViewById(R.id.player2Name);
-            viewTwo.setText(computer);
-        }
-        catch(NullPointerException ignored) {
         }
     }
 }

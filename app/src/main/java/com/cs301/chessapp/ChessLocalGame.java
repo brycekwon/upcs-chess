@@ -1,13 +1,15 @@
 package com.cs301.chessapp;
 
 
+import android.util.Log;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
-import com.cs301.chessapp.gameframework.utilities.Logger;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.pieces.Queen;
+import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
+import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
 /**
@@ -39,21 +41,33 @@ public class ChessLocalGame extends LocalGame {
     @Override
     public void start(GamePlayer[] players) {
         super.start(players);
+
+        int x = -1;
+        for (GamePlayer p : players) {
+            if (p instanceof ChessHumanPlayer) {
+                x = p.getTurn() == ChessGameState.PLAYER_1 ? ChessGameState.PLAYER_2 : ChessGameState.PLAYER_1;
+            }
+        }
+
+        for (GamePlayer p : players) {
+            if (p instanceof ChessComputerSmart) {
+                ((ChessComputerSmart) p).setTurn(x);
+            }
+        }
     }
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
+        Log.d(TAG, "sendUpdatedStateTo: " + p);
         p.sendInfo(new ChessGameState((ChessGameState) state));
     }
 
     @Override
     protected boolean canMove(int playerIdx) {
-        if (playerIdx == (((ChessGameState) this.getGameState()).getTurn())) {
-            Logger.debugLog(TAG, "Player " + (playerIdx == 0 ? "1" : "2") + "'s turn");
-            return true;
-        } else {
-            return false;
-        }
+        int currPlayer = this.players[playerIdx].getTurn();
+        int currTurn = ((ChessGameState) state).getTurn();
+
+        return currPlayer == currTurn;
     }
 
     @Override

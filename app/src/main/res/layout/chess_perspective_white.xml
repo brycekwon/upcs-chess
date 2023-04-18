@@ -16,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite
-            android:id="@+id/chessWhitePerspective"
-            android:layout_width="0dp"
-            android:layout_height="1290dp"
-            android:layout_weight="1.5" />
+                android:id="@+id/whitePerspectiveBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"/>
 
         <LinearLayout
             android:layout_width="0dp"
