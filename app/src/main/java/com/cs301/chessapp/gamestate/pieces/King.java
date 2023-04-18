@@ -63,10 +63,7 @@ public class King extends Piece{
         ArrayList<PieceMove> valid = new ArrayList<>();
 
         Check checker = new Check(gamestate);
-        for (int a = - 1; a <= 1; a++) {
-            for (int b = -1; b <= 1; b++) {
-                if (hasValidBounds(row + a, col + b) ){
-                    if(checker.checked(row + a, col + b, gamestate) == true) {
+
                         for (int i = -1; i <= 1; i++) {
                             for (int j = -1; j <= 1; j++) {
                                 if (hasValidBounds(row + i, col + j)) {
@@ -76,20 +73,16 @@ public class King extends Piece{
                                             Log.d("King move", "king valid move checker");
                                         }
                                     } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
-                                        valid.add(new PieceMove(row, col, row + i, col + j));
+                                        if (false == checker.checked(row + i, col + j, gamestate)) {
+                                            valid.add(new PieceMove(row, col, row + i, col + j));
+                                            Log.d("King move", "king valid move checker");
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    else {
-                            valid.add(new PieceMove(row, col, row + a, col + b));
 
-                    }
-                }
 
-            }
-        }
 //        else {
 //            // Check all squares around the king
 //            for (int i = -1; i <= 1; i++) {

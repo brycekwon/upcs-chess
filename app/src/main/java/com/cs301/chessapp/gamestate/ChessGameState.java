@@ -80,6 +80,7 @@ public class ChessGameState extends GameState {
         }
     }
 
+    public int getPlayer1(){return PLAYER_1;}
     /**
      * ChessGameState copy constructor
      * <p>
