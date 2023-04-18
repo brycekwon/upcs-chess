@@ -50,10 +50,6 @@ public class Check {
                                 inCheck = true;
                                 break;
                         }
-                        else{
-                            inCheck = false;
-                            break;
-                        }
                     }
                     else{
                         Log.d("No Check - left", "King safe");
@@ -74,10 +70,6 @@ public class Check {
                                 break;
 
                         }
-                        else{
-                            inCheck = false;
-                            break;
-                        }
                     }
                     else{
                         Log.d("No Check - right", "King safe");
@@ -95,10 +87,6 @@ public class Check {
                         if(gamestate.getPiece(row - i, col).getName().equals("Queen") || gamestate.getPiece(row - i, col).getName().equals("Rook")) {
                             Log.d("Check", "King in check from the top");
                             inCheck = true;
-                            break;
-                        }
-                        else{
-                            inCheck = false;
                             break;
                         }
                     }
@@ -120,10 +108,6 @@ public class Check {
                             inCheck = true;
                             break;
                         }
-                        else{
-                            inCheck = false;
-                            break;
-                        }
                     }
                     else{
                         Log.d("No Check - bottom", "King safe");
@@ -141,10 +125,6 @@ public class Check {
                         if(gamestate.getPiece(row + i, col - i).getName().equals("Queen") || gamestate.getPiece(row + i, col - i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the down-left");
                             inCheck = true;
-                            break;
-                        }
-                        else{
-                            inCheck = false;
                             break;
                         }
                     }
@@ -189,10 +169,6 @@ public class Check {
                             inCheck = true;
                             break;
                         }
-                        else{
-                            inCheck = false;
-                            break;
-                        }
                     }
                     else{
                         Log.d("No Check - up-left", "King safe");
@@ -210,10 +186,6 @@ public class Check {
                         if(gamestate.getPiece(row - i, col + i).getName().equals("Queen") || gamestate.getPiece(row - i, col + i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the up-right");
                             inCheck = true;
-                            break;
-                        }
-                        else{
-                            inCheck = false;
                             break;
                         }
                     }
@@ -246,11 +218,10 @@ public class Check {
                     }
                 }
             }
-
         }
         else{
             if(row + 1 <= 7) {
-                if(col + 1 <= 7) {
+                if(col + 1 <= 7 && col - 1 >= 0) {
                     if (gamestate.getPiece(row + 1, col + 1) != null) {//checks if there's a piece
                         if (gamestate.getPiece(row + 1, col + 1).getPlayer() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row + 1, col + 1).getName().equals("Pawn")) {
@@ -259,9 +230,7 @@ public class Check {
                             }
                         }
                     }
-                }
-                else if(col - 1 >= 0){
-                    if (gamestate.getPiece(row + 1, col - 1) != null) {//checks if there's a piece
+                    else if (gamestate.getPiece(row + 1, col - 1) != null) {//checks if there's a piece
                         if (gamestate.getPiece(row + 1, col - 1).getPlayer() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row + 1, col - 1).getName().equals("Pawn")) {
                                 Log.d("Check", "Black King in check from left pawn");

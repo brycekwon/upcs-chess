@@ -63,7 +63,6 @@ public class King extends Piece{
         ArrayList<PieceMove> valid = new ArrayList<>();
 
         Check checker = new Check(gamestate);
-
                         for (int i = -1; i <= 1; i++) {
                             for (int j = -1; j <= 1; j++) {
                                 if (hasValidBounds(row + i, col + j)) {
