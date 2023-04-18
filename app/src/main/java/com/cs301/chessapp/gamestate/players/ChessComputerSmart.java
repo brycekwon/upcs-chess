@@ -31,8 +31,6 @@ public class ChessComputerSmart extends GameComputerPlayer {
                     continue;
                 }
 
-
-
                 // check for any capture moves
                 for (PieceMove move : gamestate.getPiece(row, col).getMoves(row, col, gamestate)) {
                     if (gamestate.getPiece(move.getEndRow(), move.getEndCol()) != null && gamestate.getPiece(move.getEndRow(), move.getEndCol()).getPlayer() != this.turn) {

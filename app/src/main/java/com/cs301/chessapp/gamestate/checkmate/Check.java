@@ -3,7 +3,6 @@ package com.cs301.chessapp.gamestate.checkmate;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.King;
