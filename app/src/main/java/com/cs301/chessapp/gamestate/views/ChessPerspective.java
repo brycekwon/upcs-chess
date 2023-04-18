@@ -61,22 +61,11 @@ public abstract class ChessPerspective extends SurfaceView {
 
     public abstract void onDraw(Canvas g);
 
-    protected void drawCoors(Canvas g) {
-        Paint paint = makePaint(Color.RED, 0);
-        float leftEdge = BOARD_MARGIN + 15f;
-        float topEdge = BOARD_MARGIN + 75f;
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                g.drawText(row+":"+col, leftEdge + (col * TILE_LENGTH), topEdge + (row * TILE_LENGTH), paint);
-            }
-        }
-    }
-
     protected Paint makePaint(int color, float stroke) {
         Paint paint = new Paint();
         paint.setColor(color);
         paint.setStrokeWidth(stroke);
+        paint.setTextSize(60);
 
         return paint;
     }

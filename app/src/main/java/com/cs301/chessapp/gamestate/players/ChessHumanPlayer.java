@@ -18,6 +18,8 @@ import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
     private static final String TAG = "ChessHumanPlayer";
 
+    private int turn;
+
     private final float boardLeft = ChessPerspectiveWhite.BOARD_MARGIN;
     private final float boardRight = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
     private final float boardTop = ChessPerspectiveWhite.BOARD_MARGIN;
@@ -36,11 +38,12 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      *
      * @param name the name of the player
      */
-    public ChessHumanPlayer(String name, int layoutId, int viewId) {
+    public ChessHumanPlayer(String name, int turn,  int layoutId, int viewId) {
         super(name);
 
         this.layoutId = layoutId;
         this.viewId = viewId;
+        this.turn = turn;
     }
 
     @Override
@@ -95,10 +98,12 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         int col = (int) ((x - boardLeft) / ChessPerspectiveWhite.TILE_LENGTH);
         Piece touchedPiece = surfaceView.getGameState().getPiece(row, col);
 
+        Logger.debugLog(TAG, "Player " + (this.turn + 1) + ": touched " + touchedPiece);
+
         // selecting a new piece
         if (touchedPiece != null && selectedPiece == null) {
             // do nothing if trying to select opponent piece
-            if (touchedPiece.getPlayer() != this.playerNum) {
+            if (touchedPiece.getPlayer() != this.turn) {
                 return true;
             }
 
@@ -107,7 +112,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             selectedRow = row;
             selectedCol = col;
 
-            Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
+            Logger.debugLog(TAG, "Player " + (this.turn + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
         // selecting another one of own piece
@@ -116,7 +121,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             selectedRow = row;
             selectedCol = col;
 
-            Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
+            Logger.debugLog(TAG, "Player " + (this.turn + 1) + ": selected " + selectedPiece + " [" + selectedRow + ", " + selectedCol + "]");
         }
 
         // otherwise
@@ -131,11 +136,15 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             if (selectedPiece.isValidMove(move, surfaceView.getGameState())) {
                 game.sendAction(new ChessMoveAction(this, move));
 
-                Logger.debugLog(TAG, "Player " + (this.playerNum + 1) + ": moved " + selectedPiece + " from [" + selectedRow + ", " + selectedCol + "]" + " to [" + row + ", " + col + "]");
+                Logger.debugLog(TAG, "Player " + (this.turn + 1) + ": moved " + selectedPiece + " from [" + selectedRow + ", " + selectedCol + "]" + " to [" + row + ", " + col + "]");
             }
         }
 
         return true;
+    }
+
+    public int getTurn() {
+        return this.turn;
     }
 
     /**
@@ -145,8 +154,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     @Override
     public String toString() {
         return "ChessHumanPlayer { " +
-                "surfaceView=" + surfaceView +
-                ", layoutId=" + layoutId +
+                "name= " + this.name + ", " +
+                "turn= " + this.turn +
                 " }";
     }
 }

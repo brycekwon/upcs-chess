@@ -30,6 +30,18 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         }
     }
 
+    private void drawCoors(Canvas g) {
+        Paint paint = makePaint(Color.RED, 0);
+        float leftEdge = BOARD_MARGIN + 15f;
+        float topEdge = BOARD_MARGIN + 75f;
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                g.drawText(row+":"+col, leftEdge + (col * TILE_LENGTH), topEdge + (row * TILE_LENGTH), paint);
+            }
+        }
+    }
+
     private void drawBoard(Canvas g) {
 
         g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,

@@ -30,13 +30,25 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         }
     }
 
-    private void drawBoard(Canvas g) {
+    private void drawCoors(Canvas g) {
+        Paint paint = makePaint(Color.RED, 0);
+        float leftEdge = BOARD_MARGIN + 15f;
+        float topEdge = BOARD_MARGIN + 75f;
 
+        for (int row = 7; row >= 0; row--) {
+            for (int col = 7; col >= 0; col--) {
+                g.drawText(row+":"+col, leftEdge + (col * TILE_LENGTH), topEdge + (row * TILE_LENGTH), paint);
+            }
+        }
+    }
+
+    // draw the board flipped for the black perspective
+    private void drawBoard(Canvas g) {
         g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,
                 BOARD_MARGIN + BOARD_LENGTH, makePaint(Color.BLACK, 5f));
 
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        for (int row = 7; row >= 0; row--) {
+            for (int col = 7; col >= 0; col--) {
                 g.drawRect(BOARD_MARGIN + (row * TILE_LENGTH), BOARD_MARGIN + (col * TILE_LENGTH),
                         BOARD_MARGIN + ((row + 1) * TILE_LENGTH), BOARD_MARGIN + ((col + 1) * TILE_LENGTH),
                         makePaint(_gamestate.getTile(row, col).getColor(), 0));
@@ -44,18 +56,19 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         }
     }
 
+    // draw the pieces flipped for the black perspective
     private void drawPieces(Canvas g) {
-        Paint paint = makePaint(Color.BLACK, 0);
+        Paint paint = makePaint(Color.BLACK, 0f);
         Bitmap piece;
 
-        for (int row = 7, i = 0; row >= 0; row--, i++) {
-            for (int col = 7, j = 0; col >= 0; col--, j++) {
+        for (int row = 7; row >= 0; row--) {
+            for (int col = 7; col >= 0; col--) {
                 if (_gamestate.getPiece(row, col) == null) {
                     continue;
                 }
 
-                float topEdge = BOARD_MARGIN + (i * TILE_LENGTH);
-                float leftEdge = BOARD_MARGIN + (j * TILE_LENGTH);
+                float leftEdge = BOARD_MARGIN + (col * TILE_LENGTH);
+                float topEdge = BOARD_MARGIN + (row * TILE_LENGTH);
 
                 switch (_gamestate.getPiece(row, col).getName()) {
                     case "King":

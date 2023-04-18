@@ -24,13 +24,13 @@ public class ChessMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Human Player: White") {
             public GamePlayer createPlayer(String name) {
-                return new ChessHumanPlayer(name, R.layout.chess_perspective_white, R.id.whitePerspectiveBoard);
+                return new ChessHumanPlayer(name, ChessGameState.PLAYER_1, R.layout.chess_perspective_white, R.id.whitePerspectiveBoard);
             }
         });
 
         playerTypes.add(new GamePlayerType("Human Player: Black") {
             public GamePlayer createPlayer(String name) {
-                return new ChessHumanPlayer(name, R.layout.chess_perspective_black, R.id.blackPerspectiveBoard);
+                return new ChessHumanPlayer(name, ChessGameState.PLAYER_2, R.layout.chess_perspective_black, R.id.blackPerspectiveBoard);
             }
         });
 
@@ -50,7 +50,7 @@ public class ChessMainActivity extends GameMainActivity {
 
         // Create a game configuration class for Chess
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
-        defaultConfig.addPlayer("Player 1", 0);
+        defaultConfig.addPlayer("Player 1", 1);
         defaultConfig.addPlayer("Player 2", 3);
 
         return defaultConfig;
