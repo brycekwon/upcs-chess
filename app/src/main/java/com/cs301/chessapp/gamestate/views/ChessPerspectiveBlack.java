@@ -35,9 +35,9 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         float leftEdge = BOARD_MARGIN + 15f;
         float topEdge = BOARD_MARGIN + 75f;
 
-        for (int row = 7; row >= 0; row--) {
-            for (int col = 7; col >= 0; col--) {
-                g.drawText(row+":"+col, leftEdge + (col * TILE_LENGTH), topEdge + (row * TILE_LENGTH), paint);
+        for (int row = 0, i=7; row < 8; row++, i--) {
+            for (int col = 0, j=7; col < 8; col++, j--) {
+                g.drawText(i+":"+j, leftEdge + (col * TILE_LENGTH), topEdge + (row * TILE_LENGTH), paint);
             }
         }
     }

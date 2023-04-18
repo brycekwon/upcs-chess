@@ -8,6 +8,7 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
 import com.cs301.chessapp.gamestate.pieces.Queen;
+import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
@@ -52,6 +53,8 @@ public class ChessLocalGame extends LocalGame {
         for (GamePlayer p : players) {
             if (p instanceof ChessComputerSmart) {
                 ((ChessComputerSmart) p).setTurn(x);
+            } else if (p instanceof ChessComputerNormal) {
+                ((ChessComputerNormal) p).setTurn(x);
             }
         }
     }

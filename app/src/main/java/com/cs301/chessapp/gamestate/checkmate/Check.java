@@ -3,7 +3,6 @@ package com.cs301.chessapp.gamestate.checkmate;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.pieces.King;
@@ -196,6 +195,7 @@ public class Check {
                 }
             }
         }
+
         //check for pawns
         if(_player == 0){
             if(row - 1 >= 0) {
@@ -244,6 +244,7 @@ public class Check {
         }
 
         //check for rooks
+
 
         //check for knights
         if(this._player == 1){
