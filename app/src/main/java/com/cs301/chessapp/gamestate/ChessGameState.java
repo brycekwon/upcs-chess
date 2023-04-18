@@ -119,17 +119,6 @@ public class ChessGameState extends GameState {
     }
 
     /**
-     * getBoard
-     * <p>
-     * This method returns the chessboard.
-     *
-     * @return          The current chessboard.
-     */
-    public ChessSquare[][] getBoard() {
-        return _chessboard;
-    }
-
-    /**
      * getTile
      * <p>
      * This method returns the tile at the given coordinates.

@@ -1,68 +1,91 @@
 package com.cs301.chessapp.gamestate.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.cs301.chessapp.gameframework.utilities.FlashSurfaceView;
+import com.cs301.chessapp.gameframework.utilities.Logger;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
 
-public class ChessPerspectiveBlack extends FlashSurfaceView {
-    private static final String TAG = "ChessPerspectiveBlack";
-    // these constants define the dimensions of the board
-    private static final float BOARD_LENGTH = 900f;
-    private static final float BOARD_MARGIN = 50f;
-    private static final float BOARD_STROKE = 5f;
-    private static final float TILE_LENGTH = BOARD_LENGTH / 8;
-    private static final float TILE_MARGIN = BOARD_MARGIN + BOARD_STROKE / 2;
-
-    private ChessGameState _gameState;
-
+public class ChessPerspectiveBlack extends ChessPerspective {
     public ChessPerspectiveBlack(Context context) {
         super(context);
-        setWillNotDraw(false);
-
-        // establish the dimensions of the view
-        setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-        setMinimumHeight((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-
-        // establish the background color
-        setBackgroundColor(Color.GREEN);
     }
 
     public ChessPerspectiveBlack(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        // establish the dimensions of the view
-        setMinimumWidth((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-        setMinimumHeight((int) (BOARD_LENGTH + 2 * BOARD_MARGIN));
-
-        // establish the background color
-        setBackgroundColor(Color.GREEN);
     }
 
-
+    @Override
     public void onDraw(Canvas g) {
-        // draw the board
-        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, BOARD_LENGTH + BOARD_MARGIN, getPaint(Color.BLACK, BOARD_STROKE));
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 == 0) {
-                    // if the sum of the x and y coordinates is even, the square is black
-                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.BLACK, 0));
-                } else {
-                    // if the sum of the x and y coordinates is odd, the square is white
-                    g.drawRect(TILE_MARGIN + i * TILE_LENGTH, TILE_MARGIN + j * TILE_LENGTH, TILE_MARGIN + (i + 1) * TILE_LENGTH, TILE_MARGIN + (j + 1) * TILE_LENGTH, getPaint(Color.WHITE, 0));
-                }
+        this.drawBoard(g);
+        this.drawPieces(g);
+
+        if (Logger.getDebugValue()) {
+            this.drawCoors(g);
+        }
+    }
+
+    private void drawBoard(Canvas g) {
+
+        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,
+                BOARD_MARGIN + BOARD_LENGTH, makePaint(Color.BLACK, 5f));
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                g.drawRect(BOARD_MARGIN + (row * TILE_LENGTH), BOARD_MARGIN + (col * TILE_LENGTH),
+                        BOARD_MARGIN + ((row + 1) * TILE_LENGTH), BOARD_MARGIN + ((col + 1) * TILE_LENGTH),
+                        makePaint(_gamestate.getTile(row, col).getColor(), 0));
             }
         }
     }
-    private Paint getPaint(int color, float strokeWidth) {
-        android.graphics.Paint paint = new android.graphics.Paint();
-        paint.setColor(color);
-        paint.setStrokeWidth(strokeWidth);
-        return paint;
+
+    private void drawPieces(Canvas g) {
+        Paint paint = makePaint(Color.BLACK, 0);
+        Bitmap piece;
+
+        for (int row = 7, i = 0; row >= 0; row--, i++) {
+            for (int col = 7, j = 0; col >= 0; col--, j++) {
+                if (_gamestate.getPiece(row, col) == null) {
+                    continue;
+                }
+
+                float topEdge = BOARD_MARGIN + (i * TILE_LENGTH);
+                float leftEdge = BOARD_MARGIN + (j * TILE_LENGTH);
+
+                switch (_gamestate.getPiece(row, col).getName()) {
+                    case "King":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_KING : B_KING;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    case "Queen":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_QUEEN : B_QUEEN;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    case "Bishop":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_BISHOP : B_BISHOP;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    case "Knight":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_KNIGHT : B_KNIGHT;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    case "Rook":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_ROOK : B_ROOK;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    case "Pawn":
+                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_PAWN : B_PAWN;
+                        g.drawBitmap(piece, leftEdge, topEdge, paint);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

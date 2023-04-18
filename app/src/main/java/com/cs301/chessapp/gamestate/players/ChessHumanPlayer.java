@@ -4,7 +4,6 @@ package com.cs301.chessapp.gamestate.players;
 import android.view.View;
 import android.view.MotionEvent;
 
-import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
@@ -13,6 +12,7 @@ import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
+import com.cs301.chessapp.gamestate.views.ChessPerspective;
 import com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite;
 
 public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
@@ -23,8 +23,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     private final float boardTop = ChessPerspectiveWhite.BOARD_MARGIN;
     private final float boardBottom = ChessPerspectiveWhite.BOARD_MARGIN + ChessPerspectiveWhite.BOARD_LENGTH;
 
-    private ChessPerspectiveWhite surfaceView;
+    private ChessPerspective surfaceView;
     private final int layoutId;
+    private final int viewId;
 
     private Piece selectedPiece;
     private int selectedRow;
@@ -35,10 +36,11 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      *
      * @param name the name of the player
      */
-    public ChessHumanPlayer(String name, int layoutId) {
+    public ChessHumanPlayer(String name, int layoutId, int viewId) {
         super(name);
 
         this.layoutId = layoutId;
+        this.viewId = viewId;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     public void setAsGui(GameMainActivity activity) {
         activity.setContentView(layoutId);
 
-        surfaceView = activity.findViewById(R.id.chessWhitePerspective);
+        surfaceView = activity.findViewById(viewId);
         surfaceView.setOnTouchListener(this);
     }
 
