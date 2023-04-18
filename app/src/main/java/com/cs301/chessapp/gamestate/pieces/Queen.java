@@ -21,7 +21,7 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  * @author Magnus Graham
  * @version March 17, 2023
  */
-public class Queen extends Piece{
+public class Queen extends Piece {
     private static final String TAG = "PieceQueen";
 
     /**

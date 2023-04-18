@@ -47,4 +47,8 @@ public class ChessComputerNormal extends GameComputerPlayer {
             game.sendAction(new ChessMoveAction(this, move));
         }
     }
+
+    public int getTurn() {
+        return 0;
+    }
 }

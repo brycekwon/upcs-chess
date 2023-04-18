@@ -9,20 +9,13 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
 
 public class ChessComputerSmart extends GameComputerPlayer {
-    private static final String TAG = "ChessSmartComputer";
 
-    /**
-     * constructor
-     *
-     * @param name the player's name (e.g., "John")
-     */
+    private int turn;
+
     public ChessComputerSmart(String name) {
         super(name);
     }
 
-    /**
-     * @param info the object representing the information from the game
-     */
     @Override
     protected void receiveInfo(GameInfo info) {
         if (info instanceof NotYourTurnInfo) {
@@ -34,7 +27,7 @@ public class ChessComputerSmart extends GameComputerPlayer {
             for (int col = 0; col < 8; col++) {
                 if (gamestate.getPiece(row, col) == null) {
                     continue;
-                } else if (gamestate.getPiece(row, col).getPlayer() != this.playerNum) {
+                } else if (gamestate.getPiece(row, col).getPlayer() != this.turn) {
                     continue;
                 }
 
@@ -42,7 +35,7 @@ public class ChessComputerSmart extends GameComputerPlayer {
 
                 // check for any capture moves
                 for (PieceMove move : gamestate.getPiece(row, col).getMoves(row, col, gamestate)) {
-                    if (gamestate.getPiece(move.getEndRow(), move.getEndCol()) != null && gamestate.getPiece(move.getEndRow(), move.getEndCol()).getPlayer() != this.playerNum) {
+                    if (gamestate.getPiece(move.getEndRow(), move.getEndCol()) != null && gamestate.getPiece(move.getEndRow(), move.getEndCol()).getPlayer() != this.turn) {
                         game.sendAction(new ChessMoveAction(this, move));
                         return;
                     }
@@ -56,7 +49,7 @@ public class ChessComputerSmart extends GameComputerPlayer {
             row = (int) (Math.random() * 8);
             col = (int) (Math.random() * 8);
         } while (gamestate.getPiece(row, col) == null ||
-                gamestate.getPiece(row, col).getPlayer() != this.playerNum ||
+                gamestate.getPiece(row, col).getPlayer() != this.turn ||
                 gamestate.getPiece(row, col).getMoves(row, col, gamestate).size() < 1);
 
         int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate).size());
@@ -65,5 +58,20 @@ public class ChessComputerSmart extends GameComputerPlayer {
         sleep(0.5);
 
         game.sendAction(new ChessMoveAction(this, move));
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public String toString() {
+        return "ChessComputerSmart { " +
+                "name=" + this.name + ", " +
+                "turn=" + this.turn +
+                " }";
     }
 }
