@@ -97,7 +97,7 @@ public class King extends Piece{
                     //}
                 //}
             //}
-        }
+        //}
         
         return valid;
     }
