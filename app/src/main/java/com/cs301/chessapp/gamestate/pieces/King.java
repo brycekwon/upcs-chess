@@ -66,12 +66,12 @@ public class King extends Piece{
         for (int a = - 1; a <= 1; a++) {
             for (int b = -1; b <= 1; b++) {
                 if (hasValidBounds(row + a, col + b) ){
-                    if(checker.checked(row + a, col + b, gamestate) == true) {
+                    if(checker.checked(row + a, col + b, gamestate)) {
                         for (int i = -1; i <= 1; i++) {
                             for (int j = -1; j <= 1; j++) {
                                 if (hasValidBounds(row + i, col + j)) {
                                     if (gamestate.getPiece(row + i, col + j) == null) {
-                                        if (false == checker.checked(row + i, col + j, gamestate)) {
+                                        if (!checker.checked(row + i, col + j, gamestate)) {
                                             valid.add(new PieceMove(row, col, row + i, col + j));
                                             Log.d("King move", "king valid move checker");
                                         }
