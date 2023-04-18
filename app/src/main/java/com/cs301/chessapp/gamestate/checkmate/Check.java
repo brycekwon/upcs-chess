@@ -208,6 +208,7 @@ public class Check {
                 }
             }
         }
+
         //check for pawns
         if(this._player == 1){
             if(row - 1 >= 0 && col + 1 < 8) {
@@ -255,6 +256,7 @@ public class Check {
         }
 
         //check for rooks
+
 
         //check for knights
         if(this._player == 1){
