@@ -3,8 +3,9 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Rook
@@ -31,10 +32,7 @@ public class Rook extends Piece {
      * @param player        the player the piece belongs to
      */
     public Rook(int player) {
-        super(player);
-
-        this._value = 5;
-        this._name = "Rook";
+        super(player, 5, "Rook");
     }
 
     /**
@@ -48,15 +46,15 @@ public class Rook extends Piece {
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
-        ArrayList<PieceMove> valid = new ArrayList<>();
+    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // Check all squares to the right of the piece
         for (int i = col + 1; i < 8; i++) {
             if (gamestate.getPiece(row, i) == null) {
-                valid.add(new PieceMove(row, col, row, i));
+                validMoves.add(new ChessMove(player, row, col, row, i));
             } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(row, col, row, i));
+                validMoves.add(new ChessMove(player, row, col, row, i));
                 break;
             } else {
                 break;
@@ -66,9 +64,9 @@ public class Rook extends Piece {
         // Check all squares to the left of the piece
         for (int i = col - 1; i >= 0; i--) {
             if (gamestate.getPiece(row, i) == null) {
-                valid.add(new PieceMove(row, col, row, i));
+                validMoves.add(new ChessMove(player, row, col, row, i));
             } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(row, col, row, i));
+                validMoves.add(new ChessMove(player, row, col, row, i));
                 break;
             } else {
                 break;
@@ -78,9 +76,9 @@ public class Rook extends Piece {
         // Check all squares above the piece
         for (int i = row - 1; i >= 0; i--) {
             if (gamestate.getPiece(i, col) == null) {
-                valid.add(new PieceMove(row, col, i, col));
+                validMoves.add(new ChessMove(player, row, col, i, col));
             } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(row, col, i, col));
+                validMoves.add(new ChessMove(player, row, col, i, col));
                 break;
             } else {
                 break;
@@ -90,15 +88,15 @@ public class Rook extends Piece {
         // Check all squares below the piece
         for (int i = row + 1; i < 8; i++) {
             if (gamestate.getPiece(i, col) == null) {
-                valid.add(new PieceMove(row, col, i, col));
+                validMoves.add(new ChessMove(player, row, col, i, col));
             } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
-                valid.add(new PieceMove(row, col, i, col));
+                validMoves.add(new ChessMove(player, row, col, i, col));
                 break;
             } else {
                 break;
             }
         }
 
-        return valid;
+        return validMoves;
     }
 }

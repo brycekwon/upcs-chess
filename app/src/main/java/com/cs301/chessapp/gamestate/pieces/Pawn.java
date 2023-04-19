@@ -3,8 +3,9 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Pawn
@@ -32,10 +33,7 @@ public class Pawn extends Piece {
      * @param player        the player the piece belongs to
      */
     public Pawn(int player) {
-        super(player);
-
-        this._value = 1;
-        this._name = "Pawn";
+        super(player, 1, "Pawn");
 
     }
 
@@ -50,59 +48,59 @@ public class Pawn extends Piece {
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
-        ArrayList<PieceMove> valid = new ArrayList<>();
+    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         if (_player == ChessGameState.PLAYER_1) {
             // can move forward
             if (row - 1 >= 0 && gamestate.getPiece(row - 1, col) == null) {
-                valid.add(new PieceMove(row, col, row - 1, col));
+                validMoves.add(new ChessMove(player, row, col, row - 1, col));
 
                 // can move 2 forward
                 if (row == 6 && gamestate.getPiece(row - 2, col) == null) {
-                    valid.add(new PieceMove(row, col, row - 2, col));
+                    validMoves.add(new ChessMove(player, row, col, row - 2, col));
                 }
             }
 
             // can capture diagonally left
             if (hasValidBounds(row - 1, col - 1)) {
                 if (gamestate.getPiece(row - 1, col - 1) != null && gamestate.getPiece(row - 1, col - 1).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - 1, col - 1));
+                    validMoves.add(new ChessMove(player, row, col, row - 1, col - 1));
                 }
             }
 
             // can capture diagonally right
             if (hasValidBounds(row - 1, col + 1)) {
                 if (gamestate.getPiece(row - 1, col + 1) != null && gamestate.getPiece(row - 1, col + 1).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - 1, col + 1));
+                    validMoves.add(new ChessMove(player, row, col, row - 1, col + 1));
                 }
             }
         } else if (_player == ChessGameState.PLAYER_2) {
             // can move forward
             if (row + 1 < 8 && gamestate.getPiece(row + 1, col) == null) {
-                valid.add(new PieceMove(row, col, row + 1, col));
+                validMoves.add(new ChessMove(player, row, col, row + 1, col));
 
                 // can move 2 forward
                 if (row == 1 && gamestate.getPiece(row + 2, col) == null) {
-                    valid.add(new PieceMove(row, col, row + 2, col));
+                    validMoves.add(new ChessMove(player, row, col, row + 2, col));
                 }
             }
 
             // can capture diagonally left
             if (hasValidBounds(row + 1, col - 1)) {
                 if (gamestate.getPiece(row + 1, col - 1) != null && gamestate.getPiece(row + 1, col - 1).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + 1, col - 1));
+                    validMoves.add(new ChessMove(player, row, col, row + 1, col - 1));
                 }
             }
 
             // can capture diagonally right
             if (hasValidBounds(row + 1, col + 1)) {
                 if (gamestate.getPiece(row + 1, col + 1) != null && gamestate.getPiece(row + 1, col + 1).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + 1, col + 1));
+                    validMoves.add(new ChessMove(player, row, col, row + 1, col + 1));
                 }
             }
         }
 
-        return valid;
+        return validMoves;
     }
 }

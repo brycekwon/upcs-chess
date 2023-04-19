@@ -10,8 +10,7 @@ import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.pieces.Piece;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
 
 /**
@@ -181,9 +180,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             }
 
             // attempt to move selected piece into selected location
-            PieceMove move = new PieceMove(_selectedRow, _selectedCol, row, col);
-            if (_selectedPiece.isValidMove(move, _surfaceView.getGameState())) {
-                game.sendAction(new ChessMoveAction(this, move));
+            ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
+            if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                game.sendAction(move);
             }
         }
 

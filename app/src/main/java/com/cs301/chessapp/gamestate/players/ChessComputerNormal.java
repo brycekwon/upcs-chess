@@ -5,8 +5,7 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * ChessComputerNormal class
@@ -60,17 +59,17 @@ public class ChessComputerNormal extends GameComputerPlayer {
                 col = (int) (Math.random() * 8);
             } while (gamestate.getPiece(row, col) == null ||
                      gamestate.getPiece(row, col).getPlayer() != _playerTurn ||
-                     gamestate.getPiece(row, col).getMoves(row, col, gamestate).size() < 1);
+                     gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size() < 1);
 
             // get a random move from the list of possible moves
-            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate).size());
-            PieceMove move = gamestate.getPiece(row, col).getMoves(row, col, gamestate).get(index);
+            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size());
+            ChessMove move = gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).get(index);
 
             // sleep to allow the user to see the move
             sleep(0.5);
 
             // send the move to the game
-            game.sendAction(new ChessMoveAction(this, move));
+            game.sendAction(move);
         }
     }
 

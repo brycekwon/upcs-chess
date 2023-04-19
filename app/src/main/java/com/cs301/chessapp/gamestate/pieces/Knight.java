@@ -3,8 +3,9 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Knight
@@ -31,10 +32,7 @@ public class Knight extends Piece {
      * @param player        the player the piece belongs to
      */
     public Knight(int player) {
-        super(player);
-
-        this._value = 3;
-        this._name = "Knight";
+        super(player, 3, "Knight");
     }
 
     /**
@@ -48,23 +46,23 @@ public class Knight extends Piece {
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
-        ArrayList<PieceMove> valid = new ArrayList<>();
+    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
                 if (Math.abs(i) + Math.abs(j) == 3) {
                     if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
                         if (gamestate.getPiece(row + i, col + j) == null) {
-                            valid.add(new PieceMove(row, col, row + i, col + j));
+                            validMoves.add(new ChessMove(player, row, col, row + i, col + j));
                         } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
-                            valid.add(new PieceMove(row, col, row + i, col + j));
+                            validMoves.add(new ChessMove(player, row, col, row + i, col + j));
                         }
                     }
                 }
             }
         }
 
-        return valid;
+        return validMoves;
     }
 }

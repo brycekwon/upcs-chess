@@ -3,7 +3,7 @@ package com.cs301.chessapp.gamestate.chessboard;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
 /**
- * ChessTile
+ * ChessTile class
  *
  * This class represents a single tile on the chess board. It contains
  * information on if the square is occupied and the color of the square.

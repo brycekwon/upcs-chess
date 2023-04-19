@@ -3,8 +3,9 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Piece
@@ -23,10 +24,10 @@ public abstract class Piece {
 
     // these variables contain information about the piece
     protected final int _player;
-    protected int _value;
+    protected final int _value;
 
     // these variables contain information for the surface view
-    protected String _name;
+    protected final String _name;
 
     /**
      * Piece constructor
@@ -36,8 +37,10 @@ public abstract class Piece {
      *
      * @param player        the player the piece belongs to
      */
-    public Piece(int player) {
+    public Piece(int player, int value, String name) {
         this._player = player;
+        this._value = value;
+        this._name = name;
     }
 
     /**
@@ -51,7 +54,7 @@ public abstract class Piece {
      * @param gamestate     the current gamestate
      * @return              a list of valid moves
      */
-    public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate);
+    public abstract ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player);
 
     /**
      * isValidMove
@@ -63,10 +66,10 @@ public abstract class Piece {
      * @param gamestate     the current gamestate
      * @return              true if the move is valid, false otherwise
      */
-    public boolean isValidMove(PieceMove move, ChessGameState gamestate) {
-        ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate);
+    public boolean isValidMove(ChessMove move, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate, player);
 
-        for (PieceMove validMove : validMoves) {
+        for (ChessMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
                     move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
                 return true;

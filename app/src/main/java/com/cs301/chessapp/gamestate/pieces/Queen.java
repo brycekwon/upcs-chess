@@ -3,8 +3,9 @@ package com.cs301.chessapp.gamestate.pieces;
 
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Queen
@@ -31,10 +32,7 @@ public class Queen extends Piece {
      * @param player        the player the piece belongs to
      */
     public Queen(int player) {
-        super(player);
-
-        this._value = 9;
-        this._name = "Queen";
+        super(player, 9, "Queen");
     }
 
     /**
@@ -48,16 +46,16 @@ public class Queen extends Piece {
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
-        ArrayList<PieceMove> valid = new ArrayList<>();
+    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // check all directions left
         for (int i = 1; i < 8; i++) {
             if (col - i >= 0) {
                 if (gamestate.getPiece(row, col - i) == null) {
-                    valid.add(new PieceMove(row, col, row, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row, col - i));
                 } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row, col - i));
                     break;
                 } else {
                     break;
@@ -69,9 +67,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (col + i < 8) {
                 if (gamestate.getPiece(row, col + i) == null) {
-                    valid.add(new PieceMove(row, col, row, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row, col + i));
                 } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row, col + i));
                     break;
                 } else {
                     break;
@@ -83,9 +81,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0) {
                 if (gamestate.getPiece(row - i, col) == null) {
-                    valid.add(new PieceMove(row, col, row - i, col));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col));
                 } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - i, col));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col));
                     break;
                 } else {
                     break;
@@ -97,9 +95,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8) {
                 if (gamestate.getPiece(row + i, col) == null) {
-                    valid.add(new PieceMove(row, col, row + i, col));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col));
                 } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + i, col));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col));
                     break;
                 } else {
                     break;
@@ -111,9 +109,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col - i >= 0) {
                 if (gamestate.getPiece(row + i, col - i) == null) {
-                    valid.add(new PieceMove(row, col, row + i, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col - i));
                 } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + i, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col - i));
                     break;
                 } else {
                     break;
@@ -125,9 +123,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col + i < 8) {
                 if (gamestate.getPiece(row + i, col + i) == null) {
-                    valid.add(new PieceMove(row, col, row + i, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col + i));
                 } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row + i, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row + i, col + i));
                     break;
                 } else {
                     break;
@@ -139,9 +137,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col - i >= 0) {
                 if (gamestate.getPiece(row - i, col - i) == null) {
-                    valid.add(new PieceMove(row, col, row - i, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col - i));
                 } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - i, col - i));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col - i));
                     break;
                 } else {
                     break;
@@ -153,9 +151,9 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col + i < 8) {
                 if (gamestate.getPiece(row - i, col + i) == null) {
-                    valid.add(new PieceMove(row, col, row - i, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col + i));
                 } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
-                    valid.add(new PieceMove(row, col, row - i, col + i));
+                    validMoves.add(new ChessMove(player, row, col, row - i, col + i));
                     break;
                 } else {
                     break;
@@ -163,6 +161,6 @@ public class Queen extends Piece {
             }
         }
 
-        return valid;
+        return validMoves;
     }
 }

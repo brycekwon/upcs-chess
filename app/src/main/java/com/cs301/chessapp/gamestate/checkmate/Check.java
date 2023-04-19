@@ -1,15 +1,8 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
-import com.cs301.chessapp.gamestate.pieces.King;
-import com.cs301.chessapp.gamestate.pieces.Piece;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Check {
     int _player;
@@ -18,8 +11,8 @@ public class Check {
     Checkmate checker;
     int kingX;
     int kingY;
-    ArrayList<PieceMove> kingMove;
-    ArrayList<PieceMove> attackMove;
+//    ArrayList<PieceMove> kingMove;
+//    ArrayList<PieceMove> attackMove;
 
 
     public Check(ChessGameState board) {
@@ -278,11 +271,11 @@ public class Check {
 
     }
 
-    public ArrayList<PieceMove> getAttackMove(){return attackMove;}
-    public ArrayList<PieceMove> safeKing (int row, int col, ChessGameState gamestate){
-        King k = new King(this._player);
-        kingMove = k.getMoves(row, col, gamestate);
-        checker.validMoveCMP(row, col, kingMove);
-        return checker.validMoveCMP(row, col, kingMove);
-    }
+//    public ArrayList<PieceMove> getAttackMove(){return attackMove;}
+//    public ArrayList<PieceMove> safeKing (int row, int col, ChessGameState gamestate){
+//        King k = new King(this._player);
+//        kingMove = k.getMoves(row, col, gamestate);
+//        checker.validMoveCMP(row, col, kingMove);
+//        return checker.validMoveCMP(row, col, kingMove);
+//    }
 }
