@@ -3,25 +3,26 @@ package com.cs301.chessapp.gamestate.chessboard;
 
 /**
  * MoveAction
- * <p>
+ *
  * This class represents a move in a chess game. It contains the row and col
  * of the starting and ending positions of the piece that is being moved. The
  * coordinates are immutable after the object is created.
  *
  * @author Bryce Kwon
- * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
+ * @author Marshall Zhang
  * @version Spring 2023
  */
 public class PieceMove {
-    private static final String TAG = "PieceMove";
 
+    // these variables contain the starting position of the piece
     private final int _row1;
     private final int _col1;
+
+    // these variables contain the ending position of the piece
     private final int _row2;
     private final int _col2;
-    private final boolean _isCastle;
 
     /**
      * PieceMove constructor
@@ -40,12 +41,11 @@ public class PieceMove {
         this._col1 = col1;
         this._row2 = row2;
         this._col2 = col2;
-        this._isCastle = false;
     }
 
     /**
      * getStartRow
-     * <p>
+     *
      * This method returns the row of the starting position.
      *
      * @return      row of starting position
@@ -56,7 +56,7 @@ public class PieceMove {
 
     /**
      * getStartCol
-     * <p>
+     *
      * This method returns the column of the starting position.
      *
      * @return      column of starting position
@@ -67,7 +67,7 @@ public class PieceMove {
 
     /**
      * getEndRow
-     * <p>
+     *
      * This method returns the row of the ending position.
      *
      * @return      row of ending position
@@ -78,40 +78,12 @@ public class PieceMove {
 
     /**
      * getEndCol
-     * <p>
+     *
      * This method returns the column of the ending position.
      *
      * @return      column of ending position
      */
     public int getEndCol() {
         return _col2;
-    }
-
-    /**
-     * isCastle
-     * <p>
-     * This method returns whether or not the move is a castle.
-     *
-     * @return      whether or not the move is a castle
-     */
-    public boolean isCastle() {
-        return _isCastle;
-    }
-
-    /**
-     * toString
-     * <p>
-     * This method returns a string representation of the move.
-     *
-     * @return      string representation of the move
-     */
-    @Override
-    public String toString() {
-        return "MoveAction {" +
-                "_row1=" + _row1 +
-                ", _col1=" + _col1 +
-                ", _row2=" + _row2 +
-                ", _col2=" + _col2 +
-                " }";
     }
 }

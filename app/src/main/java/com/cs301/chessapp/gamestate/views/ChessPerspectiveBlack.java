@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.views;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,25 +12,70 @@ import com.cs301.chessapp.gameframework.utilities.Logger;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 
+/**
+ * ChessPerspectiveBlack class
+ *
+ * This class is a child class of ChessPerspective. It is responsible for
+ * displaying the board and pieces from the perspective of black.
+ *
+ * @author Bryce Kwon
+ * @author Christopher Yee
+ * @author Magnus Graham
+ * @author Marshall Zhang
+ * @version Spring 2023
+ */
 public class ChessPerspectiveBlack extends ChessPerspective {
+
+    /**
+     * ChessPerspectiveBlack constructor
+     *
+     * This constructor initializes the surface view.
+     *
+     * @param context       the context of the application
+     */
     public ChessPerspectiveBlack(Context context) {
         super(context);
     }
 
+    /**
+     * ChessPerspectiveBlack constructor
+     *
+     * This constructor initializes the surface view.
+     *
+     * @param context       the context of the application
+     * @param attrs         the attributes of the view
+     */
     public ChessPerspectiveBlack(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * onDraw
+     *
+     * This method draws the board and pieces on the canvas. It is called
+     * automatically by the system.
+     *
+     * @param g     the canvas on which to draw
+     */
     @Override
     public void onDraw(Canvas g) {
-        this.drawBoard(g);
-        this.drawPieces(g);
+        // draw the board and pieces
+        drawBoard(g);
+        drawPieces(g);
 
+        // draw chessboard coordinates if debug mode is on
         if (Logger.getDebugValue()) {
-            this.drawCoors(g);
+            drawCoors(g);
         }
     }
 
+    /**
+     * drawCoors
+     *
+     * This method draws the chessboard coordinates.
+     *
+     * @param g     the canvas on which to draw
+     */
     private void drawCoors(Canvas g) {
         Paint paint = makePaint(Color.RED, 0);
         float leftEdge = BOARD_MARGIN + 15f;
@@ -42,10 +88,16 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         }
     }
 
+    /**
+     * drawBoard
+     *
+     * This method draws the chessboard.
+     *
+     * @param g     the canvas on which to draw
+     */
     private void drawBoard(Canvas g) {
-
-        g.drawRect(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_LENGTH,
-                BOARD_MARGIN + BOARD_LENGTH, makePaint(Color.BLACK, 5f));
+        Paint paint = makePaint(Color.BLACK, 5f);
+        g.drawRect(BOARD_LEFT, BOARD_TOP, BOARD_RIGHT, BOARD_BOTTOM, paint);
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -56,6 +108,13 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         }
     }
 
+    /**
+     * drawPieces
+     *
+     * This method draws the pieces on the board.
+     *
+     * @param g     the canvas on which to draw
+     */
     private void drawPieces(Canvas g) {
         Paint paint = makePaint(Color.BLACK, 0f);
         Bitmap piece;

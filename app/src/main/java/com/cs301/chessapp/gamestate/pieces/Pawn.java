@@ -8,33 +8,32 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Pawn
- * <p>
+ *
  * This class represents a pawn piece in a game of chess. The pawn can move
  * one square forward. If it is in its starting position, it can move two
  * squares forward. It cannot jump over other pieces. It can capture an enemy
  * piece on the square diagonally in front of it. It cannot place itself on a
- * square occupied by a friendly piece. It cannot place its own king in check.
- * It is worth 1 point.
+ * square occupied by a friendly piece. It is worth 1 point.
  *
  * @author Bryce Kwon
- * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
+ * @author Marshall Zhang
  * @version Spring 2023
  */
 public class Pawn extends Piece {
-    private static final String TAG = "PiecePawn";
 
     /**
      * Pawn constructor
-     * <p>
-     * This constructor extends the Piece constructor and sets the value and
-     * name of the piece.
      *
-     * @param player        The player the piece belongs to.
+     * This constructor initializes a pawn with a player and corresponding
+     * value.
+     *
+     * @param player        the player the piece belongs to
      */
     public Pawn(int player) {
         super(player);
+
         this._value = 1;
         this._name = "Pawn";
 
@@ -42,13 +41,13 @@ public class Pawn extends Piece {
 
     /**
      * getMoves
-     * <p>
-     * This method returns an ArrayList of all valid moves for the pawn.
      *
-     * @param row           The current row of the piece.
-     * @param col           The current col of the piece.
-     * @param gamestate     The board that the piece is on.
-     * @return              The list of valid moves.
+     * This method returns all valid moves for the pawn.
+     *
+     * @param row           the row of the piece
+     * @param col           the col of the piece
+     * @param gamestate     the current gamestate
+     * @return              a list of valid moves
      */
     @Override
     public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
