@@ -48,51 +48,97 @@ public class Rook extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        // Check all squares to the right of the piece
-        for (int i = _col + 1; i < 8; i++) {
-            if (gamestate.getPiece(_row, i) == null) {
-                validMoves.add(new ChessMove(player, _row, _col, _row, i));
-            } else if (gamestate.getPiece(_row, i).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, _row, _col, _row, i));
-                break;
-            } else {
-                break;
-            }
-        }
+        int newRow;
+        int newCol;
 
-        // Check all squares to the left of the piece
-        for (int i = _col - 1; i >= 0; i--) {
-            if (gamestate.getPiece(_row, i) == null) {
-                validMoves.add(new ChessMove(player, _row, _col, _row, i));
-            } else if (gamestate.getPiece(_row, i).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, _row, _col, _row, i));
-                break;
-            } else {
-                break;
-            }
-        }
+        boolean blocked_1 = false;
+        boolean blocked_2 = false;
+        boolean blocked_3 = false;
+        boolean blocked_4 = false;
 
-        // Check all squares above the piece
-        for (int i = _row - 1; i >= 0; i--) {
-            if (gamestate.getPiece(i, _col) == null) {
-                validMoves.add(new ChessMove(player, _row, _col, i, _col));
-            } else if (gamestate.getPiece(i, _col).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, _row, _col, i, _col));
-                break;
-            } else {
-                break;
-            }
-        }
+        for (int i = 1; i < 8; i++) {
+            if (hasValidBounds(_row, _col + i) && !blocked_1) {
+                newRow = _row;
+                newCol = _col + i;
 
-        // Check all squares below the piece
-        for (int i = _row + 1; i < 8; i++) {
-            if (gamestate.getPiece(i, _col) == null) {
-                validMoves.add(new ChessMove(player, _row, _col, i, _col));
-            } else if (gamestate.getPiece(i, _col).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, _row, _col, i, _col));
-                break;
-            } else {
-                break;
+                // the tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // the tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_1 = true;
+                }
+
+                // the piece is surrounded by own pieces
+                else {
+                    blocked_1 = true;
+                }
+            }
+
+            if (hasValidBounds(_row, _col - i) && !blocked_2) {
+                newRow = _row;
+                newCol = _col - i;
+
+                // the tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // the tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_2 = true;
+                }
+
+                // the piece is surrounded by own pieces
+                else {
+                    blocked_2 = true;
+                }
+            }
+
+            if (hasValidBounds(_row + i, _col) && !blocked_3) {
+                newRow = _row + i;
+                newCol = _col;
+
+                // the tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // the tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_3 = true;
+                }
+
+                // the piece is surrounded by own pieces
+                else {
+                    blocked_3 = true;
+                }
+            }
+
+            if (hasValidBounds(_row - i, _col) && !blocked_4) {
+                newRow = _row - i;
+                newCol = _col;
+
+                // the tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // the tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_4 = true;
+                }
+
+                // the piece is surrounded by own pieces
+                else {
+                    blocked_4 = true;
+                }
             }
         }
 
