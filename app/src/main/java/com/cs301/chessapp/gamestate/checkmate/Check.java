@@ -2,7 +2,12 @@ package com.cs301.chessapp.gamestate.checkmate;
 
 import android.util.Log;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
+import com.cs301.chessapp.gamestate.pieces.King;
+
+import java.util.ArrayList;
 
 public class Check {
     int _player;
@@ -11,14 +16,16 @@ public class Check {
     Checkmate checker;
     int kingX;
     int kingY;
-//    ArrayList<PieceMove> kingMove;
-//    ArrayList<PieceMove> attackMove;
+    ArrayList<ChessMove> kingMove;
+    ArrayList<ChessMove> attackMove;
+    GamePlayer gamePlayer;;
 
 
-    public Check(ChessGameState board) {
+    public Check(ChessGameState board, GamePlayer gamePlayer) {
 
         _player = board.getTurn();
-        checker = new Checkmate(_player, board);
+        this.gamePlayer = gamePlayer;
+        checker = new Checkmate(_player, board, gamePlayer);
         //checker.setKing(_player);
         kingX = checker.getKingX();
         kingY = checker.getKingY();
@@ -271,11 +278,13 @@ public class Check {
 
     }
 
-//    public ArrayList<PieceMove> getAttackMove(){return attackMove;}
-//    public ArrayList<PieceMove> safeKing (int row, int col, ChessGameState gamestate){
-//        King k = new King(this._player);
-//        kingMove = k.getMoves(row, col, gamestate);
-//        checker.validMoveCMP(row, col, kingMove);
-//        return checker.validMoveCMP(row, col, kingMove);
-//    }
+    public ArrayList<ChessMove> getAttackMove() {
+        return attackMove;
+    }
+    public ArrayList<ChessMove> safeKing(int row, int col, ChessGameState gamestate) {
+        King k = new King(this._player);
+        kingMove = k.getMoves(gamestate, gamePlayer);
+        checker.validMoveCMP(row, col, kingMove);
+        return checker.validMoveCMP(row, col, kingMove);
+    }
 }
