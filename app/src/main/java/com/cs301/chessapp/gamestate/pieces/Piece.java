@@ -53,9 +53,8 @@ public abstract class Piece {
      * This method returns all valid moves for the piece. It is an abstract
      * method and is meant to be implemented by the subclass.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     public abstract ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player);
@@ -71,7 +70,7 @@ public abstract class Piece {
      * @return              true if the move is valid, false otherwise
      */
     public boolean isValidMove(ChessMove move, ChessGameState gamestate, GamePlayer player) {
-        ArrayList<ChessMove> validMoves = this.getMoves(gamestate, player);
+        ArrayList<ChessMove> validMoves = getMoves(gamestate, player);
 
         for (ChessMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&

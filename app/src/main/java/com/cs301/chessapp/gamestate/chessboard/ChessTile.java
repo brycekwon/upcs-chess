@@ -54,7 +54,7 @@ public class ChessTile {
     /**
      * setPiece
      *
-     * This method sets a piece on the square.
+     * This method sets a piece on the square and updates the piece's position.
      *
      * @param piece     the piece to set on the square
      */

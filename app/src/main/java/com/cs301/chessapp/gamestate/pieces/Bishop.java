@@ -48,7 +48,7 @@ public class Bishop extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        // these variables hold the new tile location
+        // these variables hold the new piece location
         int newRow;
         int newCol;
 
@@ -74,7 +74,7 @@ public class Bishop extends Piece {
                     blocked_1 = true;
                 }
 
-                // the tile has own pieces
+                // the tile is surrounded by own pieces
                 else {
                     blocked_1 = true;
                 }

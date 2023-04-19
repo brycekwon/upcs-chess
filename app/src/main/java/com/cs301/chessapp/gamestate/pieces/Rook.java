@@ -48,9 +48,11 @@ public class Rook extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
+        // these variables hold the new piece location
         int newRow;
         int newCol;
 
+        // these variables keep track of the blocked paths
         boolean blocked_1 = false;
         boolean blocked_2 = false;
         boolean blocked_3 = false;

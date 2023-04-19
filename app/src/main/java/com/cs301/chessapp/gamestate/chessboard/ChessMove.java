@@ -7,7 +7,9 @@ import com.cs301.chessapp.gameframework.actionMessage.GameAction;
  * ChessMove class
  *
  * This class is used to represent a move in the game of chess. It contains the
- * starting and ending positions of the piece that is being moved.
+ * starting and ending positions of the piece that is being moved. It also
+ * specifies the player moving the piece. Once a move has been made, it cannot
+ * be changed.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
