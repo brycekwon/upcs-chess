@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -9,12 +8,10 @@ import com.cs301.chessapp.gamestate.checkmate.Check;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * King
+ * King class
  *
- * This class represents a king piece in a game of chess. The king can move
- * one square in any direction. It cannot jump over other pieces. It can
- * capture an enemy piece on the same square. It cannot place itself on a square
- * occupied by a friendly piece. It is worth an infinite amount of points.
+ * This class represents a king in the game of chess. The king can move one
+ * square in any direction. It is worth an infinite amount of points.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -27,10 +24,9 @@ public class King extends Piece {
     /**
      * King constructor
      *
-     * This constructor initializes a king with a player and corresponding
-     * value.
+     * This constructor initializes a bishop with a player.
      *
-     * @param player        the player the piece belongs to
+     * @param player        the player who owns the king
      */
     public King(int player) {
         super(player, Integer.MAX_VALUE, "King");

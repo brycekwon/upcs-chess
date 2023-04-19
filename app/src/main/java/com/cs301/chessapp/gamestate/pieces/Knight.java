@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -8,12 +7,10 @@ import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * Knight
+ * Knight class
  *
- * This class represents a knight piece in a game of chess. The knight can move
- * in an L shape. It can jump over pieces. It can capture an enemy piece on the
- * same square. It cannot place itself on a square occupied by a friendly piece.
- * It is worth 3 points.
+ * This class represents a knight in the game of chess. The knight can move
+ * in an L shape and can jump over pieces. It is worth 3 points.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -26,8 +23,7 @@ public class Knight extends Piece {
     /**
      * Knight constructor
      *
-     * This constructor initializes a knight with a player and corresponding
-     * value.
+     * This constructor initializes a knight with a player.
      *
      * @param player        the player the piece belongs to
      */
@@ -48,7 +44,7 @@ public class Knight extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        // these variables hold the new piece location
+        // these variables specify the new piece location
         int newRow;
         int newCol;
 
@@ -59,12 +55,12 @@ public class Knight extends Piece {
                         newRow = _row + i;
                         newCol = _col + j;
 
-                        // the tile is empty
+                        // checked tile is empty
                         if (gamestate.getPiece(newRow, newCol) == null) {
                             validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                         }
 
-                        // the tile has a capturable piece
+                        // checked tile has a capturable piece
                         else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
                             validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                         }

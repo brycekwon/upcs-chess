@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -8,7 +7,7 @@ import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * Piece
+ * Piece class
  *
  * This abstract class represents a piece in the game of chess. It contains the
  * player that the piece belongs and corresponding color, as well as the value
@@ -22,14 +21,14 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  */
 public abstract class Piece {
 
-    // these variables contain information about the piece
+    // these variables specify information about the piece
     protected final int _player;
     protected final int _value;
 
-    // these variables contain information for the surface view
+    // these variables specify information for the surface view
     protected final String _name;
 
-    // these variables contain information about the location
+    // these variables contain information about the piece location
     protected int _row;
     protected int _col;
 

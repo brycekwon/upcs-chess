@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -8,13 +7,12 @@ import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * Pawn
+ * Pawn class
  *
  * This class represents a pawn piece in a game of chess. The pawn can move
  * one square forward. If it is in its starting position, it can move two
- * squares forward. It cannot jump over other pieces. It can capture an enemy
- * piece on the square diagonally in front of it. It cannot place itself on a
- * square occupied by a friendly piece. It is worth 1 point.
+ * squares forward. It can capture an enemy piece on the square diagonally in
+ * front of it. It is worth 1 point.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -27,8 +25,7 @@ public class Pawn extends Piece {
     /**
      * Pawn constructor
      *
-     * This constructor initializes a pawn with a player and corresponding
-     * value.
+     * This constructor initializes a pawn with a player.
      *
      * @param player        the player the piece belongs to
      */
@@ -50,11 +47,12 @@ public class Pawn extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        if (_player == ChessGameState.PLAYER_1) {
-            // can move forward
+        // check moves from the white player's perspective
+        if (this._player == ChessGameState.PLAYER_1) {
+
             if (hasValidBounds(_row - 1, _col)) {
 
-                // the tile is empty
+                // checked tile is empty
                 if (gamestate.getPiece(_row - 1, _col) == null) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 1, _col));
                 }
@@ -65,14 +63,14 @@ public class Pawn extends Piece {
                 }
             }
 
-            // can capture diagonally left
+            // checked tile has a capturable piece
             if (hasValidBounds(_row - 1, _col - 1) && gamestate.getPiece(_row - 1, _col - 1) != null) {
                 if (gamestate.getPiece(_row - 1, _col - 1).getPlayer() != this._player) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 1, _col - 1));
                 }
             }
 
-            // can capture diagonally right
+            // checked tile has a capturable piece
             if (hasValidBounds(_row - 1, _col + 1) && gamestate.getPiece(_row - 1, _col + 1) != null) {
                 if (gamestate.getPiece(_row - 1, _col + 1).getPlayer() != this._player) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 1, _col + 1));
@@ -80,25 +78,31 @@ public class Pawn extends Piece {
             }
         }
 
+        // check moves from the black player's perspective
         else if (_player == ChessGameState.PLAYER_2) {
-            // can move forward
-            if (_row + 1 < 8 && gamestate.getPiece(_row + 1, _col) == null) {
-                validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col));
 
-                // can move 2 forward
+            if (hasValidBounds(_row + 1, _col)) {
+
+                // checked tile is empty
+                if (gamestate.getPiece(_row + 1, _col) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col));
+                }
+
+                // can move 2 forward from starting position
                 if (_row == 1 && gamestate.getPiece(_row + 2, _col) == null) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 2, _col));
                 }
             }
 
-            // can capture diagonally left
+
+            // checked tile has a capturable piece
             if (hasValidBounds(_row + 1, _col - 1) && gamestate.getPiece(_row + 1, _col - 1) != null) {
                 if (gamestate.getPiece(_row + 1, _col - 1).getPlayer() != this._player) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col - 1));
                 }
             }
 
-            // can capture diagonally right
+            // checked tile has a capturable piece
             if (hasValidBounds(_row + 1, _col + 1) && gamestate.getPiece(_row + 1, _col + 1) != null) {
                 if (gamestate.getPiece(_row + 1, _col + 1).getPlayer() != this._player) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col + 1));
