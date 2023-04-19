@@ -40,23 +40,22 @@ public class Knight extends Piece {
      *
      * This method returns all valid moves for the knight.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+    public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
                 if (Math.abs(i) + Math.abs(j) == 3) {
-                    if (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) {
-                        if (gamestate.getPiece(row + i, col + j) == null) {
-                            validMoves.add(new ChessMove(player, row, col, row + i, col + j));
-                        } else if (gamestate.getPiece(row + i, col + j).getPlayer() != _player) {
-                            validMoves.add(new ChessMove(player, row, col, row + i, col + j));
+                    if (_row + i >= 0 && _row + i < 8 && _col + j >= 0 && _col + j < 8) {
+                        if (gamestate.getPiece(_row + i, _col + j) == null) {
+                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+                        } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
+                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                         }
                     }
                 }

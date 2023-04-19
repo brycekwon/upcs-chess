@@ -51,9 +51,9 @@ public class ChessGameState extends GameState {
             for (int j = 0; j < 8; j++) {
                 // alternate the colors of the squares
                 if ((i + j) % 2 == 0) {
-                    this._chessboard[i][j] = new ChessTile(Color.WHITE);
+                    this._chessboard[i][j] = new ChessTile(Color.WHITE, i, j);
                 } else {
-                    this._chessboard[i][j] = new ChessTile(Color.DKGRAY);
+                    this._chessboard[i][j] = new ChessTile(Color.DKGRAY, i, j);
                 }
             }
         }

@@ -18,20 +18,11 @@ public class ChessTile {
 
     // these variables contain information about the tile
     private final int _color;
-    private Piece _piece;
+    private final int _row;
+    private final int _col;
 
-    /**
-     * ChessSquare constructor
-     *
-     * This constructor initializes a square with a piece.
-     *
-     * @param color     the color of the square
-     * @param piece     the piece on the square
-     */
-    public ChessTile(int color, Piece piece) {
-        _color = color;
-        _piece = piece;
-    }
+    // this variable contains the piece on the tile
+    private Piece _piece;
 
     /**
      * ChessSquare constructor
@@ -40,8 +31,12 @@ public class ChessTile {
      *
      * @param color     The color of the square
      */
-    public ChessTile(int color) {
-        this(color, null);
+    public ChessTile(int color, int row, int col) {
+        this._color = color;
+        this._row = row;
+        this._col = col;
+
+        this._piece = null;
     }
 
     /**
@@ -52,7 +47,8 @@ public class ChessTile {
      * @param other     the square to copy
      */
     public ChessTile(ChessTile other) {
-        this(other.getColor(), other.getPiece());
+        this(other.getColor(), other.getRow(), other.getCol());
+        this._piece = other.getPiece();
     }
 
     /**
@@ -63,7 +59,14 @@ public class ChessTile {
      * @param piece     the piece to set on the square
      */
     public void setPiece(Piece piece) {
+        if (piece == null) {
+            _piece = null;
+            return;
+        }
+
         _piece = piece;
+        _piece.setRow(_row);
+        _piece.setCol(_col);
     }
 
     /**
@@ -86,5 +89,27 @@ public class ChessTile {
      */
     public int getColor() {
         return _color;
+    }
+
+    /**
+     * getRow
+     *
+     * This method returns the row of the tile.
+     *
+     * @return      the row of the tile
+     */
+    public int getRow() {
+        return _row;
+    }
+
+    /**
+     * getCol
+     *
+     * This method returns the col of the tile.
+     *
+     * @return      the col of the tile
+     */
+    public int getCol() {
+        return _col;
     }
 }

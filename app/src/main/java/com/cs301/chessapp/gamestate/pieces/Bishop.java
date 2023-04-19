@@ -40,23 +40,22 @@ public class Bishop extends Piece {
      *
      * This method returns all valid moves for the bishop.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+    public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // check all moves up left
         for (int i = 1; i < 8; i++) {
-            if (row - i < 0 || col - i < 0) {
+            if (_row - i < 0 || _col - i < 0) {
                 break;
-            } else if (gamestate.getPiece(row - i, col - i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row - i, col - i));
-            } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
-                validMoves.add(new ChessMove(player, row, col, row - i, col - i));
+            } else if (gamestate.getPiece(_row - i, _col - i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row - i, _col - i));
+            } else if (gamestate.getPiece(_row - i, _col - i).getPlayer() != _player) {
+                validMoves.add(new ChessMove(player, _row, _col, _row - i, _col - i));
                 break;
             } else {
                 break;
@@ -65,12 +64,12 @@ public class Bishop extends Piece {
 
         // check all moves up right
         for (int i = 1; i < 8; i++) {
-            if (row + i > 7 || col - i < 0) {
+            if (_row + i > 7 || _col - i < 0) {
                 break;
-            } else if (gamestate.getPiece(row + i, col - i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row + i, col - i));
-            } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
-                validMoves.add(new ChessMove(player, row, col, row + i, col - i));
+            } else if (gamestate.getPiece(_row + i, _col - i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row + i, _col - i));
+            } else if (gamestate.getPiece(_row + i, _col - i).getPlayer() != _player) {
+                validMoves.add(new ChessMove(player, _row, _col, _row + i, _col - i));
                 break;
             } else {
                 break;
@@ -79,12 +78,12 @@ public class Bishop extends Piece {
 
         // check all moves down left
         for (int i = 1; i < 8; i++) {
-            if (row - i < 0 || col + i > 7) {
+            if (_row - i < 0 || _col + i > 7) {
                 break;
-            } else if (gamestate.getPiece(row - i, col + i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row - i, col + i));
-            } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
-                validMoves.add(new ChessMove(player, row, col, row - i, col + i));
+            } else if (gamestate.getPiece(_row - i, _col + i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row - i, _col + i));
+            } else if (gamestate.getPiece(_row - i, _col + i).getPlayer() != _player) {
+                validMoves.add(new ChessMove(player, _row, _col, _row - i, _col + i));
                 break;
             } else {
                 break;
@@ -93,12 +92,12 @@ public class Bishop extends Piece {
 
         // check all moves down right
         for (int i = 1; i < 8; i++) {
-            if (row + i > 7 || col + i > 7) {
+            if (_row + i > 7 || _col + i > 7) {
                 break;
-            } else if (gamestate.getPiece(row + i, col + i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row + i, col + i));
-            } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
-                validMoves.add(new ChessMove(player, row, col, row + i, col + i));
+            } else if (gamestate.getPiece(_row + i, _col + i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + i));
+            } else if (gamestate.getPiece(_row + i, _col + i).getPlayer() != _player) {
+                validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + i));
                 break;
             } else {
                 break;

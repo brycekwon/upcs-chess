@@ -62,7 +62,7 @@ public class ChessComputerSmart extends GameComputerPlayer {
                     }
 
                     // randomly select a capturable move
-                    for (ChessMove move : gamestate.getPiece(row, col).getMoves(row, col, gamestate, this)) {
+                    for (ChessMove move : gamestate.getPiece(row, col).getMoves(gamestate, this)) {
                         if (gamestate.getPiece(move.getEndRow(), move.getEndCol()) != null && gamestate.getPiece(move.getEndRow(), move.getEndCol()).getPlayer() != _playerTurn) {
                             game.sendAction(move);
                             return;
@@ -79,10 +79,10 @@ public class ChessComputerSmart extends GameComputerPlayer {
                 col = (int) (Math.random() * 8);
             } while (gamestate.getPiece(row, col) == null ||
                      gamestate.getPiece(row, col).getPlayer() != _playerTurn ||
-                     gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size() < 1);
+                     gamestate.getPiece(row, col).getMoves(gamestate, this).size() < 1);
 
-            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size());
-            ChessMove move = gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).get(index);
+            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(gamestate, this).size());
+            ChessMove move = gamestate.getPiece(row, col).getMoves(gamestate, this).get(index);
 
             // sleep to allow the user to see the move
             sleep(0.5);

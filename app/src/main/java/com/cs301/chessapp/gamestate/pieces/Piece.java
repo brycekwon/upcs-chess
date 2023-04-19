@@ -29,6 +29,10 @@ public abstract class Piece {
     // these variables contain information for the surface view
     protected final String _name;
 
+    // these variables contain information about the location
+    protected int _row;
+    protected int _col;
+
     /**
      * Piece constructor
      *
@@ -54,7 +58,7 @@ public abstract class Piece {
      * @param gamestate     the current gamestate
      * @return              a list of valid moves
      */
-    public abstract ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player);
+    public abstract ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player);
 
     /**
      * isValidMove
@@ -67,7 +71,7 @@ public abstract class Piece {
      * @return              true if the move is valid, false otherwise
      */
     public boolean isValidMove(ChessMove move, ChessGameState gamestate, GamePlayer player) {
-        ArrayList<ChessMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate, player);
+        ArrayList<ChessMove> validMoves = this.getMoves(gamestate, player);
 
         for (ChessMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
@@ -91,6 +95,28 @@ public abstract class Piece {
      */
     protected boolean hasValidBounds(int row, int col) {
         return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+    }
+
+    /**
+     * setRow
+     *
+     * This method sets the row of the piece.
+     *
+     * @param row       the row to set
+     */
+    public void setRow(int row) {
+        _row = row;
+    }
+
+    /**
+     * setCol
+     *
+     * This method sets the column of the piece.
+     *
+     * @param col       the column to set
+     */
+    public void setCol(int col) {
+        _col = col;
     }
 
     /**

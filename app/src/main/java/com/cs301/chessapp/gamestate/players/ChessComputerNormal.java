@@ -59,11 +59,11 @@ public class ChessComputerNormal extends GameComputerPlayer {
                 col = (int) (Math.random() * 8);
             } while (gamestate.getPiece(row, col) == null ||
                      gamestate.getPiece(row, col).getPlayer() != _playerTurn ||
-                     gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size() < 1);
+                     gamestate.getPiece(row, col).getMoves(gamestate, this).size() < 1);
 
             // get a random move from the list of possible moves
-            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).size());
-            ChessMove move = gamestate.getPiece(row, col).getMoves(row, col, gamestate, this).get(index);
+            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(gamestate, this).size());
+            ChessMove move = gamestate.getPiece(row, col).getMoves(gamestate, this).get(index);
 
             // sleep to allow the user to see the move
             sleep(0.5);

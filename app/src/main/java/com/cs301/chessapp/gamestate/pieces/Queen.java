@@ -40,22 +40,21 @@ public class Queen extends Piece {
      *
      * This method returns all valid moves for the queen.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+    public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // check all directions left
         for (int i = 1; i < 8; i++) {
-            if (col - i >= 0) {
-                if (gamestate.getPiece(row, col - i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row, col - i));
-                } else if (gamestate.getPiece(row, col - i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row, col - i));
+            if (_col - i >= 0) {
+                if (gamestate.getPiece(_row, _col - i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row, _col - i));
+                } else if (gamestate.getPiece(_row, _col - i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row, _col - i));
                     break;
                 } else {
                     break;
@@ -65,11 +64,11 @@ public class Queen extends Piece {
 
         // check all directions right
         for (int i = 1; i < 8; i++) {
-            if (col + i < 8) {
-                if (gamestate.getPiece(row, col + i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row, col + i));
-                } else if (gamestate.getPiece(row, col + i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row, col + i));
+            if (_col + i < 8) {
+                if (gamestate.getPiece(_row, _col + i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row, _col + i));
+                } else if (gamestate.getPiece(_row, _col + i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row, _col + i));
                     break;
                 } else {
                     break;
@@ -79,11 +78,11 @@ public class Queen extends Piece {
 
         // check all directions down
         for (int i = 1; i < 8; i++) {
-            if (row - i >= 0) {
-                if (gamestate.getPiece(row - i, col) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col));
-                } else if (gamestate.getPiece(row - i, col).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col));
+            if (_row - i >= 0) {
+                if (gamestate.getPiece(_row - i, _col) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col));
+                } else if (gamestate.getPiece(_row - i, _col).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col));
                     break;
                 } else {
                     break;
@@ -93,11 +92,11 @@ public class Queen extends Piece {
 
         // check all directions up
         for (int i = 1; i < 8; i++) {
-            if (row + i < 8) {
-                if (gamestate.getPiece(row + i, col) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col));
-                } else if (gamestate.getPiece(row + i, col).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col));
+            if (_row + i < 8) {
+                if (gamestate.getPiece(_row + i, _col) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col));
+                } else if (gamestate.getPiece(_row + i, _col).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col));
                     break;
                 } else {
                     break;
@@ -107,11 +106,11 @@ public class Queen extends Piece {
 
         // check all directions up-left
         for (int i = 1; i < 8; i++) {
-            if (row + i < 8 && col - i >= 0) {
-                if (gamestate.getPiece(row + i, col - i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col - i));
-                } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col - i));
+            if (_row + i < 8 && _col - i >= 0) {
+                if (gamestate.getPiece(_row + i, _col - i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col - i));
+                } else if (gamestate.getPiece(_row + i, _col - i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col - i));
                     break;
                 } else {
                     break;
@@ -121,11 +120,11 @@ public class Queen extends Piece {
 
         // check all directions up-right
         for (int i = 1; i < 8; i++) {
-            if (row + i < 8 && col + i < 8) {
-                if (gamestate.getPiece(row + i, col + i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col + i));
-                } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row + i, col + i));
+            if (_row + i < 8 && _col + i < 8) {
+                if (gamestate.getPiece(_row + i, _col + i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + i));
+                } else if (gamestate.getPiece(_row + i, _col + i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + i));
                     break;
                 } else {
                     break;
@@ -135,11 +134,11 @@ public class Queen extends Piece {
 
         // check all directions down-left
         for (int i = 1; i < 8; i++) {
-            if (row - i >= 0 && col - i >= 0) {
-                if (gamestate.getPiece(row - i, col - i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col - i));
-                } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col - i));
+            if (_row - i >= 0 && _col - i >= 0) {
+                if (gamestate.getPiece(_row - i, _col - i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col - i));
+                } else if (gamestate.getPiece(_row - i, _col - i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col - i));
                     break;
                 } else {
                     break;
@@ -149,11 +148,11 @@ public class Queen extends Piece {
 
         // check all directions down-right
         for (int i = 1; i < 8; i++) {
-            if (row - i >= 0 && col + i < 8) {
-                if (gamestate.getPiece(row - i, col + i) == null) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col + i));
-                } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
-                    validMoves.add(new ChessMove(player, row, col, row - i, col + i));
+            if (_row - i >= 0 && _col + i < 8) {
+                if (gamestate.getPiece(_row - i, _col + i) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col + i));
+                } else if (gamestate.getPiece(_row - i, _col + i).getPlayer() != _player) {
+                    validMoves.add(new ChessMove(player, _row, _col, _row - i, _col + i));
                     break;
                 } else {
                     break;

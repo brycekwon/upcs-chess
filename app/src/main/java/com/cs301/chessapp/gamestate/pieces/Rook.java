@@ -38,23 +38,22 @@ public class Rook extends Piece {
     /**
      * getMoves
      *
-     * This method returns all valid moves for the rook.
+     * This method returns all valid moves for the king.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<ChessMove> getMoves(int row, int col, ChessGameState gamestate, GamePlayer player) {
+    public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // Check all squares to the right of the piece
-        for (int i = col + 1; i < 8; i++) {
-            if (gamestate.getPiece(row, i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row, i));
-            } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, row, col, row, i));
+        for (int i = _col + 1; i < 8; i++) {
+            if (gamestate.getPiece(_row, i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row, i));
+            } else if (gamestate.getPiece(_row, i).getPlayer() != this.getPlayer()) {
+                validMoves.add(new ChessMove(player, _row, _col, _row, i));
                 break;
             } else {
                 break;
@@ -62,11 +61,11 @@ public class Rook extends Piece {
         }
 
         // Check all squares to the left of the piece
-        for (int i = col - 1; i >= 0; i--) {
-            if (gamestate.getPiece(row, i) == null) {
-                validMoves.add(new ChessMove(player, row, col, row, i));
-            } else if (gamestate.getPiece(row, i).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, row, col, row, i));
+        for (int i = _col - 1; i >= 0; i--) {
+            if (gamestate.getPiece(_row, i) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, _row, i));
+            } else if (gamestate.getPiece(_row, i).getPlayer() != this.getPlayer()) {
+                validMoves.add(new ChessMove(player, _row, _col, _row, i));
                 break;
             } else {
                 break;
@@ -74,11 +73,11 @@ public class Rook extends Piece {
         }
 
         // Check all squares above the piece
-        for (int i = row - 1; i >= 0; i--) {
-            if (gamestate.getPiece(i, col) == null) {
-                validMoves.add(new ChessMove(player, row, col, i, col));
-            } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, row, col, i, col));
+        for (int i = _row - 1; i >= 0; i--) {
+            if (gamestate.getPiece(i, _col) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, i, _col));
+            } else if (gamestate.getPiece(i, _col).getPlayer() != this.getPlayer()) {
+                validMoves.add(new ChessMove(player, _row, _col, i, _col));
                 break;
             } else {
                 break;
@@ -86,11 +85,11 @@ public class Rook extends Piece {
         }
 
         // Check all squares below the piece
-        for (int i = row + 1; i < 8; i++) {
-            if (gamestate.getPiece(i, col) == null) {
-                validMoves.add(new ChessMove(player, row, col, i, col));
-            } else if (gamestate.getPiece(i, col).getPlayer() != this.getPlayer()) {
-                validMoves.add(new ChessMove(player, row, col, i, col));
+        for (int i = _row + 1; i < 8; i++) {
+            if (gamestate.getPiece(i, _col) == null) {
+                validMoves.add(new ChessMove(player, _row, _col, i, _col));
+            } else if (gamestate.getPiece(i, _col).getPlayer() != this.getPlayer()) {
+                validMoves.add(new ChessMove(player, _row, _col, i, _col));
                 break;
             } else {
                 break;
