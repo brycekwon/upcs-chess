@@ -11,7 +11,7 @@ import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
-import com.cs301.chessapp.gamestate.utilities.ChessMoveAction;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * ChessLocalGame class
@@ -118,7 +118,7 @@ public class ChessLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         ChessGameState gamestate = (ChessGameState) state;
-        ChessMoveAction moveAction = (ChessMoveAction) action;
+        ChessMove moveAction = (ChessMove) action;
 
         ChessTile from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
         ChessTile to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());

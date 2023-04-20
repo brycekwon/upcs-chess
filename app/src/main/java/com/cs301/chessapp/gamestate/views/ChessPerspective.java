@@ -28,15 +28,15 @@ import com.cs301.chessapp.gamestate.ChessGameState;
 public abstract class ChessPerspective extends SurfaceView {
 
     // these constants define the dimensions of the board
-    public static final float BOARD_LENGTH = 900f;
-    public static final float BOARD_MARGIN = 50f;
-    public static final float TILE_LENGTH = BOARD_LENGTH / 8;
+    public static final float BOARD_LENGTH  = 900f;
+    public static final float BOARD_MARGIN  = 50f;
+    public static final float TILE_LENGTH   = BOARD_LENGTH / 8;
 
     // these constants define the location of the board
-    public static final float BOARD_LEFT = BOARD_MARGIN;
-    public static final float BOARD_TOP = BOARD_MARGIN;
-    public static final float BOARD_RIGHT = BOARD_LEFT + BOARD_LENGTH;
-    public static final float BOARD_BOTTOM = BOARD_TOP + BOARD_LENGTH;
+    public static final float BOARD_LEFT    = BOARD_MARGIN;
+    public static final float BOARD_TOP     = BOARD_MARGIN;
+    public static final float BOARD_RIGHT   = BOARD_LEFT + BOARD_LENGTH;
+    public static final float BOARD_BOTTOM  = BOARD_TOP + BOARD_LENGTH;
 
     // these constants define the bitmaps of white pieces
     protected final Bitmap W_KING   = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wking), (int) TILE_LENGTH, (int) TILE_LENGTH, false);
