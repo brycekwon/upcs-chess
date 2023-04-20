@@ -1,7 +1,8 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.pieces.*;
 
 import java.util.ArrayList;
@@ -10,16 +11,18 @@ import java.util.ArrayList;
 public class Checkmate {
 //check if current player's king is being attacked
     int _player = 0; //0 or 1 to tell which player it is
+    GamePlayer gamePlayer;
     boolean inCheck = false; // true if king is in check
     private int kingX; // position of king x
     private int kingY; // position of king y
     ChessGameState gamestate; //board state
 
     Piece k;
-    public Checkmate(int player, ChessGameState boardstate){
+    public Checkmate(int player, ChessGameState boardstate, GamePlayer gamePlayer) {
         _player = player;
         inCheck = false;
         this.gamestate = boardstate;
+        this.gamePlayer = gamePlayer;
     }
 
 
@@ -42,12 +45,12 @@ public class Checkmate {
 
 
     //returns the king's valid moves
-    public ArrayList<PieceMove> getKingMoves(){
+    public ArrayList<ChessMove> getKingMoves(){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
                 if(gamestate.getPiece(i, j).getValue() == 100){
                     k = gamestate.getPiece(i, j);
-                    return k.getMoves(i, j, gamestate);
+                    return k.getMoves(gamestate, gamePlayer);
                 }
             }
         }
@@ -55,12 +58,12 @@ public class Checkmate {
     }
 
     //gets the valid moves of each piece;
-    public ArrayList<PieceMove> getPieceMoves(Piece p) {
+    public ArrayList<ChessMove> getPieceMoves(Piece p) {
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (gamestate.getPiece(i, j).getValue() == p.getValue()) {
-                        return p.getMoves(i,j, gamestate);
+                        return p.getMoves(gamestate, gamePlayer);
                     }
                 }
             }
@@ -89,7 +92,7 @@ public class Checkmate {
 
 
     //compares one position vs all the possible moves from the other side
-    boolean checkCMP(int x, int y, ArrayList<PieceMove> list){
+    boolean checkCMP(int x, int y, ArrayList<ChessMove> list){
         for(int i = 0; i < list.size(); i++){//iterates through the arraylist for each valid move
             int a;
             int b;
@@ -104,9 +107,9 @@ public class Checkmate {
     }
 
     //returns all valid moves after comparing
-   public ArrayList<PieceMove> validMoveCMP(int x, int y, ArrayList<PieceMove> kingMove){
-        ArrayList<PieceMove> blocks = new ArrayList<PieceMove>();//indexes the possible moves the king can take
-        Check checker = new Check(gamestate);
+   public ArrayList<ChessMove> validMoveCMP(int x, int y, ArrayList<ChessMove> kingMove){
+        ArrayList<ChessMove> blocks = new ArrayList<ChessMove>();//indexes the possible moves the king can take
+        Check checker = new Check(gamestate, gamePlayer);
        //index for the king's possible move
         int a;
         int b;
@@ -115,8 +118,8 @@ public class Checkmate {
             for(int j = 0; j < kingMove.size(); j++) {
                 a = kingMove.get(i).getEndRow();
                 b = kingMove.get(j).getEndCol();
-                if (false == checker.checked(a,b,gamestate)) {//if checkCMP is false, valid move for the king to move
-                    blocks.add(new PieceMove(x, a, y, b));
+                if (!checker.checked(a,b,gamestate)) {//if checkCMP is false, valid move for the king to move
+                    blocks.add(new ChessMove(gamePlayer, x, a, y, b));
                 }
             }
         }

@@ -1,13 +1,13 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * Piece
+ * Piece class
  *
  * This abstract class represents a piece in the game of chess. It contains the
  * player that the piece belongs and corresponding color, as well as the value
@@ -21,12 +21,16 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
  */
 public abstract class Piece {
 
-    // these variables contain information about the piece
+    // these variables specify information about the piece
     protected final int _player;
-    protected int _value;
+    protected final int _value;
 
-    // these variables contain information for the surface view
-    protected String _name;
+    // these variables specify information for the surface view
+    protected final String _name;
+
+    // these variables contain information about the piece location
+    protected int _row;
+    protected int _col;
 
     /**
      * Piece constructor
@@ -36,8 +40,10 @@ public abstract class Piece {
      *
      * @param player        the player the piece belongs to
      */
-    public Piece(int player) {
+    public Piece(int player, int value, String name) {
         this._player = player;
+        this._value = value;
+        this._name = name;
     }
 
     /**
@@ -46,12 +52,11 @@ public abstract class Piece {
      * This method returns all valid moves for the piece. It is an abstract
      * method and is meant to be implemented by the subclass.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
-    public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate);
+    public abstract ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player);
 
     /**
      * isValidMove
@@ -63,10 +68,10 @@ public abstract class Piece {
      * @param gamestate     the current gamestate
      * @return              true if the move is valid, false otherwise
      */
-    public boolean isValidMove(PieceMove move, ChessGameState gamestate) {
-        ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate);
+    public boolean isValidMove(ChessMove move, ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = getMoves(gamestate, player);
 
-        for (PieceMove validMove : validMoves) {
+        for (ChessMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
                     move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
                 return true;
@@ -88,6 +93,28 @@ public abstract class Piece {
      */
     protected boolean hasValidBounds(int row, int col) {
         return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+    }
+
+    /**
+     * setRow
+     *
+     * This method sets the row of the piece.
+     *
+     * @param row       the row to set
+     */
+    public void setRow(int row) {
+        _row = row;
+    }
+
+    /**
+     * setCol
+     *
+     * This method sets the column of the piece.
+     *
+     * @param col       the column to set
+     */
+    public void setCol(int col) {
+        _col = col;
     }
 
     /**

@@ -1,18 +1,17 @@
 package com.cs301.chessapp.gamestate.pieces;
 
-
 import java.util.ArrayList;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.PieceMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
- * Bishop
+ * Bishop class
  *
- * This class represents a knight piece in a game of chess. The bishop can move
- * any number of squares diagonally. It cannot jump over other pieces. It can
- * capture an enemy piece on the same square. It cannot place itself on a square
- * occupied by a friendly piece. It is worth 3 points.
+ * This class represents a knight in the game of chess. The bishop can move
+ * any number of squares diagonally. It is worth 3 points.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -25,16 +24,12 @@ public class Bishop extends Piece {
     /**
      * Bishop constructor
      *
-     * This constructor initializes a bishop with a player and corresponding
-     * value.
+     * This constructor initializes a bishop with a player.
      *
-     * @param player        the player the piece belongs to
+     * @param player        the player who owns the bishop
      */
     public Bishop(int player) {
-        super(player);
-
-        this._value = 3;
-        this._name = "Bishop";
+        super(player, 3, "Bishop");
     }
 
     /**
@@ -42,71 +37,110 @@ public class Bishop extends Piece {
      *
      * This method returns all valid moves for the bishop.
      *
-     * @param row           the row of the piece
-     * @param col           the col of the piece
      * @param gamestate     the current gamestate
+     * @param player        the player making the move
      * @return              a list of valid moves
      */
     @Override
-    public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {
-        ArrayList<PieceMove> valid = new ArrayList<>();
+    public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        // check all moves up left
+        // these variables specify the new piece location
+        int newRow;
+        int newCol;
+
+        // these variables keep track of blocked paths
+        boolean blocked_1 = false;
+        boolean blocked_2 = false;
+        boolean blocked_3 = false;
+        boolean blocked_4 = false;
+
         for (int i = 1; i < 8; i++) {
-            if (row - i < 0 || col - i < 0) {
-                break;
-            } else if (gamestate.getPiece(row - i, col - i) == null) {
-                valid.add(new PieceMove(row, col, row - i, col - i));
-            } else if (gamestate.getPiece(row - i, col - i).getPlayer() != _player) {
-                valid.add(new PieceMove(row, col, row - i, col - i));
-                break;
-            } else {
-                break;
+            if (!blocked_1 && hasValidBounds(_row - i, _col - i)) {
+                newRow = _row - i;
+                newCol = _col - i;
+
+                // checked tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // checked tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_1 = true;
+                }
+
+                // checked tile has one of own pieces
+                else {
+                    blocked_1 = true;
+                }
+            }
+
+            if (!blocked_2 && hasValidBounds(_row + i, _col - i)) {
+                newRow = _row + i;
+                newCol = _col - i;
+
+                // checked tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // checked tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_2 = true;
+                }
+
+                // checked tile has one of own pieces
+                else {
+                    blocked_2 = true;
+                }
+            }
+
+            if (!blocked_3 && hasValidBounds(_row - i, _col + i)) {
+                newRow = _row - i;
+                newCol = _col + i;
+
+                // checked tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // checked tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_3 = true;
+                }
+
+                // checked tile has one of own pieces
+                else {
+                    blocked_3 = true;
+                }
+            }
+
+            if (!blocked_4 && hasValidBounds(_row + i, _col + i)) {
+                newRow = _row + i;
+                newCol = _col + i;
+
+                // checked tile is empty
+                if (gamestate.getPiece(newRow, newCol) == null) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                }
+
+                // checked tile has a capturable piece
+                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                    validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    blocked_4 = true;
+                }
+
+                // checked tile has one of own pieces
+                else {
+                    blocked_4 = true;
+                }
             }
         }
 
-        // check all moves up right
-        for (int i = 1; i < 8; i++) {
-            if (row + i > 7 || col - i < 0) {
-                break;
-            } else if (gamestate.getPiece(row + i, col - i) == null) {
-                valid.add(new PieceMove(row, col, row + i, col - i));
-            } else if (gamestate.getPiece(row + i, col - i).getPlayer() != _player) {
-                valid.add(new PieceMove(row, col, row + i, col - i));
-                break;
-            } else {
-                break;
-            }
-        }
-
-        // check all moves down left
-        for (int i = 1; i < 8; i++) {
-            if (row - i < 0 || col + i > 7) {
-                break;
-            } else if (gamestate.getPiece(row - i, col + i) == null) {
-                valid.add(new PieceMove(row, col, row - i, col + i));
-            } else if (gamestate.getPiece(row - i, col + i).getPlayer() != _player) {
-                valid.add(new PieceMove(row, col, row - i, col + i));
-                break;
-            } else {
-                break;
-            }
-        }
-
-        // check all moves down right
-        for (int i = 1; i < 8; i++) {
-            if (row + i > 7 || col + i > 7) {
-                break;
-            } else if (gamestate.getPiece(row + i, col + i) == null) {
-                valid.add(new PieceMove(row, col, row + i, col + i));
-            } else if (gamestate.getPiece(row + i, col + i).getPlayer() != _player) {
-                valid.add(new PieceMove(row, col, row + i, col + i));
-                break;
-            } else {
-                break;
-            }
-        }
-
-        return valid;
+        return validMoves;
     }
 }
