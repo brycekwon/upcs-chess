@@ -1,53 +1,59 @@
 package com.cs301.chessapp.gamestate;
 
+
 import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
-import com.cs301.chessapp.gamestate.chessboard.ChessSquare;
-import com.cs301.chessapp.gamestate.pieces.*;
+
+import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.Bishop;
+import com.cs301.chessapp.gamestate.pieces.King;
+import com.cs301.chessapp.gamestate.pieces.Knight;
+import com.cs301.chessapp.gamestate.pieces.Pawn;
+import com.cs301.chessapp.gamestate.pieces.Queen;
+import com.cs301.chessapp.gamestate.pieces.Rook;
+import com.cs301.chessapp.gamestate.pieces.Piece;
 
 /**
- * MainGameState
- * <p>
- * This class is the main game state for the chess game. It contains information
- * on the board, the current turn, and the game mode. It is a subclass of
- * GameState. It is serializable so that it can be sent to other devices.
+ * ChessGameState class
+ *
+ * This class is the main gamestate for the chess game. It contains information
+ * on the board and the current turn.
  *
  * @author Bryce Kwon
- * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
+ * @author Marshall Zhang
  * @version Spring 2023
  */
 public class ChessGameState extends GameState {
-    private static final String TAG = "ChessGameState";
 
     // these constants define the players
     public static final int PLAYER_1 = 0;
     public static final int PLAYER_2 = 1;
 
-    // these variables define the game state
+    // these variables define the gamestate
+    private final ChessTile[][] _chessboard;
     private int _playerTurn;
-    private final ChessSquare[][] _chessboard;
 
     /**
      * ChessGameState constructor
-     * <p>
-     * This constructor initializes the game state.
+     *
+     * This constructor initializes a new gamestate.
      */
     public ChessGameState() {
         // white always goes first
         this._playerTurn = PLAYER_1;
 
         // initialize the chessboard
-        this._chessboard = new ChessSquare[8][8];
+        this._chessboard = new ChessTile[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 // alternate the colors of the squares
                 if ((i + j) % 2 == 0) {
-                    this._chessboard[i][j] = new ChessSquare(Color.WHITE);
+                    this._chessboard[i][j] = new ChessTile(Color.WHITE);
                 } else {
-                    this._chessboard[i][j] = new ChessSquare(Color.DKGRAY);
+                    this._chessboard[i][j] = new ChessTile(Color.DKGRAY);
                 }
             }
         }
@@ -79,28 +85,29 @@ public class ChessGameState extends GameState {
         }
     }
 
+    public int getPlayer1(){return PLAYER_1;}
     /**
      * ChessGameState copy constructor
-     * <p>
-     * This constructor initializes the game state with a copy of another game.
      *
-     * @param other     The game state to copy.
+     * This constructor initializes a copy of another gamestate.
+     *
+     * @param other     the gamestate to copy
      */
     public ChessGameState(ChessGameState other) {
         this._playerTurn = other.getTurn();
 
-        this._chessboard = new ChessSquare[8][8];
+        this._chessboard = new ChessTile[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                this._chessboard[i][j] = new ChessSquare(other._chessboard[i][j]);
+                this._chessboard[i][j] = new ChessTile(other._chessboard[i][j]);
             }
         }
     }
 
     /**
      * nextTurn
-     * <p>
-     * This method increments the turn between 0 and 1.
+     *
+     * This method increments the turn between player 1 and player 2.
      */
     public void nextTurn() {
         _playerTurn = _playerTurn == PLAYER_1 ? PLAYER_2 : PLAYER_1;
@@ -108,10 +115,10 @@ public class ChessGameState extends GameState {
 
     /**
      * getTurn
-     * <p>
-     * This method returns the current turn.
      *
-     * @return          The current turn.
+     * This method returns the current turn of the game.
+     *
+     * @return      the current turn
      */
     public int getTurn() {
         return _playerTurn;
@@ -119,25 +126,25 @@ public class ChessGameState extends GameState {
 
     /**
      * getTile
-     * <p>
-     * This method returns the tile at the given coordinates.
      *
-     * @param row       The row of the tile.
-     * @param col       The column of the tile.
-     * @return          The tile at the given coordinates.
+     * This method returns the chess tile at a given position.
+     *
+     * @param row       the row of the tile
+     * @param col       the column of the tile
+     * @return          the tile at the given position
      */
-    public ChessSquare getTile(int row, int col) {
+    public ChessTile getTile(int row, int col) {
         return _chessboard[row][col];
     }
 
     /**
      * getPiece
      *
-     * This method returns the piece at the given coordinates.
+     * This method returns the piece at a given position.
      *
-     * @param row       The row of the piece.
-     * @param col       The column of the piece.
-     * @return          The piece at the given coordinates.
+     * @param row       the row of the piece
+     * @param col       the column of the piece
+     * @return          the piece at the given position
      */
     public Piece getPiece(int row, int col) {
         return _chessboard[row][col].getPiece();

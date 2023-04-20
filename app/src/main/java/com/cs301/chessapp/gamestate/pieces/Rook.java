@@ -8,29 +8,27 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Rook
- * <p>
+ *
  * This class represents a rook piece in a game of chess. The rook can move any
  * number of squares horizontally or vertically. It cannot jump over other
  * pieces. It can capture an enemy piece on the same square. It cannot place
- * itself on a square occupied by a friendly piece. It cannot place its own king
- * in check. It is worth 5 points.
+ * itself on a square occupied by a friendly piece. It is worth 5 points.
  *
  * @author Bryce Kwon
- * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
+ * @author Marshall Zhang
  * @version Spring 2023
  */
 public class Rook extends Piece {
-    private static final String TAG = "PieceRook";
 
     /**
      * Rook constructor
-     * <p>
-     * This constructor extends the Piece constructor and sets the value and
-     * name of the piece.
      *
-     * @param player        The player the piece belongs to.
+     * This constructor initializes a rook with a player and corresponding
+     * value.
+     *
+     * @param player        the player the piece belongs to
      */
     public Rook(int player) {
         super(player);
@@ -41,13 +39,13 @@ public class Rook extends Piece {
 
     /**
      * getMoves
-     * <p>
-     * This method returns an ArrayList of all valid moves for the rook.
      *
-     * @param row           The current row of the piece.
-     * @param col           The current col of the piece.
-     * @param gamestate     The board that the piece is on.
-     * @return              The list of valid moves.
+     * This method returns all valid moves for the rook.
+     *
+     * @param row           the row of the piece
+     * @param col           the col of the piece
+     * @param gamestate     the current gamestate
+     * @return              a list of valid moves
      */
     @Override
     public ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate) {

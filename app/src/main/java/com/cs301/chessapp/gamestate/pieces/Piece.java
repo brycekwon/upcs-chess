@@ -8,15 +8,15 @@ import com.cs301.chessapp.gamestate.chessboard.PieceMove;
 
 /**
  * Piece
- * <p>
- * This abstract class represents a piece in a game of chess. It contains the
+ *
+ * This abstract class represents a piece in the game of chess. It contains the
  * player that the piece belongs and corresponding color, as well as the value
  * of the piece.
  *
  * @author Bryce Kwon
- * @author Marshall Zhang
  * @author Christopher Yee
  * @author Magnus Graham
+ * @author Marshall Zhang
  * @version Spring 2023
  */
 public abstract class Piece {
@@ -30,12 +30,11 @@ public abstract class Piece {
 
     /**
      * Piece constructor
-     * <p>
-     * This constructor initializes the player and color of the piece. The color
-     * is determined by the player. Player 0 is white, and player 1 is black. The
-     * value of the piece is determined by the subclass.
      *
-     * @param player    The player that the piece belongs to.
+     * This constructor initializes a piece with a player. The value of each
+     * piece is determined by the subclass.
+     *
+     * @param player        the player the piece belongs to
      */
     public Piece(int player) {
         this._player = player;
@@ -43,30 +42,30 @@ public abstract class Piece {
 
     /**
      * getMoves
-     * <p>
-     * This method returns an ArrayList of all the possible moves that a piece
-     * can make. It is an abstract method, and is implemented by the subclass.
      *
-     * @param row         The x coordinate of the piece.
-     * @param col         The y coordinate of the piece.
-     * @param gamestate   The board that the piece is on.
-     * @return            ArrayList of all possible moves
+     * This method returns all valid moves for the piece. It is an abstract
+     * method and is meant to be implemented by the subclass.
+     *
+     * @param row           the row of the piece
+     * @param col           the col of the piece
+     * @param gamestate     the current gamestate
+     * @return              a list of valid moves
      */
     public abstract ArrayList<PieceMove> getMoves(int row, int col, ChessGameState gamestate);
 
     /**
      * isValidMove
-     * <p>
+     *
      * This method checks if a provided move is valid by checking if the move
      * is in the list of valid moves.
      *
-     * @param move          The move to check.
-     * @param gamestate     The board that the piece is on.
-     * @return              True if the move is valid, false otherwise.
+     * @param move          the move to validate
+     * @param gamestate     the current gamestate
+     * @return              true if the move is valid, false otherwise
      */
     public boolean isValidMove(PieceMove move, ChessGameState gamestate) {
         ArrayList<PieceMove> validMoves = this.getMoves(move.getStartRow(), move.getStartCol(), gamestate);
-//        Log.d("Piece", "Valid moves: " + validMoves.toString());
+
         for (PieceMove validMove : validMoves) {
             if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
                     move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
@@ -79,25 +78,25 @@ public abstract class Piece {
 
     /**
      * hasValidBounds
-     * <p>
-     * This method checks if the x and y coordinates are within the bounds of
-     * the chessboard.
      *
-     * @param x     The x coordinate to check.
-     * @param y     The y coordinate to check.
-     * @return      True if the x and y coordinate is valid, false otherwise.
+     * This method checks if the provided row and column are within the bounds
+     * of the chessboard.
+     *
+     * @param row       the row to check
+     * @param col       the column to check
+     * @return          true if within bounds, false otherwise
      */
-    public boolean hasValidBounds(int x, int y) {
-        return x >= 0 && x <= 7 && y >= 0 && y <= 7;
+    protected boolean hasValidBounds(int row, int col) {
+        return row >= 0 && row <= 7 && col >= 0 && col <= 7;
     }
 
     /**
      * getPlayer
-     * <p>
+     *
      * This method returns the player that the piece belongs to. The player is
      * determined by the constructor and cannot be changed.
      *
-     * @return  The player that the piece belongs to.
+     * @return      the player the piece belongs to
      */
     public int getPlayer() {
         return _player;
@@ -105,11 +104,11 @@ public abstract class Piece {
 
     /**
      * getValue
-     * <p>
+     *
      * This method returns the value of the piece. The value is determined by
      * the subclass and cannot be changed.
      *
-     * @return  The value of the piece.
+     * @return      the value of the piece
      */
     public int getValue() {
         return _value;
@@ -117,27 +116,13 @@ public abstract class Piece {
 
     /**
      * getName
-     * <p>
+     *
      * This method returns the name of the piece. The value is determined by
      * the subclass and cannot be changed.
      *
-     * @return  The name of the piece.
+     * @return      the name of the piece
      */
     public String getName() {
         return _name;
-    }
-
-    /**
-     * toString
-     * <p>
-     * This method returns a string representation of the board.
-     *
-     * @return  The string representation of the piece.
-     */
-    @Override
-    public String toString() {
-        return _name + " { _player=" + (_player == ChessGameState.PLAYER_1 ? "1" : "2") +
-                ", _value=" + _value +
-                " }";
     }
 }

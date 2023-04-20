@@ -6,11 +6,11 @@ import com.cs301.chessapp.gamestate.pieces.Queen;
 
 import org.junit.Test;
 
-public class ChessSquareTest {
+public class ChessTileTest {
 
     @Test
     public void setPiece() {
-        ChessSquare chessSquare = new ChessSquare(0);
+        ChessTile chessSquare = new ChessTile(0);
 
         assertNull(chessSquare.getPiece());
 
@@ -20,7 +20,7 @@ public class ChessSquareTest {
         chessSquare.setPiece(null);
         assertNull(chessSquare.getPiece());
 
-        ChessSquare chessSquare2 = new ChessSquare(0, new Queen(0));
+        ChessTile chessSquare2 = new ChessTile(0, new Queen(0));
         assertEquals(Queen.class, chessSquare2.getPiece().getClass());
 
         chessSquare2.setPiece(null);

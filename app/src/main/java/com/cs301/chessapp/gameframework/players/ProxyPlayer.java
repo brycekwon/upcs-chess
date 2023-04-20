@@ -149,7 +149,7 @@ public class ProxyPlayer implements GamePlayer {
         return null;
     }
 
-    public int getTurn(){
+    public int getPlayerTurn(){
         return 0;
     }
 }
