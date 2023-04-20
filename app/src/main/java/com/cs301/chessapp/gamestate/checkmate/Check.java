@@ -261,7 +261,10 @@ public class Check {
         if(this._player == 1){
             for (int i = -2; i <= 2; i++) {
                 for (int j = -2; j <= 2; j++) {
-                    if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) && (gamestate.getPiece(row + i, col + j) != null) && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King"))) && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
+                    if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8)
+                            && (gamestate.getPiece(row + i, col + j) != null)
+                            && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
+                            && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
                         Log.d("Check", "White King in check from the knight");
                         inCheck = true;
                         break;
@@ -272,7 +275,10 @@ public class Check {
         else{
             for (int i = -2; i <= 2; i++) {
                 for (int j = -2; j <= 2; j++) {
-                    if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8) && (gamestate.getPiece(row + i, col + j) != null) && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King"))) && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
+                    if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8)
+                            && (gamestate.getPiece(row + i, col + j) != null)
+                            && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
+                            && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
                         Log.d("Check", "Black King in check from the knight");
                         inCheck = true;
                         break;
