@@ -18,7 +18,7 @@ public class Check {
     int kingY;
     ArrayList<ChessMove> kingMove;
     ArrayList<ChessMove> attackMove;
-    GamePlayer gamePlayer;;
+    GamePlayer gamePlayer;
 
 
     public Check(ChessGameState board, GamePlayer gamePlayer) {
@@ -145,10 +145,6 @@ public class Check {
                             inCheck = true;
                             break;
                         }
-                        else{
-                            inCheck = false;
-                            break;
-                        }
                     }
                     else{
                         Log.d("No Check - down-right", "King safe");
@@ -208,7 +204,7 @@ public class Check {
                             }
                         }
                     }
-                    else if (gamestate.getPiece(row - 1, col - 1) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row - 1, col - 1) != null) {//checks if there's a piece
                         if (gamestate.getPiece(row - 1, col - 1).getPlayer() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row - 1, col - 1).getName().equals("Pawn")) {
                                 Log.d("Check", "White King in check from left pawn");
@@ -230,7 +226,7 @@ public class Check {
                             }
                         }
                     }
-                    else if (gamestate.getPiece(row + 1, col - 1) != null) {//checks if there's a piece
+                    if (gamestate.getPiece(row + 1, col - 1) != null) {//checks if there's a piece
                         if (gamestate.getPiece(row + 1, col - 1).getPlayer() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row + 1, col - 1).getName().equals("Pawn")) {
                                 Log.d("Check", "Black King in check from left pawn");
