@@ -55,6 +55,9 @@ public class Check {
                             break;
                         }
                     }
+                    else if(gamestate.getPiece(row, col - i).getPlayer() == _player && gamestate.getPiece(row, col - i).getName().equals("King")){
+                        continue;
+                    }
                     else{
                         Log.d("No Check - left", "King safe");
                             break;
@@ -78,6 +81,9 @@ public class Check {
                             break;
                         }
                     }
+                    else if(gamestate.getPiece(row, col + i).getPlayer() == _player && gamestate.getPiece(row, col + i).getName().equals("King")){
+                        continue;
+                    }
                     else{
                         Log.d("No Check - right", "King safe");
                             break;
@@ -99,6 +105,9 @@ public class Check {
                         else{
                             break;
                         }
+                    }
+                    else if(gamestate.getPiece(row - i, col).getPlayer() == _player && gamestate.getPiece(row - i, col).getName().equals("King")){
+                        continue;
                     }
                     else{
                         Log.d("No Check - top", "King safe");
@@ -122,6 +131,9 @@ public class Check {
                             break;
                         }
                     }
+                    else if(gamestate.getPiece(row + i, col).getPlayer() == _player && gamestate.getPiece(row + i, col ).getName().equals("King")){
+                        continue;
+                    }
                     else{
                         Log.d("No Check - bottom", "King safe");
                         break;
@@ -143,6 +155,9 @@ public class Check {
                         else{
                             break;
                         }
+                    }
+                    else if(gamestate.getPiece(row + i, col - i).getPlayer() == _player && gamestate.getPiece(row + i, col - i).getName().equals("King")){
+                        continue;
                     }
                     else{
                         Log.d("No Check - down-left", "King safe");
@@ -166,6 +181,9 @@ public class Check {
                             break;
                         }
                     }
+                    else if(gamestate.getPiece(row + i, col + i).getPlayer() == _player && gamestate.getPiece(row + i, col + i).getName().equals("King")){
+                        continue;
+                    }
                     else{
                         Log.d("No Check - down-right", "King safe");
                             break;
@@ -188,6 +206,9 @@ public class Check {
                             break;
                         }
                     }
+                    else if(gamestate.getPiece(row - i, col - i).getPlayer() == _player && gamestate.getPiece(row - i, col - i).getName().equals("King")){
+                        continue;
+                    }
                     else{
                         Log.d("No Check - up-left", "King safe");
                         break;
@@ -209,6 +230,9 @@ public class Check {
                         else{
                             break;
                         }
+                    }
+                    else if(gamestate.getPiece(row - i, col + i).getPlayer() == _player && gamestate.getPiece(row - i, col + i).getName().equals("King")){
+                        continue;
                     }
                     else{
                         Log.d("No Check - up-right", "King safe");
