@@ -11,7 +11,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * Bishop class
  *
  * This class represents a knight in the game of chess. The bishop can move
- * any number of squares diagonally. It is worth 3 points.
+ * any number of squares diagonally.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -26,10 +26,10 @@ public class Bishop extends Piece {
      *
      * This constructor initializes a bishop with a player.
      *
-     * @param player        the player who owns the bishop
+     * @param playerId      the player who owns the bishop
      */
-    public Bishop(int player) {
-        super(player, 3, "Bishop");
+    public Bishop(int playerId) {
+        super(playerId, "Bishop");
     }
 
     /**
@@ -66,7 +66,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_1 = true;
                 }
@@ -87,7 +87,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_2 = true;
                 }
@@ -108,7 +108,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_3 = true;
                 }
@@ -129,7 +129,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_4 = true;
                 }

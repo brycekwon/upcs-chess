@@ -11,7 +11,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * King class
  *
  * This class represents a king in the game of chess. The king can move one
- * square in any direction. It is worth an infinite amount of points.
+ * square in any direction.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -26,10 +26,10 @@ public class King extends Piece {
      *
      * This constructor initializes a bishop with a player.
      *
-     * @param player        the player who owns the king
+     * @param playerId      the player who owns the king
      */
-    public King(int player) {
-        super(player, Integer.MAX_VALUE, "King");
+    public King(int playerId) {
+        super(playerId, "King");
     }
 
     /**
@@ -50,39 +50,39 @@ public class King extends Piece {
          *
          * CHECKMATE IMPLEMENTED
          */
-        Check checker = new Check(gamestate, player);
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (hasValidBounds(_row + i, _col + j)) {
-                    if (gamestate.getPiece(_row + i, _col + j) == null) {
-                        if (!checker.checked(_row + i, _col + j, gamestate)) {
-                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                        }
-                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
-                        if (!checker.checked(_row + i, _col + j, gamestate)) {
-                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                        }
-                    }
-                }
-            }
-        }
+//        Check checker = new Check(gamestate, player);
+//        for (int i = -1; i <= 1; i++) {
+//            for (int j = -1; j <= 1; j++) {
+//                if (hasValidBounds(_row + i, _col + j)) {
+//                    if (gamestate.getPiece(_row + i, _col + j) == null) {
+//                        if (!checker.checked(_row + i, _col + j, gamestate)) {
+//                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+//                        }
+//                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
+//                        if (!checker.checked(_row + i, _col + j, gamestate)) {
+//                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         /*
          * STABLE VERSION OF KING MOVEMENTS
          *
          * NO CHECKMATE IMPLEMENTED
          */
-//        for (int i = -1; i <= 1; i++) {
-//            for (int j = - 1; j <= 1; j++) {
-//                if (hasValidBounds(_row + i, _col + j)) {
-//                    if (gamestate.getPiece(_row + i, _col + j) == null) {
-//                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-//                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
-//                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-//                    }
-//                }
-//            }
-//        }
+        for (int i = -1; i <= 1; i++) {
+            for (int j = - 1; j <= 1; j++) {
+                if (hasValidBounds(_row + i, _col + j)) {
+                    if (gamestate.getPiece(_row + i, _col + j) == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
+                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+                    }
+                }
+            }
+        }
 
         return validMoves;
     }

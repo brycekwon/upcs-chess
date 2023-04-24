@@ -128,12 +128,12 @@ public class ChessLocalGame extends LocalGame {
         }
 
         if (from.getPiece().getName().equals("Pawn")) {
-            if (from.getPiece().getPlayer() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
+            if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_1));
                 from.setPiece(null);
                 gamestate.nextTurn();
                 return true;
-            } else if (from.getPiece().getPlayer() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
+            } else if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_2));
                 from.setPiece(null);
                 gamestate.nextTurn();
@@ -160,7 +160,7 @@ public class ChessLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayer() == ((ChessGameState) state).getTurn()) {
+                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getTurn()) {
                     if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
                         return null;
                     }

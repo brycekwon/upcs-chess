@@ -155,7 +155,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
             // do nothing if trying to select opponent piece
-            if (touchedPiece.getPlayer() != _playerTurn) {
+            if (touchedPiece.getPlayerId() != _playerTurn) {
                 return true;
             }
 
@@ -166,7 +166,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         }
 
         // selecting another one of own piece
-        else if (touchedPiece != null && _selectedPiece.getPlayer() == touchedPiece.getPlayer()) {
+        else if (touchedPiece != null && _selectedPiece.getPlayerId() == touchedPiece.getPlayerId()) {
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;

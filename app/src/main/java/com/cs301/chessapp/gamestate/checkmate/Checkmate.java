@@ -30,7 +30,7 @@ public class Checkmate {
     public void setKing(int player){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(gamestate.getPiece(i, j).getPlayer() == player && (gamestate.getPiece(i, j).getValue() == 100)){
+                if(gamestate.getPiece(i, j).getPlayerId() == player && (gamestate.getPiece(i, j).getName().equals("King"))){
                         kingX = i;
                         kingY = j;
                         return;
@@ -48,7 +48,7 @@ public class Checkmate {
     public ArrayList<ChessMove> getKingMoves(){
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(gamestate.getPiece(i, j).getValue() == 100){
+                if(gamestate.getPiece(i, j).getName().equals("King")){
                     k = gamestate.getPiece(i, j);
                     return k.getMoves(gamestate, gamePlayer);
                 }
@@ -62,7 +62,7 @@ public class Checkmate {
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (gamestate.getPiece(i, j).getValue() == p.getValue()) {
+                    if (gamestate.getPiece(i, j).getName().equals(p.getName())) {
                         return p.getMoves(gamestate, gamePlayer);
                     }
                 }
@@ -82,7 +82,7 @@ public class Checkmate {
         ArrayList<Piece> oppositePiece = new ArrayList<Piece>();
         for(int i = 0; i < 8; i ++){
             for(int j = 0; j < 8; j++){
-                if(gamestate.getPiece(i, j).getPlayer() == _player){
+                if(gamestate.getPiece(i, j).getPlayerId() == _player){
                     oppositePiece.add(gamestate.getPiece(i, j));
                 }
             }

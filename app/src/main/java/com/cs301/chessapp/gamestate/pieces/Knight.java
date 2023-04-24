@@ -10,7 +10,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * Knight class
  *
  * This class represents a knight in the game of chess. The knight can move
- * in an L shape and can jump over pieces. It is worth 3 points.
+ * in an L shape and can jump over pieces.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -25,10 +25,10 @@ public class Knight extends Piece {
      *
      * This constructor initializes a knight with a player.
      *
-     * @param player        the player the piece belongs to
+     * @param playerId      the player the piece belongs to
      */
-    public Knight(int player) {
-        super(player, 3, "Knight");
+    public Knight(int playerId) {
+        super(playerId, "Knight");
     }
 
     /**
@@ -61,7 +61,7 @@ public class Knight extends Piece {
                         }
 
                         // checked tile has a capturable piece
-                        else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                             validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                         }
                     }

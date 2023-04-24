@@ -10,7 +10,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * Queen class
  *
  * This class represents a queen piece in a game of chess. The queen can move
- * any number of squares in any direction. It is worth 9 points.
+ * any number of squares in any direction.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -25,10 +25,10 @@ public class Queen extends Piece {
      *
      * This constructor initializes a queen with a player.
      *
-     * @param player        the player the piece belongs to
+     * @param playerId      the player the piece belongs to
      */
-    public Queen(int player) {
-        super(player, 9, "Queen");
+    public Queen(int playerId) {
+        super(playerId, "Queen");
     }
 
     /**
@@ -69,7 +69,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_1 = true;
                 }
@@ -90,7 +90,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_2 = true;
                 }
@@ -111,7 +111,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_3 = true;
                 }
@@ -132,7 +132,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_4 = true;
                 }
@@ -153,7 +153,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_5 = true;
                 }
@@ -174,7 +174,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_6 = true;
                 }
@@ -195,7 +195,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_7 = true;
                 }
@@ -216,7 +216,7 @@ public class Queen extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_8 = true;
                 }

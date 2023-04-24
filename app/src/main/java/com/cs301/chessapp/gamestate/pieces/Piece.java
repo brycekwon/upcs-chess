@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -10,8 +11,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * Piece class
  *
  * This abstract class represents a piece in the game of chess. It contains the
- * player that the piece belongs and corresponding color, as well as the value
- * of the piece.
+ * player id that the piece belongs and corresponding color.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -22,10 +22,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 public abstract class Piece {
 
     // these variables specify information about the piece
-    protected final int _player;
-    protected final int _value;
-
-    // these variables specify information for the surface view
+    protected final int _playerId;
     protected final String _name;
 
     // these variables contain information about the piece location
@@ -38,11 +35,10 @@ public abstract class Piece {
      * This constructor initializes a piece with a player. The value of each
      * piece is determined by the subclass.
      *
-     * @param player        the player the piece belongs to
+     * @param playerId      id of the player the piece belongs to
      */
-    public Piece(int player, int value, String name) {
-        this._player = player;
-        this._value = value;
+    public Piece(int playerId, String name) {
+        this._playerId = playerId;
         this._name = name;
     }
 
@@ -71,9 +67,12 @@ public abstract class Piece {
     public boolean isValidMove(ChessMove move, ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = getMoves(gamestate, player);
 
+        // validate the move with the list of valid moves
         for (ChessMove validMove : validMoves) {
-            if (move.getStartRow() == validMove.getStartRow() && move.getStartCol() == validMove.getStartCol() &&
-                    move.getEndRow() == validMove.getEndRow() && move.getEndCol() == validMove.getEndCol()) {
+            if (move.getStartRow() == validMove.getStartRow() &&
+                    move.getStartCol() == validMove.getStartCol() &&
+                    move.getEndRow() == validMove.getEndRow() &&
+                    move.getEndCol() == validMove.getEndCol()) {
                 return true;
             }
         }
@@ -118,27 +117,15 @@ public abstract class Piece {
     }
 
     /**
-     * getPlayer
+     * getPlayerId
      *
-     * This method returns the player that the piece belongs to. The player is
-     * determined by the constructor and cannot be changed.
+     * This method returns the player id that the piece belongs to. The player
+     * is determined by the constructor and cannot be changed.
      *
-     * @return      the player the piece belongs to
+     * @return      id of the player the piece belongs to
      */
-    public int getPlayer() {
-        return _player;
-    }
-
-    /**
-     * getValue
-     *
-     * This method returns the value of the piece. The value is determined by
-     * the subclass and cannot be changed.
-     *
-     * @return      the value of the piece
-     */
-    public int getValue() {
-        return _value;
+    public int getPlayerId() {
+        return _playerId;
     }
 
     /**

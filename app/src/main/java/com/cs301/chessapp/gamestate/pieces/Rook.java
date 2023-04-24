@@ -10,7 +10,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * Rook class
  *
  * This class represents a rook piece in a game of chess. The rook can move any
- * number of squares horizontally or vertically. It is worth 5 points.
+ * number of squares horizontally or vertically.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -25,10 +25,10 @@ public class Rook extends Piece {
      *
      * This constructor initializes a rook with a player.
      *
-     * @param player        the player the piece belongs to
+     * @param playerId      the player the piece belongs to
      */
-    public Rook(int player) {
-        super(player, 5, "Rook");
+    public Rook(int playerId) {
+        super(playerId, "Rook");
     }
 
     /**
@@ -65,7 +65,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_1 = true;
                 }
@@ -86,7 +86,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_2 = true;
                 }
@@ -107,7 +107,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_3 = true;
                 }
@@ -128,7 +128,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_4 = true;
                 }
