@@ -13,6 +13,7 @@ public class Check {
     int _player;
     String checkState;
     boolean inCheck;
+    boolean pinned;
     Checkmate checker;
     int kingX;
     int kingY;
@@ -38,6 +39,7 @@ public class Check {
 
     public boolean checked(int row, int col, ChessGameState gamestate) {
         inCheck = false;
+        pinned = false;
         //2.check for all possible attack paths
         // check all directions left
         for (int i = 1; i < 8; i++) {
@@ -48,6 +50,9 @@ public class Check {
                                 Log.d("Check", "King in check from the left");
                                 inCheck = true;
                                 break;
+                        }
+                        else{
+                            break;
                         }
                     }
                     else{
@@ -69,6 +74,9 @@ public class Check {
                                 break;
 
                         }
+                        else{
+                            break;
+                        }
                     }
                     else{
                         Log.d("No Check - right", "King safe");
@@ -86,6 +94,9 @@ public class Check {
                         if(gamestate.getPiece(row - i, col).getName().equals("Queen") || gamestate.getPiece(row - i, col).getName().equals("Rook")) {
                             Log.d("Check", "King in check from the top");
                             inCheck = true;
+                            break;
+                        }
+                        else{
                             break;
                         }
                     }
@@ -107,6 +118,9 @@ public class Check {
                             inCheck = true;
                             break;
                         }
+                        else{
+                            break;
+                        }
                     }
                     else{
                         Log.d("No Check - bottom", "King safe");
@@ -124,6 +138,9 @@ public class Check {
                         if(gamestate.getPiece(row + i, col - i).getName().equals("Queen") || gamestate.getPiece(row + i, col - i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the down-left");
                             inCheck = true;
+                            break;
+                        }
+                        else{
                             break;
                         }
                     }
@@ -145,6 +162,9 @@ public class Check {
                             inCheck = true;
                             break;
                         }
+                        else{
+                            break;
+                        }
                     }
                     else{
                         Log.d("No Check - down-right", "King safe");
@@ -164,6 +184,9 @@ public class Check {
                             inCheck = true;
                             break;
                         }
+                        else{
+                            break;
+                        }
                     }
                     else{
                         Log.d("No Check - up-left", "King safe");
@@ -181,6 +204,9 @@ public class Check {
                         if(gamestate.getPiece(row - i, col + i).getName().equals("Queen") || gamestate.getPiece(row - i, col + i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the up-right");
                             inCheck = true;
+                            break;
+                        }
+                        else{
                             break;
                         }
                     }
