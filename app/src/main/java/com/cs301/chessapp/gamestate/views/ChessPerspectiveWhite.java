@@ -175,8 +175,8 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         Log.d("Color", "Hit here");
         //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
         if(_currPiece != null) {
-            for (int row = 0; row < _moves.size(); row++) {
-                g.drawCircle(_moves.get(row).getEndRow(), _moves.get(row).getEndCol(), 10, pick);
+            for (int i = 0; i < _moves.size(); i++) {
+                g.drawCircle(_moves.get(i).getEndRow(), _moves.get(i).getEndCol(), 10, pick);
             }
         }
     }
