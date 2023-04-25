@@ -170,6 +170,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
             _surfaceView.setCurrPiece(_selectedPiece);
             _surfaceView.setPieceMoves(_validMoves);
+            _surfaceView.invalidate();
         }
 
         else if (touchedPiece != null && (_selectedPiece.getName().equals("King") && touchedPiece.getName().equals("Rook"))) {
@@ -184,6 +185,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
                 game.sendAction(move);
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
+                _surfaceView.invalidate();
             }
         }
 
@@ -196,6 +198,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
             _surfaceView.setCurrPiece(_selectedPiece);
             _surfaceView.setPieceMoves(_validMoves);
+            _surfaceView.invalidate();
         }
 
         // otherwise
@@ -211,6 +214,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
                 game.sendAction(move);
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
+                _surfaceView.invalidate();
             }
         }
 
