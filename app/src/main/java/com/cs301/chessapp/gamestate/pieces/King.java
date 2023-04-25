@@ -89,14 +89,14 @@ public class King extends Piece {
         if (_playerId == ChessGameState.PLAYER_1) {
 
             if (_row == 7 && _col == 4) {
-                if (gamestate.getPiece(7, 0).getName().equals("Rook") && gamestate.getPiece(7, 0).getPlayerId() == _playerId) {
+                if (gamestate.getPiece(7, 0) != null && (gamestate.getPiece(7, 0).getName().equals("Rook") && gamestate.getPiece(7, 0).getPlayerId() == _playerId)) {
                     if (gamestate.getPiece(7, 1) == null && gamestate.getPiece(7, 2) == null && gamestate.getPiece(7, 3) == null) {
                         validMoves.add(new ChessMove(player, _row, _col, 7, 0));
                     }
 //                    validMoves.add(new ChessMove(player, _row, _col, 7, 0));
                 }
 
-                if (gamestate.getPiece(7, 7).getName().equals("Rook") && gamestate.getPiece(7, 7).getPlayerId() == _playerId) {
+                if (gamestate.getPiece(7, 7) != null && (gamestate.getPiece(7, 7).getName().equals("Rook") && gamestate.getPiece(7, 7).getPlayerId() == _playerId)) {
                     if (gamestate.getPiece(7, 5) == null && gamestate.getPiece(7, 6) == null) {
                         validMoves.add(new ChessMove(player, _row, _col, 7, 7));
                     }
@@ -108,14 +108,14 @@ public class King extends Piece {
         else if (_playerId == ChessGameState.PLAYER_2) {
 
             if (_row == 0 && _col == 4) {
-                if (gamestate.getPiece(0, 0).getName().equals("Rook") && gamestate.getPiece(0, 0).getPlayerId() == _playerId) {
+                if (gamestate.getPiece(0, 0) != null && (gamestate.getPiece(0, 0).getName().equals("Rook") && gamestate.getPiece(0, 0).getPlayerId() == _playerId)) {
                     if (gamestate.getPiece(0, 1) == null && gamestate.getPiece(0, 2) == null && gamestate.getPiece(0, 3) == null) {
                         validMoves.add(new ChessMove(player, _row, _col, 0, 0));
                     }
 //                    validMoves.add(new ChessMove(player, _row, _col, 0, 0));
                 }
 
-                if (gamestate.getPiece(0, 7).getName().equals("Rook") && gamestate.getPiece(0, 7).getPlayerId() == _playerId) {
+                if (gamestate.getPiece(0, 7) != null && (gamestate.getPiece(0, 7).getName().equals("Rook") && gamestate.getPiece(0, 7).getPlayerId() == _playerId)) {
                     if (gamestate.getPiece(0, 5) == null && gamestate.getPiece(0, 6) == null) {
                         validMoves.add(new ChessMove(player, _row, _col, 0, 7));
                     }
