@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
+import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.utilities.Logger;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
@@ -25,6 +26,7 @@ import com.cs301.chessapp.gamestate.ChessGameState;
  * @version Spring 2023
  */
 public class ChessPerspectiveWhite extends ChessPerspective {
+    private Paint pick = new Paint();
 
     /**
      * ChessPerspectiveWhite constructor
@@ -66,6 +68,20 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         // draw chessboard coordinates if debug mode is on
         if (Logger.getDebugValue()) {
             drawCoors(g);
+        }
+
+        //Create and use new canvas and paint
+        pick = makePaint(R.color.colorPrimary, 10f);
+
+        //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
+        if(_gamestate.getTurn() == ChessGameState.PLAYER_1) {
+            for (int row = 0; row < 8; row++) {
+                for (int col = 0; col < 8; col++) {
+//                    if() {
+//
+//                    }
+                }
+            }
         }
     }
 
@@ -119,38 +135,41 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         Paint paint = makePaint(Color.BLACK, 0f);
         Bitmap piece;
 
+        float topEdge;
+        float leftEdge;
+
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 if (_gamestate.getPiece(row, col) == null) {
                     continue;
                 }
 
-                float topEdge = BOARD_MARGIN + (row * TILE_LENGTH);
-                float leftEdge = BOARD_MARGIN + (col * TILE_LENGTH);
+                topEdge = BOARD_MARGIN + (row * TILE_LENGTH);
+                leftEdge = BOARD_MARGIN + (col * TILE_LENGTH);
 
                 switch (_gamestate.getPiece(row, col).getName()) {
                     case "King":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_KING : B_KING;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_KING : B_KING;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     case "Queen":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_QUEEN : B_QUEEN;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_QUEEN : B_QUEEN;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     case "Bishop":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_BISHOP : B_BISHOP;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_BISHOP : B_BISHOP;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     case "Knight":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_KNIGHT : B_KNIGHT;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_KNIGHT : B_KNIGHT;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     case "Rook":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_ROOK : B_ROOK;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_ROOK : B_ROOK;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     case "Pawn":
-                        piece = _gamestate.getPiece(row, col).getPlayer() == ChessGameState.PLAYER_1 ? W_PAWN : B_PAWN;
+                        piece = _gamestate.getPiece(row, col).getPlayerId() == ChessGameState.PLAYER_1 ? W_PAWN : B_PAWN;
                         g.drawBitmap(piece, leftEdge, topEdge, paint);
                         break;
                     default:
