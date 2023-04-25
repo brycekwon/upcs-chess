@@ -166,6 +166,9 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         }
     }
 
+    /**
+     * @param g Draws the valid moves of the piece clicked
+     */
     private void drawValids(Canvas g) {
         //Create and use new canvas and paint
         Paint pick = makePaint(Color.rgb(255, 49, 49), 10f);
