@@ -168,12 +168,10 @@ public class ChessPerspectiveBlack extends ChessPerspective {
     private void drawValids(Canvas g) {
         //Create and use new canvas and paint
         Paint pick = makePaint(Color.rgb(255, 49, 49), 10f);
-        Log.d("Color", "Hit here");
         //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
         if(_currPiece != null) {
-            Log.d("Color: BLACK P", "Hit here");
             for (int i = 0; i < _moves.size(); i++) {
-                g.drawCircle(_moves.get(i).getEndRow() * TILE_LENGTH + BOARD_MARGIN, _moves.get(i).getEndCol() * TILE_LENGTH + BOARD_MARGIN, 10, pick);
+                g.drawCircle((_moves.get(i).getEndCol() * TILE_LENGTH) + BOARD_MARGIN + (TILE_LENGTH / 2), (_moves.get(i).getEndRow() * TILE_LENGTH) + BOARD_MARGIN + (TILE_LENGTH / 2), 10, pick);
             }
         }
     }
