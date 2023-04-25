@@ -29,7 +29,7 @@ public class Bishop extends Piece {
      * @param player        the player who owns the bishop
      */
     public Bishop(int player) {
-        super(player, 3, "Bishop");
+        super(player, "Bishop");
     }
 
     /**
@@ -66,7 +66,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_1 = true;
                 }
@@ -87,7 +87,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_2 = true;
                 }
@@ -108,7 +108,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_3 = true;
                 }
@@ -129,7 +129,7 @@ public class Bishop extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_4 = true;
                 }

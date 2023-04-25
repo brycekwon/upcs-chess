@@ -28,7 +28,7 @@ public class Rook extends Piece {
      * @param player        the player the piece belongs to
      */
     public Rook(int player) {
-        super(player, 5, "Rook");
+        super(player, "Rook");
     }
 
     /**
@@ -65,7 +65,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_1 = true;
                 }
@@ -86,7 +86,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_2 = true;
                 }
@@ -107,7 +107,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_3 = true;
                 }
@@ -128,7 +128,7 @@ public class Rook extends Piece {
                 }
 
                 // checked tile has a capturable piece
-                else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     blocked_4 = true;
                 }

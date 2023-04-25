@@ -155,7 +155,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
             // do nothing if trying to select opponent piece
-            if (touchedPiece.getPlayer() != _playerTurn) {
+            if (touchedPiece.getPlayerId() != _playerTurn) {
                 return true;
             }
 
@@ -165,8 +165,21 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedCol = col;
         }
 
+        else if (touchedPiece != null && (_selectedPiece.getName().equals("King") && touchedPiece.getName().equals("Rook"))) {
+            // if no piece is currently selected do nothing
+            if (_selectedPiece == null) {
+                return true;
+            }
+
+            // attempt to move selected piece into selected location
+            ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
+            if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                game.sendAction(move);
+            }
+        }
+
         // selecting another one of own piece
-        else if (touchedPiece != null && _selectedPiece.getPlayer() == touchedPiece.getPlayer()) {
+        else if (touchedPiece != null && _selectedPiece.getPlayerId() == touchedPiece.getPlayerId()) {
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;

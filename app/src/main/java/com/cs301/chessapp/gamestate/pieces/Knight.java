@@ -28,7 +28,7 @@ public class Knight extends Piece {
      * @param player        the player the piece belongs to
      */
     public Knight(int player) {
-        super(player, 3, "Knight");
+        super(player, "Knight");
     }
 
     /**
@@ -61,7 +61,7 @@ public class Knight extends Piece {
                         }
 
                         // checked tile has a capturable piece
-                        else if (gamestate.getPiece(newRow, newCol).getPlayer() != this._player) {
+                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                             validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                         }
                     }

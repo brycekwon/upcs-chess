@@ -128,14 +128,40 @@ public class ChessLocalGame extends LocalGame {
         }
 
         if (from.getPiece().getName().equals("Pawn")) {
-            if (from.getPiece().getPlayer() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
+            if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_1));
                 from.setPiece(null);
+
                 gamestate.nextTurn();
                 return true;
-            } else if (from.getPiece().getPlayer() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
+            } else if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_2));
                 from.setPiece(null);
+
+                gamestate.nextTurn();
+                return true;
+            }
+        }
+
+        // castling 4->6 7->5
+        if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
+            //4->6 7->5
+            if (to.getCol() == 7) {
+                gamestate.getTile(from.getRow(), 6).setPiece(from.getPiece());
+                gamestate.getTile(from.getRow(), 5).setPiece(to.getPiece());
+                from.setPiece(null);
+                to.setPiece(null);
+
+                gamestate.nextTurn();
+                return true;
+            }
+            // 4->2 0->3
+            else if (to.getCol() == 0) {
+                gamestate.getTile(from.getRow(), 2).setPiece(from.getPiece());
+                gamestate.getTile(from.getRow(), 3).setPiece(to.getPiece());
+                from.setPiece(null);
+                to.setPiece(null);
+
                 gamestate.nextTurn();
                 return true;
             }
@@ -160,7 +186,7 @@ public class ChessLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayer() == ((ChessGameState) state).getTurn()) {
+                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getTurn()) {
                     if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
                         return null;
                     }

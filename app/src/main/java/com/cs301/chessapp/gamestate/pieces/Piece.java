@@ -22,10 +22,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 public abstract class Piece {
 
     // these variables specify information about the piece
-    protected final int _player;
-    protected final int _value;
-
-    // these variables specify information for the surface view
+    protected final int _playerId;
     protected final String _name;
 
     // these variables contain information about the piece location
@@ -38,11 +35,10 @@ public abstract class Piece {
      * This constructor initializes a piece with a player. The value of each
      * piece is determined by the subclass.
      *
-     * @param player        the player the piece belongs to
+     * @param playerId      the player the piece belongs to
      */
-    public Piece(int player, int value, String name) {
-        this._player = player;
-        this._value = value;
+    public Piece(int playerId, String name) {
+        this._playerId = playerId;
         this._name = name;
     }
 
@@ -125,20 +121,8 @@ public abstract class Piece {
      *
      * @return      the player the piece belongs to
      */
-    public int getPlayer() {
-        return _player;
-    }
-
-    /**
-     * getValue
-     *
-     * This method returns the value of the piece. The value is determined by
-     * the subclass and cannot be changed.
-     *
-     * @return      the value of the piece
-     */
-    public int getValue() {
-        return _value;
+    public int getPlayerId() {
+        return _playerId;
     }
 
     /**

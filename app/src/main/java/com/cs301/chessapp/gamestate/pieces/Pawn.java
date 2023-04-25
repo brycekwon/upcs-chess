@@ -30,7 +30,7 @@ public class Pawn extends Piece {
      * @param player        the player the piece belongs to
      */
     public Pawn(int player) {
-        super(player, 1, "Pawn");
+        super(player, "Pawn");
 
     }
 
@@ -48,7 +48,7 @@ public class Pawn extends Piece {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // check moves from the white player's perspective
-        if (this._player == ChessGameState.PLAYER_1) {
+        if (_playerId == ChessGameState.PLAYER_1) {
 
             if (hasValidBounds(_row - 1, _col)) {
 
@@ -65,21 +65,21 @@ public class Pawn extends Piece {
 
             // checked tile has a capturable piece
             if (hasValidBounds(_row - 1, _col - 1) && gamestate.getPiece(_row - 1, _col - 1) != null) {
-                if (gamestate.getPiece(_row - 1, _col - 1).getPlayer() != this._player) {
+                if (gamestate.getPiece(_row - 1, _col - 1).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 1, _col - 1));
                 }
             }
 
             // checked tile has a capturable piece
             if (hasValidBounds(_row - 1, _col + 1) && gamestate.getPiece(_row - 1, _col + 1) != null) {
-                if (gamestate.getPiece(_row - 1, _col + 1).getPlayer() != this._player) {
+                if (gamestate.getPiece(_row - 1, _col + 1).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 1, _col + 1));
                 }
             }
         }
 
         // check moves from the black player's perspective
-        else if (_player == ChessGameState.PLAYER_2) {
+        else if (_playerId == ChessGameState.PLAYER_2) {
 
             if (hasValidBounds(_row + 1, _col)) {
 
@@ -97,14 +97,14 @@ public class Pawn extends Piece {
 
             // checked tile has a capturable piece
             if (hasValidBounds(_row + 1, _col - 1) && gamestate.getPiece(_row + 1, _col - 1) != null) {
-                if (gamestate.getPiece(_row + 1, _col - 1).getPlayer() != this._player) {
+                if (gamestate.getPiece(_row + 1, _col - 1).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col - 1));
                 }
             }
 
             // checked tile has a capturable piece
             if (hasValidBounds(_row + 1, _col + 1) && gamestate.getPiece(_row + 1, _col + 1) != null) {
-                if (gamestate.getPiece(_row + 1, _col + 1).getPlayer() != this._player) {
+                if (gamestate.getPiece(_row + 1, _col + 1).getPlayerId() != _playerId) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 1, _col + 1));
                 }
             }

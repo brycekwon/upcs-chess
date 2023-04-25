@@ -45,7 +45,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (col - i >= 0) {
                 if (gamestate.getPiece(row, col - i) != null) {//checks if there's a piece or out of bounds
-                    if (gamestate.getPiece(row, col - i).getPlayer() != _player && !(gamestate.getPiece(row, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row, col - i).getPlayerId() != _player && !(gamestate.getPiece(row, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row, col - i).getName().equals("Queen") || gamestate.getPiece(row, col - i).getName().equals("Rook")) {
                                 Log.d("Check", "King in check from the left");
                                 inCheck = true;
@@ -55,7 +55,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row, col - i).getPlayer() == _player && gamestate.getPiece(row, col - i).getName().equals("King")){
+                    else if(gamestate.getPiece(row, col - i).getPlayerId() == _player && gamestate.getPiece(row, col - i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -70,7 +70,7 @@ public class Check {
         for(int i = 1; i < 8; i++) {
             if (col + i < 8) {
                 if (gamestate.getPiece(row, col + i) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row, col + i).getPlayer() != _player && !(gamestate.getPiece(row, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row, col + i).getPlayerId() != _player && !(gamestate.getPiece(row, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row, col + i).getName().equals("Queen") || gamestate.getPiece(row, col + i).getName().equals("Rook")) {
                                 Log.d("Check", "King in check from the right");
                                 inCheck = true;
@@ -81,7 +81,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row, col + i).getPlayer() == _player && gamestate.getPiece(row, col + i).getName().equals("King")){
+                    else if(gamestate.getPiece(row, col + i).getPlayerId() == _player && gamestate.getPiece(row, col + i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -96,7 +96,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0) {
                 if (gamestate.getPiece(row-i, col) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row-i, col).getPlayer() != _player && !(gamestate.getPiece(row - i, col).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row-i, col).getPlayerId() != _player && !(gamestate.getPiece(row - i, col).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row - i, col).getName().equals("Queen") || gamestate.getPiece(row - i, col).getName().equals("Rook")) {
                             Log.d("Check", "King in check from the top");
                             inCheck = true;
@@ -106,7 +106,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row - i, col).getPlayer() == _player && gamestate.getPiece(row - i, col).getName().equals("King")){
+                    else if(gamestate.getPiece(row - i, col).getPlayerId() == _player && gamestate.getPiece(row - i, col).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -121,7 +121,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8) {
                 if (gamestate.getPiece(row + i, col) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row + i, col).getPlayer() != _player && !(gamestate.getPiece(row + i, col).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row + i, col).getPlayerId() != _player && !(gamestate.getPiece(row + i, col).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row + i, col).getName().equals("Queen") || gamestate.getPiece(row + i, col).getName().equals("Rook")) {
                             Log.d("Check", "King in check from the bottom");
                             inCheck = true;
@@ -131,7 +131,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row + i, col).getPlayer() == _player && gamestate.getPiece(row + i, col ).getName().equals("King")){
+                    else if(gamestate.getPiece(row + i, col).getPlayerId() == _player && gamestate.getPiece(row + i, col ).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -146,7 +146,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col - i >= 0) {
                 if (gamestate.getPiece(row + i, col - i) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row + i, col - i).getPlayer() != _player && !(gamestate.getPiece(row + i, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row + i, col - i).getPlayerId() != _player && !(gamestate.getPiece(row + i, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row + i, col - i).getName().equals("Queen") || gamestate.getPiece(row + i, col - i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the down-left");
                             inCheck = true;
@@ -156,7 +156,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row + i, col - i).getPlayer() == _player && gamestate.getPiece(row + i, col - i).getName().equals("King")){
+                    else if(gamestate.getPiece(row + i, col - i).getPlayerId() == _player && gamestate.getPiece(row + i, col - i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -171,7 +171,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row + i < 8 && col + i < 8) {
                 if (gamestate.getPiece(row + i, col + i) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row + i, col + i).getPlayer() != _player && !(gamestate.getPiece(row + i, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row + i, col + i).getPlayerId() != _player && !(gamestate.getPiece(row + i, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row + i, col + i).getName().equals("Queen") || gamestate.getPiece(row + i, col + i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the down right");
                             inCheck = true;
@@ -181,7 +181,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row + i, col + i).getPlayer() == _player && gamestate.getPiece(row + i, col + i).getName().equals("King")){
+                    else if(gamestate.getPiece(row + i, col + i).getPlayerId() == _player && gamestate.getPiece(row + i, col + i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -196,7 +196,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col - i >= 0) {
                 if (gamestate.getPiece(row - i, col - i) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row - i, col - i).getPlayer() != _player && !(gamestate.getPiece(row - i, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row - i, col - i).getPlayerId() != _player && !(gamestate.getPiece(row - i, col - i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row - i, col - i).getName().equals("Queen") || gamestate.getPiece(row - i, col - i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the up-left");
                             inCheck = true;
@@ -206,7 +206,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row - i, col - i).getPlayer() == _player && gamestate.getPiece(row - i, col - i).getName().equals("King")){
+                    else if(gamestate.getPiece(row - i, col - i).getPlayerId() == _player && gamestate.getPiece(row - i, col - i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -221,7 +221,7 @@ public class Check {
         for (int i = 1; i < 8; i++) {
             if (row - i >= 0 && col + i < 8) {
                 if (gamestate.getPiece(row - i, col + i) != null) {//checks if there's a piece
-                    if (gamestate.getPiece(row - i, col + i).getPlayer() != _player && !(gamestate.getPiece(row - i, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
+                    if (gamestate.getPiece(row - i, col + i).getPlayerId() != _player && !(gamestate.getPiece(row - i, col + i).getName().equals("King"))) {//checks if the piece is an opponent piece
                         if(gamestate.getPiece(row - i, col + i).getName().equals("Queen") || gamestate.getPiece(row - i, col + i).getName().equals("Bishop")) {
                             Log.d("Check", "King in check from the up-right");
                             inCheck = true;
@@ -231,7 +231,7 @@ public class Check {
                             break;
                         }
                     }
-                    else if(gamestate.getPiece(row - i, col + i).getPlayer() == _player && gamestate.getPiece(row - i, col + i).getName().equals("King")){
+                    else if(gamestate.getPiece(row - i, col + i).getPlayerId() == _player && gamestate.getPiece(row - i, col + i).getName().equals("King")){
                         continue;
                     }
                     else{
@@ -247,7 +247,7 @@ public class Check {
             if(row - 1 >= 0) {
                 if(col + 1 <= 7 && col - 1 >= 0) {
                     if (gamestate.getPiece(row - 1, col + 1) != null) {//checks if there's a piece
-                        if (gamestate.getPiece(row - 1, col + 1).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        if (gamestate.getPiece(row - 1, col + 1).getPlayerId() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row - 1, col + 1).getName().equals("Pawn")) {
                                 Log.d("Check", "White King in check from right pawn");
                                 inCheck = true;
@@ -255,7 +255,7 @@ public class Check {
                         }
                     }
                     if (gamestate.getPiece(row - 1, col - 1) != null) {//checks if there's a piece
-                        if (gamestate.getPiece(row - 1, col - 1).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        if (gamestate.getPiece(row - 1, col - 1).getPlayerId() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row - 1, col - 1).getName().equals("Pawn")) {
                                 Log.d("Check", "White King in check from left pawn");
                                 inCheck = true;
@@ -269,7 +269,7 @@ public class Check {
             if(row + 1 <= 7) {
                 if(col + 1 <= 7 && col - 1 >= 0) {
                     if (gamestate.getPiece(row + 1, col + 1) != null) {//checks if there's a piece
-                        if (gamestate.getPiece(row + 1, col + 1).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        if (gamestate.getPiece(row + 1, col + 1).getPlayerId() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row + 1, col + 1).getName().equals("Pawn")) {
                                 Log.d("Check", "Black King in check from right pawn");
                                 inCheck = true;
@@ -277,7 +277,7 @@ public class Check {
                         }
                     }
                     if (gamestate.getPiece(row + 1, col - 1) != null) {//checks if there's a piece
-                        if (gamestate.getPiece(row + 1, col - 1).getPlayer() != _player) {//checks if the piece is an opponent piece
+                        if (gamestate.getPiece(row + 1, col - 1).getPlayerId() != _player) {//checks if the piece is an opponent piece
                             if (gamestate.getPiece(row + 1, col - 1).getName().equals("Pawn")) {
                                 Log.d("Check", "Black King in check from left pawn");
                                 inCheck = true;
@@ -298,7 +298,7 @@ public class Check {
                 for (int j = -2; j <= 2; j++) {
                     if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8)
                             && (gamestate.getPiece(row + i, col + j) != null)
-                            && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
+                            && (gamestate.getPiece(row + i, col + j).getPlayerId() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
                             && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
                         Log.d("Check", "White King in check from the knight");
                         inCheck = true;
@@ -312,7 +312,7 @@ public class Check {
                 for (int j = -2; j <= 2; j++) {
                     if (Math.abs(i) + Math.abs(j) == 3 && (row + i >= 0 && row + i < 8 && col + j >= 0 && col + j < 8)
                             && (gamestate.getPiece(row + i, col + j) != null)
-                            && (gamestate.getPiece(row + i, col + j).getPlayer() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
+                            && (gamestate.getPiece(row + i, col + j).getPlayerId() != _player && !(gamestate.getPiece(row + i, col + j).getName().equals("King")))
                             && (gamestate.getPiece(row + i, col + j).getName().equals("Knight"))) {
                         Log.d("Check", "Black King in check from the knight");
                         inCheck = true;
