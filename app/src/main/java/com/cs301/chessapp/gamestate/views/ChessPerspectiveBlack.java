@@ -119,14 +119,17 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         Paint paint = makePaint(Color.BLACK, 0f);
         Bitmap piece;
 
+        float topEdge;
+        float leftEdge;
+
         for (int row = 7, i=0; row >= 0; row--, i++) {
             for (int col = 7, j=0; col >= 0; col--, j++) {
                 if (_gamestate.getPiece(row, col) == null) {
                     continue;
                 }
 
-                float topEdge = BOARD_MARGIN + (i * TILE_LENGTH);
-                float leftEdge = BOARD_MARGIN + (j * TILE_LENGTH);
+                topEdge = BOARD_MARGIN + (i * TILE_LENGTH);
+                leftEdge = BOARD_MARGIN + (j * TILE_LENGTH);
 
                 switch (_gamestate.getPiece(row, col).getName()) {
                     case "King":
