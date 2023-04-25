@@ -1,5 +1,6 @@
 package com.cs301.chessapp;
 
+import android.util.Log;
 
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
@@ -87,6 +88,7 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer player) {
+        Log.d("SENDING", "SENDING");
         player.sendInfo(new ChessGameState((ChessGameState) state));
     }
 
@@ -127,6 +129,7 @@ public class ChessLocalGame extends LocalGame {
             return true;
         }
 
+        // pawn promotion
         if (from.getPiece().getName().equals("Pawn")) {
             if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_1));
