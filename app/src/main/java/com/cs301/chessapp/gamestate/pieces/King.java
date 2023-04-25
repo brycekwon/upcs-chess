@@ -72,17 +72,17 @@ public class King extends Piece {
          *
          * NO CHECKMATE IMPLEMENTED
          */
-        for (int i = -1; i <= 1; i++) {
-            for (int j = - 1; j <= 1; j++) {
-                if (hasValidBounds(_row + i, _col + j)) {
-                    if (gamestate.getPiece(_row + i, _col + j) == null) {
-                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
-                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                    }
-                }
-            }
-        }
+//        for (int i = -1; i <= 1; i++) {
+//            for (int j = - 1; j <= 1; j++) {
+//                if (hasValidBounds(_row + i, _col + j)) {
+//                    if (gamestate.getPiece(_row + i, _col + j) == null) {
+//                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+//                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
+//                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
+//                    }
+//                }
+//            }
+//        }
 
         return validMoves;
     }
