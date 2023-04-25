@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -11,7 +13,7 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * King class
  *
  * This class represents a king in the game of chess. The king can move one
- * square in any direction. It is worth an infinite amount of points.
+ * square in any direction.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -26,10 +28,10 @@ public class King extends Piece {
      *
      * This constructor initializes a bishop with a player.
      *
-     * @param player        the player who owns the king
+     * @param playerId      the player who owns the king
      */
-    public King(int player) {
-        super(player, Integer.MAX_VALUE, "King");
+    public King(int playerId) {
+        super(playerId, "King");
     }
 
     /**
@@ -58,7 +60,7 @@ public class King extends Piece {
                         if (!checker.checked(_row + i, _col + j, gamestate)) {
                             validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                         }
-                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
+                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
                         if (!checker.checked(_row + i, _col + j, gamestate)) {
                             validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                         }
@@ -77,12 +79,50 @@ public class King extends Piece {
 //                if (hasValidBounds(_row + i, _col + j)) {
 //                    if (gamestate.getPiece(_row + i, _col + j) == null) {
 //                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-//                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayer() != _player) {
+//                    } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
 //                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
 //                    }
 //                }
 //            }
 //        }
+
+        if (_playerId == ChessGameState.PLAYER_1) {
+
+            if (_row == 7 && _col == 4) {
+                if (gamestate.getPiece(7, 0) != null && (gamestate.getPiece(7, 0).getName().equals("Rook") && gamestate.getPiece(7, 0).getPlayerId() == _playerId)) {
+                    if (gamestate.getPiece(7, 1) == null && gamestate.getPiece(7, 2) == null && gamestate.getPiece(7, 3) == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, 7, 0));
+                    }
+//                    validMoves.add(new ChessMove(player, _row, _col, 7, 0));
+                }
+
+                if (gamestate.getPiece(7, 7) != null && (gamestate.getPiece(7, 7).getName().equals("Rook") && gamestate.getPiece(7, 7).getPlayerId() == _playerId)) {
+                    if (gamestate.getPiece(7, 5) == null && gamestate.getPiece(7, 6) == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, 7, 7));
+                    }
+//                    validMoves.add(new ChessMove(player, _row, _col, 7, 7));
+                }
+            }
+        }
+
+        else if (_playerId == ChessGameState.PLAYER_2) {
+
+            if (_row == 0 && _col == 4) {
+                if (gamestate.getPiece(0, 0) != null && (gamestate.getPiece(0, 0).getName().equals("Rook") && gamestate.getPiece(0, 0).getPlayerId() == _playerId)) {
+                    if (gamestate.getPiece(0, 1) == null && gamestate.getPiece(0, 2) == null && gamestate.getPiece(0, 3) == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, 0, 0));
+                    }
+//                    validMoves.add(new ChessMove(player, _row, _col, 0, 0));
+                }
+
+                if (gamestate.getPiece(0, 7) != null && (gamestate.getPiece(0, 7).getName().equals("Rook") && gamestate.getPiece(0, 7).getPlayerId() == _playerId)) {
+                    if (gamestate.getPiece(0, 5) == null && gamestate.getPiece(0, 6) == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, 0, 7));
+                    }
+//                    validMoves.add(new ChessMove(player, _row, _col, 0, 7));
+                }
+            }
+        }
 
         return validMoves;
     }
