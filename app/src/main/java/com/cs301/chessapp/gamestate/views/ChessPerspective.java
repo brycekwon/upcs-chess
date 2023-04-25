@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.pieces.Piece;
 
 /**
  * ChessPerspective class
@@ -56,6 +57,7 @@ public abstract class ChessPerspective extends SurfaceView {
 
     // the gamestate that this view is displaying
     protected ChessGameState _gamestate;
+    protected Piece _currPiece;
 
     /**
      * ChessPerspective constructor
@@ -120,6 +122,17 @@ public abstract class ChessPerspective extends SurfaceView {
         paint.setTextSize(60);
 
         return paint;
+    }
+
+    /**
+     * setCurrPiece
+     *
+     * This method sets the current selected piece
+     *
+     * @param piece     the piece selected
+     */
+    public void setCurrPiece(Piece piece) {
+        _currPiece = piece;
     }
 
     /**

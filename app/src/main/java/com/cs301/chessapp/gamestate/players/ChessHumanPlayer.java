@@ -163,6 +163,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;
+
+            _surfaceView.setCurrPiece(_selectedPiece);
         }
 
         else if (touchedPiece != null && (_selectedPiece.getName().equals("King") && touchedPiece.getName().equals("Rook"))) {
@@ -183,6 +185,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;
+
+            _surfaceView.setCurrPiece(_selectedPiece);
         }
 
         // otherwise
