@@ -173,7 +173,7 @@ public class ChessPerspectiveBlack extends ChessPerspective {
         if(_currPiece != null) {
             Log.d("Color: BLACK P", "Hit here");
             for (int i = 0; i < _moves.size(); i++) {
-                g.drawCircle(_moves.get(i).getEndRow() * TILE_LENGTH + BOARD_MARGIN, _moves.get(i).getEndCol() * TILE_LENGTH + BOARD_MARGIN, 10, pick);
+                g.drawCircle((7 - _moves.get(i).getEndCol()) * TILE_LENGTH + BOARD_MARGIN + (TILE_LENGTH / 2), (7 - _moves.get(i).getEndRow()) * TILE_LENGTH + BOARD_MARGIN + (TILE_LENGTH / 2), 10, pick);
             }
         }
     }

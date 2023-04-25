@@ -7,9 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.utilities.Logger;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
