@@ -13,6 +13,8 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
 
+import java.util.ArrayList;
+
 /**
  * ChessHumanPlayer class
  *
@@ -38,6 +40,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
     // these variables contain information about the current selected piece
     private Piece _selectedPiece;
+    private ArrayList<ChessMove> _validMoves;
     private int _selectedRow;
     private int _selectedCol;
 
@@ -163,8 +166,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;
+            _validMoves = _selectedPiece.getMoves(_surfaceView.getGameState(), this);
 
             _surfaceView.setCurrPiece(_selectedPiece);
+            _surfaceView.setPieceMoves(_validMoves);
         }
 
         else if (touchedPiece != null && (_selectedPiece.getName().equals("King") && touchedPiece.getName().equals("Rook"))) {
@@ -178,6 +183,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
                 _surfaceView.setCurrPiece(null);
+                _surfaceView.setPieceMoves(null);
             }
         }
 
@@ -186,8 +192,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;
+            _validMoves = _selectedPiece.getMoves(_surfaceView.getGameState(), this);
 
             _surfaceView.setCurrPiece(_selectedPiece);
+            _surfaceView.setPieceMoves(_validMoves);
         }
 
         // otherwise
@@ -202,6 +210,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
                 _surfaceView.setCurrPiece(null);
+                _surfaceView.setPieceMoves(null);
             }
         }
 
