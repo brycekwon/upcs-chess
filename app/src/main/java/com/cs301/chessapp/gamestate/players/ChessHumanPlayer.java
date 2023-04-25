@@ -1,6 +1,7 @@
 package com.cs301.chessapp.gamestate.players;
 
 
+import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -152,6 +153,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // get the piece at the touched location
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
+//        if (touchedPiece == null) {
+//            return true;
+//        }
+
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
             // do nothing if trying to select opponent piece
@@ -165,8 +170,22 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             _selectedCol = col;
         }
 
+        else if (touchedPiece != null && (_selectedPiece.getName().equals("King") && touchedPiece.getName().equals("Rook"))) {
+            // if no piece is currently selected do nothing
+            if (_selectedPiece == null) {
+                return true;
+            }
+
+            // attempt to move selected piece into selected location
+            ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
+            if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                game.sendAction(move);
+            }
+        }
+
         // selecting another one of own piece
         else if (touchedPiece != null && _selectedPiece.getPlayerId() == touchedPiece.getPlayerId()) {
+            Log.d("FEF", "GOT HERE1");
             _selectedPiece = touchedPiece;
             _selectedRow = row;
             _selectedCol = col;
@@ -174,6 +193,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         // otherwise
         else {
+            Log.d("FEF", "GOT HERE2");
             // if no piece is currently selected do nothing
             if (_selectedPiece == null) {
                 return true;

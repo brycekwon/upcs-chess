@@ -8,6 +8,7 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.King;
 import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
@@ -88,7 +89,6 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer player) {
-        Log.d("SENDING", "SENDING");
         player.sendInfo(new ChessGameState((ChessGameState) state));
     }
 
@@ -139,6 +139,30 @@ public class ChessLocalGame extends LocalGame {
             } else if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_2));
                 from.setPiece(null);
+                gamestate.nextTurn();
+                return true;
+            }
+        }
+
+        // castling 4->6 7->5
+        if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
+            //4->6 7->5
+            if (to.getCol() == 7) {
+                gamestate.getTile(from.getRow(), 6).setPiece(from.getPiece());
+                gamestate.getTile(from.getRow(), 5).setPiece(to.getPiece());
+                from.setPiece(null);
+                to.setPiece(null);
+
+                gamestate.nextTurn();
+                return true;
+            }
+            // 4->2 0->3
+            else if (to.getCol() == 0) {
+                gamestate.getTile(from.getRow(), 2).setPiece(from.getPiece());
+                gamestate.getTile(from.getRow(), 3).setPiece(to.getPiece());
+                from.setPiece(null);
+                to.setPiece(null);
+
                 gamestate.nextTurn();
                 return true;
             }
