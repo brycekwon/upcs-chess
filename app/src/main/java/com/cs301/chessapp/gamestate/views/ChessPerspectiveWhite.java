@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gameframework.utilities.Logger;
@@ -26,7 +27,6 @@ import com.cs301.chessapp.gamestate.ChessGameState;
  * @version Spring 2023
  */
 public class ChessPerspectiveWhite extends ChessPerspective {
-    private Paint pick = new Paint();
 
     /**
      * ChessPerspectiveWhite constructor
@@ -64,24 +64,11 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         // draw the board and pieces
         drawBoard(g);
         drawPieces(g);
+        drawValids(g);
 
         // draw chessboard coordinates if debug mode is on
         if (Logger.getDebugValue()) {
             drawCoors(g);
-        }
-
-        //Create and use new canvas and paint
-        pick = makePaint(R.color.colorPrimary, 10f);
-
-        //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
-        if(_gamestate.getTurn() == ChessGameState.PLAYER_1) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-//                    if() {
-//
-//                    }
-                }
-            }
         }
     }
 
@@ -175,6 +162,18 @@ public class ChessPerspectiveWhite extends ChessPerspective {
                     default:
                         break;
                 }
+            }
+        }
+    }
+
+    private void drawValids(Canvas g) {
+        //Create and use new canvas and paint
+        Paint pick = makePaint(Color.rgb(255, 49, 49), 10f);
+        Log.d("Color", "Hit here");
+        //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
+        if(_currPiece != null) {
+            for (int row = 0; row < _moves.size(); row++) {
+                g.drawCircle(_moves.get(row).getEndRow(), _moves.get(row).getEndCol(), 10, pick);
             }
         }
     }
