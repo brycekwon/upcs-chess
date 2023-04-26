@@ -58,7 +58,7 @@ public class Pawn extends Piece {
                 }
 
                 // can move 2 forward from starting position
-                if (_row == 6 && gamestate.getPiece(_row - 2, _col) == null) {
+                if (_row == 6 && (gamestate.getPiece(_row - 2, _col) == null && gamestate.getPiece(_row - 1, _col) == null)) {
                     validMoves.add(new ChessMove(player, _row, _col, _row - 2, _col));
                 }
             }
@@ -89,7 +89,7 @@ public class Pawn extends Piece {
                 }
 
                 // can move 2 forward from starting position
-                if (_row == 1 && gamestate.getPiece(_row + 2, _col) == null) {
+                if (_row == 1 && (gamestate.getPiece(_row + 2, _col) == null && gamestate.getPiece(_row + 1, _col) == null)) {
                     validMoves.add(new ChessMove(player, _row, _col, _row + 2, _col));
                 }
             }
