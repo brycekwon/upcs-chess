@@ -1,15 +1,11 @@
 package com.cs301.chessapp;
 
-
-import android.util.Log;
-
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
-import com.cs301.chessapp.gamestate.pieces.King;
 import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
@@ -130,7 +126,7 @@ public class ChessLocalGame extends LocalGame {
             return true;
         }
 
-        if (from.getPiece().getName().equals("Pawn")) {
+        else if (from.getPiece().getName().equals("Pawn")) {
             if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
                 to.setPiece(new Queen(ChessGameState.PLAYER_1));
                 from.setPiece(null);
@@ -147,7 +143,7 @@ public class ChessLocalGame extends LocalGame {
         }
 
         // castling 4->6 7->5
-        if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
+        else if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
             //4->6 7->5
             if (to.getCol() == 7) {
                 gamestate.getTile(from.getRow(), 6).setPiece(from.getPiece());

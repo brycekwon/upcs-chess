@@ -31,7 +31,10 @@ public class Pawn extends Piece {
      */
     public Pawn(int player) {
         super(player, "Pawn");
+    }
 
+    public Pawn(Pawn other) {
+        super(other);
     }
 
     /**

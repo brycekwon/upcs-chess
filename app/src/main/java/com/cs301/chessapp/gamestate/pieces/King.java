@@ -1,5 +1,7 @@
 package com.cs301.chessapp.gamestate.pieces;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
@@ -35,6 +37,11 @@ public class King extends Piece {
         _check = new Check(playerId);
     }
 
+    public King(King other) {
+        super(other);
+        _check = new Check(getPlayerId());
+    }
+
     /**
      * getMoves
      *
@@ -47,7 +54,11 @@ public class King extends Piece {
     @Override
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
-        _check.reset(gamestate, _row, _col);
+        _check.set(gamestate, _row, _col);
+
+//        if (_check._inCheck) {
+//            Log.d("King", _playerId + " is in check");
+//        }
 
         for (int i = -1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
@@ -101,5 +112,9 @@ public class King extends Piece {
     public ArrayList<ChessMove> getChecks(ChessGameState gamestate) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
         return validMoves;
+    }
+
+    public boolean inCheck() {
+        return _check.inCheck();
     }
 }

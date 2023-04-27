@@ -45,6 +45,13 @@ public abstract class Piece {
         this._name = name;
     }
 
+    public Piece(Piece other) {
+        this._playerId = getPlayerId();
+        this._name = getName();
+        this._row = other._row;
+        this._col = other._col;
+    }
+
     /**
      * getMoves
      *

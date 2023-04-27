@@ -32,6 +32,10 @@ public class Bishop extends Piece {
         super(player, "Bishop");
     }
 
+    public Bishop(Bishop other) {
+        super(other);
+    }
+
     /**
      * getMoves
      *

@@ -1,6 +1,12 @@
 package com.cs301.chessapp.gamestate.chessboard;
 
+import com.cs301.chessapp.gamestate.pieces.Bishop;
+import com.cs301.chessapp.gamestate.pieces.King;
+import com.cs301.chessapp.gamestate.pieces.Knight;
+import com.cs301.chessapp.gamestate.pieces.Pawn;
 import com.cs301.chessapp.gamestate.pieces.Piece;
+import com.cs301.chessapp.gamestate.pieces.Queen;
+import com.cs301.chessapp.gamestate.pieces.Rook;
 
 /**
  * ChessTile class
@@ -53,8 +59,6 @@ public class ChessTile {
         this._color = other.getColor();
         this._row = other.getRow();
         this._col = other.getCol();
-
-        this._piece = other.getPiece();
     }
 
     /**

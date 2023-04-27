@@ -31,6 +31,10 @@ public class Knight extends Piece {
         super(player, "Knight");
     }
 
+    public Knight(Knight other) {
+        super(other);
+    }
+
     /**
      * getMoves
      *
@@ -89,14 +93,15 @@ public class Knight extends Piece {
                         // checked tile is empty
                         if (gamestate.getPiece(newRow, newCol) == null) {
                             validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
+                            continue;
                         }
 
                         // checked tile has a capturable piece
-                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
+                        if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
                             validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
                         }
 
-                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() == _playerId) {
+                        if (gamestate.getPiece(newRow, newCol).getPlayerId() == _playerId) {
                         	validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
                         }
                     }

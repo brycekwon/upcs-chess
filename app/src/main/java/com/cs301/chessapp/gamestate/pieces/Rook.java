@@ -31,6 +31,10 @@ public class Rook extends Piece {
         super(player, "Rook");
     }
 
+    public Rook(Rook other) {
+        super(other);
+    }
+
     /**
      * getMoves
      *
