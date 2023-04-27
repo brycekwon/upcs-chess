@@ -106,4 +106,8 @@ public class King extends Piece {
     public boolean inCheck() {
         return _check.inCheck();
     }
+
+    public void update(ChessGameState gamestate) {
+        _check.set(gamestate, _row, _col);
+    }
 }

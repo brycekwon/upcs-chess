@@ -66,7 +66,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
             ChessMove move = gamestate.getPiece(row, col).getMoves(gamestate, this).get(index);
 
             // sleep to allow the user to see the move
-            sleep(1);
+            sleep(3);
 
             // send the move to the game
             game.sendAction(move);

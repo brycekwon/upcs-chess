@@ -155,6 +155,7 @@ public class ChessGameState extends GameState {
             for (int j = 0; j < 8; j++) {
                 if (_chessboard[i][j].getPiece() instanceof King) {
                     if (_chessboard[i][j].getPiece().getPlayerId() == _playerTurn) {
+                        ((King) _chessboard[i][j].getPiece()).update(this);
                         return ((King) _chessboard[i][j].getPiece()).inCheck();
                     }
                 }
