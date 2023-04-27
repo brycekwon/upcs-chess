@@ -1,15 +1,12 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
-import com.cs301.chessapp.gameframework.actionMessage.GameAction;
-import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
-import com.cs301.chessapp.gamestate.pieces.Piece;
 
 import java.util.ArrayList;
 
-public class Check {
+public class CheckAlgorithm {
 
     public boolean _inCheck;
     private int _kingRow;
@@ -17,7 +14,7 @@ public class Check {
     private final int _player;
     private ArrayList<ChessMove> _currMoves = new ArrayList<>();
 
-    public Check(int player) {
+    public CheckAlgorithm(int player) {
         this._player = player;
         this._inCheck = false;
     }
@@ -56,5 +53,17 @@ public class Check {
                 _currMoves.addAll(gamestate.getPiece(i, j).getChecks(gamestate));
             }
         }
+    }
+
+    public static boolean testMove(ChessGameState gamestate, ChessMove move) {
+        ChessGameState tempstate = new ChessGameState(gamestate);
+
+        ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
+        ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
+
+        tempfrom.setPiece(null);
+        tempto.setPiece(tempfrom.getPiece());
+
+        return tempstate.inCheck();
     }
 }
