@@ -183,6 +183,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
+                _selectedPiece = null;
+
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
                 _surfaceView.invalidate();
@@ -212,6 +214,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
+                _selectedPiece = null;
+
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
                 _surfaceView.invalidate();
