@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -10,7 +9,6 @@ import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
-import com.cs301.chessapp.gamestate.chessboard.ChessTile;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
@@ -161,7 +159,6 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
         if (_surfaceView.getGameState().inCheck()) {
-            Log.d("ChessHumanPlayer", "in check");
             _checked = true;
         }
 

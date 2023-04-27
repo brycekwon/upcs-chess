@@ -1,6 +1,8 @@
 package com.cs301.chessapp.gamestate.players;
 
 
+import android.util.Log;
+
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
@@ -29,6 +31,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
 
     // this variable contains information about the player
     private int _playerTurn;
+    private boolean _checked;
 
     /**
      * ChessComputerNormal constructor
@@ -40,6 +43,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
      */
     public ChessComputerNormal(String name) {
         super(name);
+        this._checked = false;
     }
 
     /**
