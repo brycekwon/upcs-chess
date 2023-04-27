@@ -33,10 +33,6 @@ public class Pawn extends Piece {
         super(player, "Pawn");
     }
 
-    public Pawn(Pawn other) {
-        super(other);
-    }
-
     /**
      * getMoves
      *

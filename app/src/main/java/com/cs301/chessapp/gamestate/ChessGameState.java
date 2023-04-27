@@ -2,7 +2,6 @@ package com.cs301.chessapp.gamestate;
 
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 
@@ -149,19 +148,5 @@ public class ChessGameState extends GameState {
      */
     public Piece getPiece(int row, int col) {
         return _chessboard[row][col].getPiece();
-    }
-
-    public boolean inCheck() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (_chessboard[i][j].getPiece() != null && _chessboard[i][j].getPiece().getPlayerId() == _playerTurn) {
-                    if (_chessboard[i][j].getPiece().getName().equals("King")) {
-                        Log.d("ChessGameState", "Found King");
-                        return ((King) _chessboard[i][j].getPiece()).inCheck();
-                    }
-                }
-            }
-        }
-        return false;
     }
 }

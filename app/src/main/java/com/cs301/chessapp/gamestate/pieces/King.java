@@ -37,11 +37,6 @@ public class King extends Piece {
         _check = new Check(playerId);
     }
 
-    public King(King other) {
-        super(other);
-        _check = new Check(getPlayerId());
-    }
-
     /**
      * getMoves
      *

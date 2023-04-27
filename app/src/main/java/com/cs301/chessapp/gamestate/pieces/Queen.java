@@ -31,10 +31,6 @@ public class Queen extends Piece {
         super(player, "Queen");
     }
 
-    public Queen(Queen other) {
-        super(other);
-    }
-
     /**
      * getMoves
      *

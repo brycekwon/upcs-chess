@@ -31,10 +31,6 @@ public class Knight extends Piece {
         super(player, "Knight");
     }
 
-    public Knight(Knight other) {
-        super(other);
-    }
-
     /**
      * getMoves
      *
