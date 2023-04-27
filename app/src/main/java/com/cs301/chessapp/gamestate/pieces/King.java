@@ -47,23 +47,17 @@ public class King extends Piece {
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        /*
-         * UNSTABLE VERSION OF KING MOVEMENTS
-         *
-         * CHECKMATE IMPLEMENTED
-         */
-        Check checker = new Check(gamestate, player);
+        Check checking = new Check(gamestate, _row, _col, _playerId);
+
+        Log.d("KING", "" + _row + "x" + _col);
+
         for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (hasValidBounds(_row + i, _col + j)) {
+            for (int j = - 1; j <= 1; j++) {
+                if (hasValidBounds(_row + i, _col + j) && !checking.isCheck(_row + i, _col + j)) {
                     if (gamestate.getPiece(_row + i, _col + j) == null) {
-                        if (!checker.checked(_row + i, _col + j, gamestate)) {
-                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                        }
+                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                     } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
-                        if (!checker.checked(_row + i, _col + j, gamestate)) {
-                            validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
-                        }
+                        validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                     }
                 }
             }
