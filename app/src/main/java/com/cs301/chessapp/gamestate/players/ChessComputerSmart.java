@@ -6,6 +6,9 @@ import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
+import com.cs301.chessapp.gamestate.pieces.Piece;
+
+import java.util.ArrayList;
 
 /**
  * ChessComputerSmart class
@@ -50,7 +53,7 @@ public class ChessComputerSmart extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if (info instanceof ChessGameState) {
-            ChessGameState gamestate = (ChessGameState) info;
+            ChessGameState gamestate = (ChessGameState) game.getGameState();
 
             // check for any capturable pieces
             for (int row = 0; row < 8; row++) {
@@ -72,22 +75,24 @@ public class ChessComputerSmart extends GameComputerPlayer {
                 }
             }
 
+            // select a random piece on the board
             int row;
             int col;
+            ArrayList<ChessMove> availMoves = null;
             do {
                 row = (int) (Math.random() * 8);
                 col = (int) (Math.random() * 8);
-            } while (gamestate.getPiece(row, col) == null ||
-                     gamestate.getPiece(row, col).getPlayerId() != _playerTurn ||
-                     gamestate.getPiece(row, col).getMoves(gamestate, this).size() < 1);
+                Piece currPiece = gamestate.getPiece(row, col);
+                if (currPiece != null && currPiece.getPlayerId() == _playerTurn) {
+                    availMoves = gamestate.getPiece(row, col).getMoves(gamestate, this);
+                }
+            } while (availMoves == null || availMoves.isEmpty());
 
-            int index = (int) (Math.random() * gamestate.getPiece(row, col).getMoves(gamestate, this).size());
-            ChessMove move = gamestate.getPiece(row, col).getMoves(gamestate, this).get(index);
+            int randIdx = (int) (Math.random() * availMoves.size());
+            ChessMove move = availMoves.get(randIdx);
 
-            // sleep to allow the user to see the move
             sleep(3);
 
-            // send the move to the game
             game.sendAction(move);
         }
     }
