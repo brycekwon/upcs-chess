@@ -9,6 +9,7 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.chessboard.ChessTile;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
@@ -44,6 +45,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     private int _selectedRow;
     private int _selectedCol;
 
+    private boolean _checked;
+
     /**
      * ChessHumanPlayer constructor
      *
@@ -64,6 +67,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         // set the player information
         this._playerTurn = playerTurn;
+        this._checked = false;
     }
 
     /**
@@ -155,9 +159,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // get the piece at the touched location
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
-        Log.d("ChessHumanPlayer", "Row: " + row + " Col: " + col + " Piece: " + touchedPiece);
-        Log.d("ChessHumanPlayer", "Selected Piece " + _selectedPiece);
-
+        if (_surfaceView.getGameState().inCheck()) {
+            Log.d("ChessHumanPlayer", "in check");
+            _checked = true;
+        }
 
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
@@ -186,8 +191,24 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             // attempt to move selected piece into selected location
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                if (_checked) {
+                    ChessGameState tempstate = new ChessGameState(_surfaceView.getGameState());
+
+                    ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
+                    ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
+
+                    tempfrom.setPiece(null);
+                    tempto.setPiece(tempfrom.getPiece());
+
+                    if (tempstate.inCheck()) {
+                        Log.d("ChessHumanPlayer", "still in check!1");
+                        return true;
+                    }
+                }
+
                 game.sendAction(move);
                 _selectedPiece = null;
+                _checked = false;
 
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
@@ -217,8 +238,24 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             // attempt to move selected piece into selected location
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                if (_checked) {
+                    ChessGameState tempstate = new ChessGameState(_surfaceView.getGameState());
+
+                    ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
+                    ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
+
+                    tempfrom.setPiece(null);
+                    tempto.setPiece(tempfrom.getPiece());
+
+                    if (tempstate.inCheck()) {
+                        Log.d("ChessHumanPlayer", "still in check!2");
+                        return true;
+                    }
+                }
+
                 game.sendAction(move);
                 _selectedPiece = null;
+                _checked = false;
 
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);

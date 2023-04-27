@@ -102,4 +102,8 @@ public class King extends Piece {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
         return validMoves;
     }
+
+    public boolean inCheck() {
+        return _check.inCheck();
+    }
 }

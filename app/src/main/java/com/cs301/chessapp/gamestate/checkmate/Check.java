@@ -1,7 +1,11 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
+import com.cs301.chessapp.gameframework.actionMessage.GameAction;
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
+import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.Piece;
 
 import java.util.ArrayList;
 

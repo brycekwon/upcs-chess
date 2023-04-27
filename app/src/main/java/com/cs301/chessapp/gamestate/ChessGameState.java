@@ -149,4 +149,17 @@ public class ChessGameState extends GameState {
     public Piece getPiece(int row, int col) {
         return _chessboard[row][col].getPiece();
     }
+
+    public boolean inCheck() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (_chessboard[i][j].getPiece() instanceof King) {
+                    if (_chessboard[i][j].getPiece().getPlayerId() == _playerTurn) {
+                        return ((King) _chessboard[i][j].getPiece()).inCheck();
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
