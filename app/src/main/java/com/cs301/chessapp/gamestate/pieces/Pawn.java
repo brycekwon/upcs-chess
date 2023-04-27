@@ -112,4 +112,38 @@ public class Pawn extends Piece {
 
         return validMoves;
     }
+
+    public ArrayList<ChessMove> getChecks(ChessGameState gamestate) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
+
+        // check moves from the white player's perspective
+        if (_playerId == ChessGameState.PLAYER_1) {
+
+            // checked tile has a capturable piece
+            if (hasValidBounds(_row - 1, _col - 1)) {
+                validMoves.add(new ChessMove(_tempPlayer, _row, _col, _row - 1, _col - 1));
+            }
+
+            // checked tile has a capturable piece
+            if (hasValidBounds(_row - 1, _col + 1)) {
+                validMoves.add(new ChessMove(_tempPlayer, _row, _col, _row - 1, _col + 1));
+            }
+        }
+
+        // check moves from the black player's perspective
+        else if (_playerId == ChessGameState.PLAYER_2) {
+
+            // checked tile has a capturable piece
+            if (hasValidBounds(_row + 1, _col - 1)) {
+                validMoves.add(new ChessMove(_tempPlayer, _row, _col, _row + 1, _col - 1));
+            }
+
+            // checked tile has a capturable piece
+            if (hasValidBounds(_row + 1, _col + 1)) {
+                validMoves.add(new ChessMove(_tempPlayer, _row, _col, _row + 1, _col + 1));
+            }
+        }
+
+        return validMoves;
+    }
 }

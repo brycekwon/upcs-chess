@@ -78,8 +78,8 @@ public class ChessMainActivity extends GameMainActivity {
 
         // create a default game setup
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Chess", PORT_NUMBER);
-        defaultConfig.addPlayer("Player 1", 1);
-        defaultConfig.addPlayer("Player 2", 3);
+        defaultConfig.addPlayer("Player 1", 0);
+        defaultConfig.addPlayer("Player 2", 2);
 
         return defaultConfig;
     }

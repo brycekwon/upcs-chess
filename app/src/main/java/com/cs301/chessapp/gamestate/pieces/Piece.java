@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
+import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 
 /**
  * Piece class
@@ -20,6 +21,8 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
  * @version Spring 2023
  */
 public abstract class Piece {
+
+    protected final ChessComputerNormal _tempPlayer = new ChessComputerNormal("Temp Player");
 
     // these variables specify information about the piece
     protected final int _playerId;
@@ -53,6 +56,8 @@ public abstract class Piece {
      * @return              a list of valid moves
      */
     public abstract ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player);
+
+    public abstract ArrayList<ChessMove> getChecks(ChessGameState gamestate);
 
     /**
      * isValidMove

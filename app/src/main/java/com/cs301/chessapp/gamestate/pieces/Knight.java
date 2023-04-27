@@ -71,4 +71,39 @@ public class Knight extends Piece {
 
         return validMoves;
     }
+
+    public ArrayList<ChessMove> getChecks(ChessGameState gamestate) {
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
+
+        // these variables specify the new piece location
+        int newRow;
+        int newCol;
+
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+            	if (Math.abs(i) + Math.abs(j) == 3) {
+                    if (hasValidBounds(_row + i, _col + j)) {
+                        newRow = _row + i;
+                        newCol = _col + j;
+
+                        // checked tile is empty
+                        if (gamestate.getPiece(newRow, newCol) == null) {
+                            validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
+                        }
+
+                        // checked tile has a capturable piece
+                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
+                            validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
+                        }
+
+                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() == _playerId) {
+                        	validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
+                        }
+                    }
+                }
+            }
+        }
+
+        return validMoves;
+    }
 }
