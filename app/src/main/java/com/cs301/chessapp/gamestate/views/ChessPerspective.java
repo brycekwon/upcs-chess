@@ -1,10 +1,12 @@
 package com.cs301.chessapp.gamestate.views;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BlendMode;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -103,6 +105,7 @@ public abstract class ChessPerspective extends SurfaceView {
      * This method initializes the settings of the surface view. It is called
      * by the constructors.
      */
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
         // allow the view to draw itself
         setWillNotDraw(false);
@@ -114,6 +117,9 @@ public abstract class ChessPerspective extends SurfaceView {
         // establish the background color
         setBackgroundColor(Color.parseColor("#00FFFFFF"));
         this.setBackground(getResources().getDrawable(R.drawable.game_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            this.setBackgroundTintBlendMode(BlendMode.DARKEN);
+        }
     }
 
     /**
