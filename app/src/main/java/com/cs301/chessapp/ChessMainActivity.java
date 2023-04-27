@@ -1,6 +1,5 @@
 package com.cs301.chessapp;
 
-
 import com.cs301.chessapp.gameframework.GameMainActivity;
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.gameConfiguration.GameConfig;

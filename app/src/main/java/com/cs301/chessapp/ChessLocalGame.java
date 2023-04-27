@@ -63,18 +63,18 @@ public class ChessLocalGame extends LocalGame {
     public void start(GamePlayer[] players) {
         super.start(players);
 
-        int x = -1;
+        int side = -1;
         for (GamePlayer p : players) {
             if (p instanceof ChessHumanPlayer) {
-                x = p.getPlayerTurn() == ChessGameState.PLAYER_1 ? ChessGameState.PLAYER_2 : ChessGameState.PLAYER_1;
+                side = p.getPlayerTurn() == ChessGameState.PLAYER_1 ? ChessGameState.PLAYER_2 : ChessGameState.PLAYER_1;
             }
         }
 
         for (GamePlayer p : players) {
-            if (p instanceof ChessComputerSmart) {
-                ((ChessComputerSmart) p).setPlayerTurn(x);
-            } else if (p instanceof ChessComputerNormal) {
-                ((ChessComputerNormal) p).setPlayerTurn(x);
+            if (p instanceof ChessComputerNormal) {
+                ((ChessComputerNormal) p).setPlayerTurn(side);
+            } else if (p instanceof ChessComputerSmart) {
+                ((ChessComputerSmart) p).setPlayerTurn(side);
             }
         }
     }
@@ -102,7 +102,7 @@ public class ChessLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         int currPlayer = this.players[playerIdx].getPlayerTurn();
-        int currTurn = ((ChessGameState) state).getTurn();
+        int currTurn = ((ChessGameState) state).getCurrTurn();
 
         return currPlayer == currTurn;
     }
@@ -187,7 +187,7 @@ public class ChessLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getTurn()) {
+                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getCurrTurn()) {
                     if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
                         return null;
                     }

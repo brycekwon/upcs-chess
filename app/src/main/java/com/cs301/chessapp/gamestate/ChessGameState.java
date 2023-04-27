@@ -93,7 +93,7 @@ public class ChessGameState extends GameState {
      * @param other     the gamestate to copy
      */
     public ChessGameState(ChessGameState other) {
-        this._playerTurn = other.getTurn();
+        this._playerTurn = other.getCurrTurn();
 
         this._chessboard = new ChessTile[8][8];
         for (int i = 0; i < 8; i++) {
@@ -120,7 +120,7 @@ public class ChessGameState extends GameState {
      *
      * @return      the current turn
      */
-    public int getTurn() {
+    public int getCurrTurn() {
         return _playerTurn;
     }
 
