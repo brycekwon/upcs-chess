@@ -23,9 +23,6 @@ public class Check {
             if (move.getEndRow() == row && move.getEndCol() == col) {
                 return true;
             }
-//            if (move.getEndRow() == _kingRow && move.getEndCol() == _kingCol) {
-//                _inCheck = true;
-//            }
         }
         return false;
     }
