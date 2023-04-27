@@ -6,7 +6,9 @@ import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.King;
 import com.cs301.chessapp.gamestate.pieces.Queen;
+import com.cs301.chessapp.gamestate.pieces.Rook;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
@@ -146,8 +148,8 @@ public class ChessLocalGame extends LocalGame {
         else if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
             //4->6 7->5
             if (to.getCol() == 7) {
-                gamestate.getTile(from.getRow(), 6).setPiece(from.getPiece());
-                gamestate.getTile(from.getRow(), 5).setPiece(to.getPiece());
+                gamestate.getTile(from.getRow(), 6).setPiece(new King(from.getPiece().getPlayerId()));
+                gamestate.getTile(from.getRow(), 5).setPiece(new Rook(to.getPiece().getPlayerId()));
                 from.setPiece(null);
                 to.setPiece(null);
 
@@ -156,8 +158,8 @@ public class ChessLocalGame extends LocalGame {
             }
             // 4->2 0->3
             else if (to.getCol() == 0) {
-                gamestate.getTile(from.getRow(), 2).setPiece(from.getPiece());
-                gamestate.getTile(from.getRow(), 3).setPiece(to.getPiece());
+                gamestate.getTile(from.getRow(), 2).setPiece(new Rook(to.getPiece().getPlayerId()));
+                gamestate.getTile(from.getRow(), 3).setPiece(new King(from.getPiece().getPlayerId()));
                 from.setPiece(null);
                 to.setPiece(null);
 

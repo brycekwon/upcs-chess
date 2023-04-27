@@ -1,5 +1,6 @@
 package com.cs301.chessapp.gamestate.players;
 
+import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -154,6 +155,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // get the piece at the touched location
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
+        Log.d("ChessHumanPlayer", "Row: " + row + " Col: " + col + " Piece: " + touchedPiece);
+        Log.d("ChessHumanPlayer", "Selected Piece " + _selectedPiece);
+
+
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
             // do nothing if trying to select opponent piece
@@ -182,6 +187,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
+                _selectedPiece = null;
+
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
                 _surfaceView.invalidate();
@@ -211,6 +218,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 game.sendAction(move);
+                _selectedPiece = null;
+
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
                 _surfaceView.invalidate();
