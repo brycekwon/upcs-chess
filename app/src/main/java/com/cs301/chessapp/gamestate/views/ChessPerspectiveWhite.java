@@ -62,7 +62,7 @@ public class ChessPerspectiveWhite extends ChessPerspective {
         // draw the board and pieces
         drawBoard(g);
         drawPieces(g);
-        drawValids(g);
+        drawValid(g);
 
         // draw chessboard coordinates if debug mode is on
         if (Logger.getDebugValue()) {
@@ -167,7 +167,7 @@ public class ChessPerspectiveWhite extends ChessPerspective {
     /**
      * @param g Draws the valid moves of the piece clicked
      */
-    private void drawValids(Canvas g) {
+    private void drawValid(Canvas g) {
         //Create and use new canvas and paint
         Paint pick = makePaint(Color.rgb(255, 49, 49), 10f);
         //Finding the chess piece clicked and it's movable moves, and placing a graphic on each of the squares it can move to
