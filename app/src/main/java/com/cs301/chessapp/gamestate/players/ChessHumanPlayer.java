@@ -9,6 +9,7 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
@@ -192,16 +193,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    ChessGameState tempstate = new ChessGameState(_surfaceView.getGameState());
-
-                    ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
-                    ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
-
-                    tempfrom.setPiece(null);
-                    tempto.setPiece(tempfrom.getPiece());
-
-                    if (tempstate.inCheck()) {
-                        Log.d("ChessHumanPlayer", "still in check!1");
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
                         return true;
                     }
                 }
@@ -239,16 +231,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    ChessGameState tempstate = new ChessGameState(_surfaceView.getGameState());
-
-                    ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
-                    ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
-
-                    tempfrom.setPiece(null);
-                    tempto.setPiece(tempfrom.getPiece());
-
-                    if (tempstate.inCheck()) {
-                        Log.d("ChessHumanPlayer", "still in check!2");
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
                         return true;
                     }
                 }
