@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/game_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,16 +17,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.cs301.chessapp.gamestate.views.ChessPerspectiveWhite
-                android:id="@+id/whitePerspectiveBoard"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"/>
+            android:id="@+id/whitePerspectiveBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorAccent"
             android:clickable="false"
             android:orientation="vertical">
 
