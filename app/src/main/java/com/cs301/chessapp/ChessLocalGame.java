@@ -1,12 +1,15 @@
 package com.cs301.chessapp;
 
 
+import android.util.Log;
+
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.King;
 import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;

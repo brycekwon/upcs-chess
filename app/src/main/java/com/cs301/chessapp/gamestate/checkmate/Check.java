@@ -7,30 +7,36 @@ import java.util.ArrayList;
 
 public class Check {
 
-    private final int _kingRow;
-    private final int _kingCol;
+    private int _kingRow;
+    private int _kingCol;
     private final int _player;
+    private ChessGameState _gameState;
     private ArrayList<ChessMove> _currMoves = new ArrayList<>();
 
     public Check(ChessGameState gamestate, int kingRow, int kingCol, int player) {
+        this._gameState = gamestate;
         this._kingRow = kingRow;
         this._kingCol = kingCol;
         this._player = player;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (gamestate.getPiece(i, j) == null) {
+                if (_gameState.getPiece(i, j) == null) {
                     continue;
                 }
-                else if (gamestate.getPiece(i, j).getName().equals("King")) {
+                else if (_gameState.getPiece(i, j).getName().equals("King")) {
                     continue;
                 }
-                else if (gamestate.getPiece(i, j).getPlayerId() == _player) {
+                else if (_gameState.getPiece(i, j).getPlayerId() == _player) {
                     continue;
                 }
-                _currMoves.addAll(gamestate.getPiece(i, j).getChecks(gamestate));
+                _currMoves.addAll(_gameState.getPiece(i, j).getChecks(_gameState));
             }
         }
+    }
+
+    public Check(int player) {
+        this._player = player;
     }
 
     public boolean isCheck(int row, int col) {
@@ -49,5 +55,26 @@ public class Check {
             }
         }
         return false;
+    }
+
+    public void reset(ChessGameState gamestate, int kingRow, int kingCol) {
+        _currMoves.clear();
+        this._kingRow = kingRow;
+        this._kingCol = kingCol;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (gamestate.getPiece(i, j) == null) {
+                    continue;
+                }
+                else if (gamestate.getPiece(i, j).getName().equals("King")) {
+                    continue;
+                }
+                else if (gamestate.getPiece(i, j).getPlayerId() == _player) {
+                    continue;
+                }
+                _currMoves.addAll(gamestate.getPiece(i, j).getChecks(gamestate));
+            }
+        }
     }
 }
