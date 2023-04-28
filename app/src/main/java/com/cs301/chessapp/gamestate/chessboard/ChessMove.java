@@ -5,10 +5,10 @@ import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 
 /**
  * ChessMove class
- *
- * This class is used to represent a move in the game of chess. It contains the
- * starting and ending position of the piece being moved. It also specifies the
- * player moving the piece. Once initialized, the move cannot be changed.
+ * <p>
+ * This class represents a move in the game of chess. It contains the starting
+ * and ending position of the piece being moved. It also specifies the player
+ * moving the piece. Once initialized, the move cannot be changed.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -27,19 +27,21 @@ public class ChessMove extends GameAction {
     private final int _col2;
 
     /**
-     * ChessMove constructor
+     * ChessMove default constructor
+     * <p>
+     * This constructor initializes a chess move from a specific player.
      *
-     * This constructor initializes a move from a specified player.
-     *
-     * @param player        the player making the move
+     * @param player        chess player making the move
      * @param row1          row of the starting position
      * @param col1          column of the starting position
      * @param row2          row of the ending position
      * @param col2          column of the ending position
      */
     public ChessMove(GamePlayer player, int row1, int col1, int row2, int col2) {
+        // invoke superclass constructor
         super(player);
 
+        // initialize variables
         this._row1 = row1;
         this._col1 = col1;
         this._row2 = row2;
@@ -48,7 +50,7 @@ public class ChessMove extends GameAction {
 
     /**
      * getStartRow
-     *
+     * <p>
      * This method returns the row of the starting position.
      *
      * @return      row of the starting position
@@ -59,7 +61,7 @@ public class ChessMove extends GameAction {
 
     /**
      * getStartCol
-     *
+     * <p>
      * This method returns the column of the starting position.
      *
      * @return      column of starting position
@@ -70,7 +72,7 @@ public class ChessMove extends GameAction {
 
     /**
      * getEndRow
-     *
+     * <p>
      * This method returns the row of the ending position.
      *
      * @return      row of ending position
@@ -82,7 +84,7 @@ public class ChessMove extends GameAction {
 
     /**
      * getEndCol
-     *
+     * <p>
      * This method returns the column of the ending position.
      *
      * @return      column of ending position
