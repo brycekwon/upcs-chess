@@ -158,7 +158,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // get the piece at the touched location
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
-        if (_surfaceView.getGameState().inCheck()) {
+        if (_surfaceView.getGameState().inCheck(_playerTurn)) {
             _checked = true;
         }
 
@@ -190,7 +190,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move, _playerTurn)) {
                         return true;
                     }
                 }
@@ -228,7 +228,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move, _playerTurn)) {
                         return true;
                     }
                 }

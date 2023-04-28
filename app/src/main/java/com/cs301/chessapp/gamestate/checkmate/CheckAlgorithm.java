@@ -55,7 +55,7 @@ public class CheckAlgorithm {
         }
     }
 
-    public static boolean testMove(ChessGameState gamestate, ChessMove move) {
+    public static boolean testMove(ChessGameState gamestate, ChessMove move, int playernum) {
         ChessGameState tempstate = new ChessGameState(gamestate);
 
         ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
@@ -64,6 +64,6 @@ public class CheckAlgorithm {
         tempfrom.setPiece(null);
         tempto.setPiece(tempfrom.getPiece());
 
-        return tempstate.inCheck();
+        return tempstate.inCheck(playernum);
     }
 }

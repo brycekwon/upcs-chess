@@ -8,9 +8,11 @@ import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -63,6 +65,12 @@ public class ChessComputerNormal extends GameComputerPlayer {
         if (info instanceof ChessGameState) {
             ChessGameState gamestate = (ChessGameState) game.getGameState();
 
+            sleep(3);
+
+            if (gamestate.inCheck(_playerTurn)) {
+                _checked = true;
+            }
+
             // select a random piece on the board
             int row;
             int col;
@@ -79,9 +87,36 @@ public class ChessComputerNormal extends GameComputerPlayer {
             int randIdx = (int) (Math.random() * availMoves.size());
             ChessMove move = availMoves.get(randIdx);
 
-            sleep(3);
+            if (!CheckAlgorithm.testMove(gamestate, move, _playerTurn)) {
+                game.sendAction(move);
+                _checked = false;
+            }
 
-            game.sendAction(move);
+//            ChessMove move = null;
+//            while (move == null) {
+//                ArrayList<ChessMove> availMoves = null;
+//                int row = (int) (Math.random() * 8);
+//                int col = (int) (Math.random() * 8);
+//                Piece currPiece = gamestate.getPiece(row, col);
+//                if (currPiece != null && currPiece.getPlayerId() == _playerTurn) {
+//                    availMoves = gamestate.getPiece(row, col).getMoves(gamestate, this);
+//                }
+//
+//                if (availMoves != null && !availMoves.isEmpty()) {
+//                    int randIdx = (int) (Math.random() * availMoves.size());
+//
+////                    if (_checked) {
+//                        if (CheckAlgorithm.testMove(gamestate, availMoves.get(randIdx), _playerTurn)) {
+//                            move = availMoves.get(randIdx);
+//                        }
+////                    } else {
+////                        move = availMoves.get(randIdx);
+////                    }
+//                }
+//            }
+
+//            game.sendAction(move);
+//            _checked = false;
         }
     }
 
