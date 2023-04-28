@@ -3,14 +3,16 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 
 /**
  * Knight class
- *
+ * <p>
  * This class represents a knight in the game of chess. The knight can move
- * in an L shape and can jump over pieces. It is worth 3 points.
+ * in any direction in an L shape. The knight can jump over pieces. It
+ * captures pieces by moving to their square. It is a subclass of Piece.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -21,90 +23,87 @@ import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 public class Knight extends Piece {
 
     /**
-     * Knight constructor
+     * Knight default constructor
+     * <p>
+     * This constructor initializes a knight assigned to a player.
      *
-     * This constructor initializes a knight with a player.
-     *
-     * @param player        the player the piece belongs to
+     * @param playerId      player assigned to this piece
      */
-    public Knight(int player) {
-        super(player, "Knight");
+    public Knight(int playerId) {
+        // invoke superclass constructor
+        super(playerId, "Knight");
     }
 
     /**
      * getMoves
+     * <p>
+     * This method calculates all valid moves for the knight at its current
+     * position on the chessboard.
      *
-     * This method returns all valid moves for the knight.
-     *
-     * @param gamestate     the current gamestate
-     * @param player        the player making the move
-     * @return              a list of valid moves
+     * @param gamestate     current state of the game
+     * @param player        player assigned to this piece
+     * @return              valid moves for the knight
      */
     @Override
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
+        // initialize an empty list of valid moves
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
         // these variables specify the new piece location
         int newRow;
         int newCol;
+        Piece newPiece;
 
+        // traverse through all L-shaped moves
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
-                if (Math.abs(i) + Math.abs(j) == 3) {
-                    if (hasValidBounds(_row + i, _col + j)) {
-                        newRow = _row + i;
-                        newCol = _col + j;
+                if (Math.abs(i) + Math.abs(j) == 3 && hasValidBounds(_row + i, _col + j)) {
+                    newRow = _row + i;
+                    newCol = _col + j;
+                    newPiece = gamestate.getPiece(newRow, newCol);
 
-                        // checked tile is empty
-                        if (gamestate.getPiece(newRow, newCol) == null) {
-                            validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
-                        }
+                    // current tile is empty (valid move)
+                    if (newPiece == null) {
+                        validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
+                    }
 
-                        // checked tile has a capturable piece
-                        else if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
-                            validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
-                        }
+                    // current tile has a capturable piece (valid move)
+                    else if (newPiece.getPlayerId() != _playerId) {
+                        validMoves.add(new ChessMove(player, _row, _col, newRow, newCol));
                     }
                 }
             }
         }
 
+        // return the list of valid moves
         return validMoves;
     }
 
+    /**
+     * getChecks
+     * <p>
+     * This methods calculates all checkable moves for the knight at its
+     * current position on the chessboard. This method is used to determine
+     * whether the knight is putting the opposing player's king in check.
+     *
+     * @param gamestate     current state of the game
+     * @return              checkable moves for the knight
+     */
+    @Override
     public ArrayList<ChessMove> getChecks(ChessGameState gamestate) {
+        // initialize an empty list of valid moves
         ArrayList<ChessMove> validMoves = new ArrayList<>();
 
-        // these variables specify the new piece location
-        int newRow;
-        int newCol;
-
+        // traverse through all L-shaped moves
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
-            	if (Math.abs(i) + Math.abs(j) == 3) {
-                    if (hasValidBounds(_row + i, _col + j)) {
-                        newRow = _row + i;
-                        newCol = _col + j;
-
-                        // checked tile is empty
-                        if (gamestate.getPiece(newRow, newCol) == null) {
-                            validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
-                            continue;
-                        }
-
-                        // checked tile has a capturable piece
-                        if (gamestate.getPiece(newRow, newCol).getPlayerId() != _playerId) {
-                            validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
-                        }
-
-                        if (gamestate.getPiece(newRow, newCol).getPlayerId() == _playerId) {
-                        	validMoves.add(new ChessMove(_tempPlayer, _row, _col, newRow, newCol));
-                        }
-                    }
+            	if (Math.abs(i) + Math.abs(j) == 3 && hasValidBounds(_row + i, _col + j)) {
+                    validMoves.add(new ChessMove(null, _row, _col, _row + i, _col + j));
                 }
             }
         }
 
+        // return the list of valid moves
         return validMoves;
     }
 }
