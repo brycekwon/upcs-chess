@@ -1,10 +1,13 @@
 package com.cs301.chessapp;
 
+import android.util.Log;
+
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
 import com.cs301.chessapp.gamestate.pieces.King;
 import com.cs301.chessapp.gamestate.pieces.Queen;
@@ -118,6 +121,10 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        if (((ChessMove) action).getStartRow() == -1) {
+            return true;
+        }
+
         ChessGameState gamestate = (ChessGameState) state;
         ChessMove moveAction = (ChessMove) action;
 
@@ -185,16 +192,16 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getCurrTurn()) {
-                    if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
-                        return null;
-                    }
+        for (GamePlayer p : players) {
+            Log.d("HELLO", "CHECKING GAME  OVER" + p);
+            if (p instanceof ChessComputerNormal) {
+                Log.d("HELLO", ""+((ChessComputerNormal) p)._checkmated);
+                if (((ChessComputerNormal) p)._checkmated) {
+                    return "Player " + ((ChessComputerNormal) p).getPlayerTurn() + "'s Victory! ";
                 }
             }
         }
 
-        return "uh oh game over! ";
+        return null;
     }
 }

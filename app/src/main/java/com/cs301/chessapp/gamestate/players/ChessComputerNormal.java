@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-
 import android.util.Log;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
@@ -12,7 +11,6 @@ import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +31,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
 
     // this variable contains information about the player
     private int _playerTurn;
+    public boolean _checkmated;
 
     /**
      * ChessComputerNormal constructor
@@ -44,6 +43,7 @@ public class ChessComputerNormal extends GameComputerPlayer {
      */
     public ChessComputerNormal(String name) {
         super(name);
+        this._checkmated = false;
     }
 
     private ChessMove getStuff(ChessGameState gamestate) {
@@ -94,7 +94,9 @@ public class ChessComputerNormal extends GameComputerPlayer {
 
             ChessMove x = getStuff(gamestate);
             if (x == null) {
-                super.gameIsOver("HELLO WE LOST");
+                Log.d("COMP", "CHECK");
+                _checkmated = true;
+                game.sendAction(new ChessMove(this, -1, -1, -1, -1));
                 return;
             }
             game.sendAction(x);
