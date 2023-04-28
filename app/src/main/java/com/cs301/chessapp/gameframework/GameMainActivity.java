@@ -390,8 +390,8 @@ public abstract class GameMainActivity extends AppCompatActivity implements
         settingsTabSpec.setContent(R.id.gameSettingsTab);
         settingsTabSpec.setIndicator(settingsTabString());
         tabHost.addTab(localTabSpec);
-        tabHost.addTab(remoteTabSpec);
-        tabHost.addTab(settingsTabSpec);
+//        tabHost.addTab(remoteTabSpec);
+//        tabHost.addTab(settingsTabSpec);
 
         // make sure the current tab is the right one
         tabHost.setCurrentTab(config.isLocal() ? 0 : 1);
