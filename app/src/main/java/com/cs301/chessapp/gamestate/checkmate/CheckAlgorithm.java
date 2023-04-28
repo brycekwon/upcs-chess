@@ -1,8 +1,10 @@
 package com.cs301.chessapp.gamestate.checkmate;
 
+import com.cs301.chessapp.gameframework.players.GamePlayer;
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
+import com.cs301.chessapp.gamestate.pieces.Piece;
 
 import java.util.ArrayList;
 
@@ -65,5 +67,24 @@ public class CheckAlgorithm {
         tempto.setPiece(tempfrom.getPiece());
 
         return tempstate.inCheck(playernum);
+    }
+
+    public static boolean isCheckmate(ChessGameState gamestate, int playerNum, GamePlayer player) {
+        boolean a = true;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece tmp = gamestate.getPiece(i, j);
+                if (tmp != null && tmp.getPlayerId() == playerNum) {
+                    for (ChessMove m : tmp.getMoves(gamestate, player)) {
+                        if (!testMove(gamestate, m, playerNum)) {
+                            a = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return a;
     }
 }

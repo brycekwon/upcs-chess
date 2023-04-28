@@ -66,6 +66,9 @@ public class ChessComputerNormal extends GameComputerPlayer {
         if (!CheckAlgorithm.testMove(gamestate, move, _playerTurn)) {
             return move;
         } else {
+            if (CheckAlgorithm.isCheckmate(gamestate, _playerTurn, this)) {
+                return null;
+            }
             return getStuff(gamestate);
         }
     }
@@ -90,11 +93,13 @@ public class ChessComputerNormal extends GameComputerPlayer {
             sleep(3);
 
             ChessMove x = getStuff(gamestate);
+            if (x == null) {
+                super.gameIsOver("HELLO WE LOST");
+                return;
+            }
             game.sendAction(x);
         }
     }
-
-
 
     /**
      * setPlayerTurn
