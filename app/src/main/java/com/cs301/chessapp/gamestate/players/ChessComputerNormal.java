@@ -1,7 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-import android.util.Log;
-
 import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.infoMessage.NotYourTurnInfo;
 import com.cs301.chessapp.gameframework.players.GameComputerPlayer;
@@ -63,10 +61,10 @@ public class ChessComputerNormal extends GameComputerPlayer {
         int randIdx = (int) (Math.random() * availMoves.size());
         ChessMove move = availMoves.get(randIdx);
 
-        if (!CheckAlgorithm.testMove(gamestate, move, _playerTurn)) {
+        if (!CheckAlgorithm.testMove(gamestate, move)) {
             return move;
         } else {
-            if (CheckAlgorithm.isCheckmate(gamestate, _playerTurn, this)) {
+            if (CheckAlgorithm.isCheckmate(gamestate, this)) {
                 return null;
             }
             return getStuff(gamestate);
@@ -88,18 +86,17 @@ public class ChessComputerNormal extends GameComputerPlayer {
         }
 
         if (info instanceof ChessGameState) {
+            sleep(2);
+
             ChessGameState gamestate = (ChessGameState) game.getGameState();
 
-            sleep(3);
-
-            ChessMove x = getStuff(gamestate);
-            if (x == null) {
-                Log.d("COMP", "CHECK");
+            ChessMove move = getStuff(gamestate);
+            if (move == null) {
                 _checkmated = true;
                 game.sendAction(new ChessMove(this, -1, -1, -1, -1));
                 return;
             }
-            game.sendAction(x);
+            game.sendAction(move);
         }
     }
 
@@ -123,5 +120,9 @@ public class ChessComputerNormal extends GameComputerPlayer {
      */
     public int getPlayerTurn() {
         return _playerTurn;
+    }
+
+    public boolean checkmated() {
+        return _checkmated;
     }
 }

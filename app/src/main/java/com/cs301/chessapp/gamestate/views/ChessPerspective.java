@@ -3,18 +3,14 @@ package com.cs301.chessapp.gamestate.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BlendMode;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.cs301.chessapp.R;
 import com.cs301.chessapp.gamestate.ChessGameState;

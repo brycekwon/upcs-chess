@@ -190,7 +190,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move, _playerTurn)) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
                         return true;
                     }
                 }
@@ -228,7 +228,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
                 if (_checked) {
-                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move, _playerTurn)) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
                         return true;
                     }
                 }
@@ -255,5 +255,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     public int getPlayerTurn() {
         return _playerTurn;
+    }
+
+    public boolean checkmated() {
+        return CheckAlgorithm.isCheckmate((ChessGameState) game.getGameState(), this);
     }
 }

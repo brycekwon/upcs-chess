@@ -3,6 +3,7 @@ package com.cs301.chessapp.gamestate.pieces;
 import java.util.ArrayList;
 
 import com.cs301.chessapp.gameframework.players.GamePlayer;
+
 import com.cs301.chessapp.gamestate.ChessGameState;
 import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
@@ -32,6 +33,7 @@ public class King extends Piece {
      */
     public King(int playerId) {
         super(playerId, "King");
+
         _check = new CheckAlgorithm(playerId);
     }
 
@@ -47,11 +49,11 @@ public class King extends Piece {
     @Override
     public ArrayList<ChessMove> getMoves(ChessGameState gamestate, GamePlayer player) {
         ArrayList<ChessMove> validMoves = new ArrayList<>();
-        _check.set(gamestate, _row, _col);
+//        _check.setPosition(gamestate, _row, _col);
 
         for (int i = -1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
-                if (hasValidBounds(_row + i, _col + j) && !_check.isCheck(_row + i, _col + j)) {
+                if (hasValidBounds(_row + i, _col + j) && !_check.moveIsCheck(_row + i, _col + j)) {
                     if (gamestate.getPiece(_row + i, _col + j) == null) {
                         validMoves.add(new ChessMove(player, _row, _col, _row + i, _col + j));
                     } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
@@ -103,7 +105,7 @@ public class King extends Piece {
 
         for (int i = -1; i <= 1; i++) {
             for (int j = - 1; j <= 1; j++) {
-                if (hasValidBounds(_row + i, _col + j) && !_check.isCheck(_row + i, _col + j)) {
+                if (hasValidBounds(_row + i, _col + j) && !_check.moveIsCheck(_row + i, _col + j)) {
                     if (gamestate.getPiece(_row + i, _col + j) == null) {
                         validMoves.add(new ChessMove(_tempPlayer, _row, _col, _row + i, _col + j));
                     } else if (gamestate.getPiece(_row + i, _col + j).getPlayerId() != _playerId) {
@@ -150,10 +152,10 @@ public class King extends Piece {
     }
 
     public boolean inCheck() {
-        return _check.inCheck();
+        return _check.kingInCheck();
     }
 
     public void update(ChessGameState gamestate) {
-        _check.set(gamestate, _row, _col);
+        _check.setPosition(gamestate, _row, _col);
     }
 }

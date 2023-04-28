@@ -152,4 +152,8 @@ public class ProxyPlayer implements GamePlayer {
     public int getPlayerTurn(){
         return 0;
     }
+
+    public boolean checkmated() {
+        return false;
+    }
 }

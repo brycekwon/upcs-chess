@@ -38,4 +38,6 @@ public interface GamePlayer {
 
     public int getPlayerTurn();
 
+    public boolean checkmated();
+
 }// interface GamePlayer

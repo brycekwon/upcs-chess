@@ -5,6 +5,7 @@ import android.graphics.Color;
 
 import com.cs301.chessapp.gameframework.infoMessage.GameState;
 
+import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.chessboard.ChessTile;
 import com.cs301.chessapp.gamestate.pieces.Bishop;
 import com.cs301.chessapp.gamestate.pieces.King;
@@ -34,7 +35,7 @@ public class ChessGameState extends GameState {
 
     // these variables define the gamestate
     private final ChessTile[][] _chessboard;
-    private int _playerTurn;
+    private int _currTurn;
 
     /**
      * ChessGameState constructor
@@ -43,7 +44,7 @@ public class ChessGameState extends GameState {
      */
     public ChessGameState() {
         // white always goes first
-        this._playerTurn = PLAYER_1;
+        this._currTurn = PLAYER_1;
 
         // initialize the chessboard
         this._chessboard = new ChessTile[8][8];
@@ -93,13 +94,13 @@ public class ChessGameState extends GameState {
      * @param other     the gamestate to copy
      */
     public ChessGameState(ChessGameState other) {
-        this._playerTurn = other.getCurrTurn();
+        this._currTurn = other.getCurrTurn();
 
         this._chessboard = new ChessTile[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                this._chessboard[i][j] = new ChessTile(other._chessboard[i][j]);
-                this._chessboard[i][j].setPiece(other._chessboard[i][j].getPiece());
+                this._chessboard[i][j] = new ChessTile(other.getTile(i, j));
+                this._chessboard[i][j].setPiece(other.getPiece(i, j));
             }
         }
     }
@@ -110,7 +111,67 @@ public class ChessGameState extends GameState {
      * This method increments the turn between player 1 and player 2.
      */
     public void nextTurn() {
-        _playerTurn = _playerTurn == PLAYER_1 ? PLAYER_2 : PLAYER_1;
+        _currTurn = _currTurn == PLAYER_1 ? PLAYER_2 : PLAYER_1;
+    }
+
+    // todo: make more readbale
+
+    public boolean movePiece(ChessMove action) {
+        int x = action.getPlayer().getPlayerTurn();
+        if (action.getStartRow() == -1) {
+            return true;
+        }
+
+        ChessTile fromTile = _chessboard[action.getStartRow()][action.getStartCol()];
+        ChessTile toTile = _chessboard[action.getEndRow()][action.getEndCol()];
+
+        if (fromTile.getPiece() == null) {
+            return true;
+        }
+
+        else if (fromTile.getPiece() instanceof Pawn) {
+            if (fromTile.getPiece().getPlayerId() == PLAYER_1 && action.getEndRow() == 0) {
+                toTile.setPiece(new Queen(PLAYER_1));
+                fromTile.setPiece(null);
+
+                nextTurn();
+                return true;
+            } else if (fromTile.getPiece().getPlayerId() == PLAYER_2 && action.getEndRow() == 7) {
+                toTile.setPiece(new Queen(PLAYER_2));
+                fromTile.setPiece(null);
+
+                nextTurn();
+                return true;
+            }
+        }
+
+        else if (fromTile.getPiece() instanceof King && toTile.getPiece() instanceof Rook) {
+            if (toTile.getCol() == 7) {
+                _chessboard[fromTile.getRow()][6].setPiece(new King(fromTile.getPiece().getPlayerId()));
+                _chessboard[fromTile.getRow()][5].setPiece(new Rook(toTile.getPiece().getPlayerId()));
+                fromTile.setPiece(null);
+                toTile.setPiece(null);
+
+                nextTurn();
+                return true;
+            }
+            else if (toTile.getCol() == 0) {
+                _chessboard[fromTile.getRow()][3].setPiece(new King(fromTile.getPiece().getPlayerId()));
+                _chessboard[fromTile.getRow()][2].setPiece(new Rook(toTile.getPiece().getPlayerId()));
+                fromTile.setPiece(null);
+                toTile.setPiece(null);
+
+                nextTurn();
+                return true;
+            }
+        }
+
+        toTile.setPiece(fromTile.getPiece());
+        fromTile.setPiece(null);
+
+        nextTurn();
+
+        return true;
     }
 
     /**
@@ -121,7 +182,7 @@ public class ChessGameState extends GameState {
      * @return      the current turn
      */
     public int getCurrTurn() {
-        return _playerTurn;
+        return _currTurn;
     }
 
     /**
@@ -150,14 +211,15 @@ public class ChessGameState extends GameState {
         return _chessboard[row][col].getPiece();
     }
 
-    public boolean inCheck(int playernum) {
+    // todo: redo in check for gamestate
+    public boolean inCheck(int playerNum) {
+        Piece currPiece;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (_chessboard[i][j].getPiece() instanceof King) {
-                    if (_chessboard[i][j].getPiece().getPlayerId() == playernum) {
-                        ((King) _chessboard[i][j].getPiece()).update(this);
-                        return ((King) _chessboard[i][j].getPiece()).inCheck();
-                    }
+                currPiece = _chessboard[i][j].getPiece();
+                if (currPiece instanceof King && currPiece.getPlayerId() == playerNum) {
+                    ((King) _chessboard[i][j].getPiece()).update(this);
+                    return ((King) _chessboard[i][j].getPiece()).inCheck();
                 }
             }
         }

@@ -9,20 +9,29 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
 import java.util.ArrayList;
 
 public class CheckAlgorithm {
-
-    public boolean _inCheck;
+    private final int _playerId;
     private int _kingRow;
     private int _kingCol;
-    private final int _player;
-    private ArrayList<ChessMove> _currMoves = new ArrayList<>();
+    private ArrayList<ChessMove> _checkedMoves;
 
-    public CheckAlgorithm(int player) {
-        this._player = player;
-        this._inCheck = false;
+    public CheckAlgorithm(int playerId) {
+        this._playerId = playerId;
+        this._checkedMoves = new ArrayList<>();
     }
 
-    public boolean isCheck(int row, int col) {
-        for (ChessMove move : _currMoves) {
+    /**
+     * moveIsCheck
+     *
+     * This method checks if a provided move will place the king in check. It
+     * references the list of checkable moves for the current position of the
+     * king.
+     *
+     * @param row
+     * @param col
+     * @return
+     */
+    public boolean moveIsCheck(int row, int col) {
+        for (ChessMove move : _checkedMoves) {
             if (move.getEndRow() == row && move.getEndCol() == col) {
                 return true;
             }
@@ -30,8 +39,17 @@ public class CheckAlgorithm {
         return false;
     }
 
-    public boolean inCheck() {
-        for (ChessMove move : _currMoves) {
+    /**
+     * kingInCheck
+     *
+     * This method checks if the current position of the king is in check. It
+     * references the list of checkable moves for the current position of the
+     * king.
+     *
+     * @return
+     */
+    public boolean kingInCheck() {
+        for (ChessMove move : _checkedMoves) {
             if (move.getEndRow() == _kingRow && move.getEndCol() == _kingCol) {
                 return true;
             }
@@ -39,52 +57,63 @@ public class CheckAlgorithm {
         return false;
     }
 
-    public void set(ChessGameState gamestate, int kingRow, int kingCol) {
-        _currMoves.clear();
-        this._kingRow = kingRow;
-        this._kingCol = kingCol;
+    /**
+     * setPosition
+     *
+     * This method resets the position of the king and recalculates checkable
+     * moves.
+     *
+     * @param gamestate
+     * @param kingRow
+     * @param kingCol
+     */
+    public void setPosition(ChessGameState gamestate, int kingRow, int kingCol) {
+        _kingRow = kingRow;
+        _kingCol = kingCol;
+        _checkedMoves.clear();
 
+        Piece currPiece;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (gamestate.getPiece(i, j) == null) {
-                    continue;
+                currPiece = gamestate.getPiece(i, j);
+                if (currPiece != null && currPiece.getPlayerId() != _playerId) {
+                    _checkedMoves.addAll(currPiece.getChecks(gamestate));
                 }
-                else if (gamestate.getPiece(i, j).getPlayerId() == _player) {
-                    continue;
-                }
-                _currMoves.addAll(gamestate.getPiece(i, j).getChecks(gamestate));
             }
         }
     }
 
-    public static boolean testMove(ChessGameState gamestate, ChessMove move, int playernum) {
-        ChessGameState tempstate = new ChessGameState(gamestate);
+    // todo: redo test move for check
 
-        ChessTile tempfrom = tempstate.getTile(move.getStartRow(), move.getStartCol());
-        ChessTile tempto = tempstate.getTile(move.getEndRow(), move.getEndCol());
+    public static boolean testMove(ChessGameState gamestate, ChessMove move) {
+        ChessGameState tempState = new ChessGameState(gamestate);
 
-        tempfrom.setPiece(null);
-        tempto.setPiece(tempfrom.getPiece());
+        ChessTile tempFrom = tempState.getTile(move.getStartRow(), move.getStartCol());
+        ChessTile tempTo = tempState.getTile(move.getEndRow(), move.getEndCol());
 
-        return tempstate.inCheck(playernum);
+        tempFrom.setPiece(null);
+        tempTo.setPiece(tempFrom.getPiece());
+
+        return tempState.inCheck(move.getPlayer().getPlayerTurn());
     }
 
-    public static boolean isCheckmate(ChessGameState gamestate, int playerNum, GamePlayer player) {
-        boolean a = true;
 
+    // todo: redo checkmate checking
+
+    public static boolean isCheckmate(ChessGameState gamestate, GamePlayer player) {
+        Piece currPiece;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Piece tmp = gamestate.getPiece(i, j);
-                if (tmp != null && tmp.getPlayerId() == playerNum) {
-                    for (ChessMove m : tmp.getMoves(gamestate, player)) {
-                        if (!testMove(gamestate, m, playerNum)) {
-                            a = false;
+                currPiece = gamestate.getPiece(i, j);
+                if (currPiece != null && currPiece.getPlayerId() == player.getPlayerTurn()) {
+                    for (ChessMove m : currPiece.getMoves(gamestate, player)) {
+                        if (!testMove(gamestate, m)) {
+                            return false;
                         }
                     }
                 }
             }
         }
-
-        return a;
+        return true;
     }
 }

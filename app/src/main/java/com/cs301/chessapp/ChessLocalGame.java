@@ -1,17 +1,10 @@
 package com.cs301.chessapp;
 
-import android.util.Log;
-
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
-import com.cs301.chessapp.gamestate.chessboard.ChessTile;
-import com.cs301.chessapp.gamestate.pieces.King;
-import com.cs301.chessapp.gamestate.pieces.Queen;
-import com.cs301.chessapp.gamestate.pieces.Rook;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
@@ -121,66 +114,10 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        if (((ChessMove) action).getStartRow() == -1) {
-            return true;
+        if (action instanceof ChessMove) {
+            return ((ChessGameState) state).movePiece((ChessMove) action);
         }
-
-        ChessGameState gamestate = (ChessGameState) state;
-        ChessMove moveAction = (ChessMove) action;
-
-        ChessTile from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
-        ChessTile to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
-
-        if (from.getPiece() == null) {
-            return true;
-        }
-
-        else if (from.getPiece().getName().equals("Pawn")) {
-            if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
-                to.setPiece(new Queen(ChessGameState.PLAYER_1));
-                from.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            } else if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
-                to.setPiece(new Queen(ChessGameState.PLAYER_2));
-                from.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-        }
-
-        // castling 4->6 7->5
-        else if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
-            //4->6 7->5
-            if (to.getCol() == 7) {
-                gamestate.getTile(from.getRow(), 6).setPiece(new King(from.getPiece().getPlayerId()));
-                gamestate.getTile(from.getRow(), 5).setPiece(new Rook(to.getPiece().getPlayerId()));
-                from.setPiece(null);
-                to.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-            // 4->2 0->3
-            else if (to.getCol() == 0) {
-                gamestate.getTile(from.getRow(), 2).setPiece(new Rook(to.getPiece().getPlayerId()));
-                gamestate.getTile(from.getRow(), 3).setPiece(new King(from.getPiece().getPlayerId()));
-                from.setPiece(null);
-                to.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-        }
-
-        to.setPiece(from.getPiece());
-        from.setPiece(null);
-
-        gamestate.nextTurn();
-
-        return true;
+        return false;
     }
 
     /**
@@ -193,15 +130,10 @@ public class ChessLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
         for (GamePlayer p : players) {
-            Log.d("HELLO", "CHECKING GAME  OVER" + p);
-            if (p instanceof ChessComputerNormal) {
-                Log.d("HELLO", ""+((ChessComputerNormal) p)._checkmated);
-                if (((ChessComputerNormal) p)._checkmated) {
-                    return "Player " + ((ChessComputerNormal) p).getPlayerTurn() + "'s Victory! ";
-                }
+            if (p.checkmated()) {
+                return "Player Checkmated";
             }
         }
-
         return null;
     }
 }

@@ -50,9 +50,7 @@ public class ChessTile {
      * @param other     the square to copy
      */
     public ChessTile(ChessTile other) {
-        this._color = other.getColor();
-        this._row = other.getRow();
-        this._col = other.getCol();
+        this(other.getColor(), other.getRow(), other.getCol());
     }
 
     /**
