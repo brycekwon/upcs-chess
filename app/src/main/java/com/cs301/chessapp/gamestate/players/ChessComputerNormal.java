@@ -33,7 +33,6 @@ public class ChessComputerNormal extends GameComputerPlayer {
 
     // this variable contains information about the player
     private int _playerTurn;
-    private boolean _checked;
 
     /**
      * ChessComputerNormal constructor
@@ -45,7 +44,30 @@ public class ChessComputerNormal extends GameComputerPlayer {
      */
     public ChessComputerNormal(String name) {
         super(name);
-        this._checked = false;
+    }
+
+    private ChessMove getStuff(ChessGameState gamestate) {
+        // select a random piece on the board
+        int row;
+        int col;
+        ArrayList<ChessMove> availMoves = null;
+        do {
+            row = (int) (Math.random() * 8);
+            col = (int) (Math.random() * 8);
+            Piece currPiece = gamestate.getPiece(row, col);
+            if (currPiece != null && currPiece.getPlayerId() == _playerTurn) {
+                availMoves = gamestate.getPiece(row, col).getMoves(gamestate, this);
+            }
+        } while (availMoves == null || availMoves.isEmpty());
+
+        int randIdx = (int) (Math.random() * availMoves.size());
+        ChessMove move = availMoves.get(randIdx);
+
+        if (!CheckAlgorithm.testMove(gamestate, move, _playerTurn)) {
+            return move;
+        } else {
+            return getStuff(gamestate);
+        }
     }
 
     /**
@@ -67,58 +89,12 @@ public class ChessComputerNormal extends GameComputerPlayer {
 
             sleep(3);
 
-            if (gamestate.inCheck(_playerTurn)) {
-                _checked = true;
-            }
-
-            // select a random piece on the board
-            int row;
-            int col;
-            ArrayList<ChessMove> availMoves = null;
-            do {
-                row = (int) (Math.random() * 8);
-                col = (int) (Math.random() * 8);
-                Piece currPiece = gamestate.getPiece(row, col);
-                if (currPiece != null && currPiece.getPlayerId() == _playerTurn) {
-                    availMoves = gamestate.getPiece(row, col).getMoves(gamestate, this);
-                }
-            } while (availMoves == null || availMoves.isEmpty());
-
-            int randIdx = (int) (Math.random() * availMoves.size());
-            ChessMove move = availMoves.get(randIdx);
-
-            if (!CheckAlgorithm.testMove(gamestate, move, _playerTurn)) {
-                game.sendAction(move);
-                _checked = false;
-            }
-
-//            ChessMove move = null;
-//            while (move == null) {
-//                ArrayList<ChessMove> availMoves = null;
-//                int row = (int) (Math.random() * 8);
-//                int col = (int) (Math.random() * 8);
-//                Piece currPiece = gamestate.getPiece(row, col);
-//                if (currPiece != null && currPiece.getPlayerId() == _playerTurn) {
-//                    availMoves = gamestate.getPiece(row, col).getMoves(gamestate, this);
-//                }
-//
-//                if (availMoves != null && !availMoves.isEmpty()) {
-//                    int randIdx = (int) (Math.random() * availMoves.size());
-//
-////                    if (_checked) {
-//                        if (CheckAlgorithm.testMove(gamestate, availMoves.get(randIdx), _playerTurn)) {
-//                            move = availMoves.get(randIdx);
-//                        }
-////                    } else {
-////                        move = availMoves.get(randIdx);
-////                    }
-//                }
-//            }
-
-//            game.sendAction(move);
-//            _checked = false;
+            ChessMove x = getStuff(gamestate);
+            game.sendAction(x);
         }
     }
+
+
 
     /**
      * setPlayerTurn
