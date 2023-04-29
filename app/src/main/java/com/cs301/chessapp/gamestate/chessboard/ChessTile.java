@@ -4,10 +4,11 @@ import com.cs301.chessapp.gamestate.pieces.Piece;
 
 /**
  * ChessTile class
- *
- * This class represents a tile on the chess board. It contains information on
- * its color and occupying piece. It also contains an internal reference to
- * its position on the chessboard.
+ * <p>
+ * This class represents a tile on the chessboard. It contains information
+ * about its color and occupying piece. Each tile also contains an internal
+ * reference to its location on the board. Once initialized, the tile structure
+ * cannot be changed. Only its occupying piece can be updated.
  *
  * @author Bryce Kwon
  * @author Christopher Yee
@@ -26,40 +27,37 @@ public class ChessTile {
     private Piece _piece;
 
     /**
-     * ChessSquare constructor
-     *
+     * ChessSquare default constructor
+     * <p>
      * This constructor initializes an empty square.
      *
-     * @param color     the color of the tile
-     * @param row       row on the chessboard
-     * @param col       column on the chessboard
+     * @param color     color of the chess tile
+     * @param row       row of the chessboard
+     * @param col       column of the chessboard
      */
     public ChessTile(int color, int row, int col) {
+        // initialize variables
         this._color = color;
         this._row = row;
         this._col = col;
-
         this._piece = null;
     }
 
     /**
      * ChessSquare copy constructor
-     *
+     * <p>
      * This constructor initializes a copy of another square.
      *
-     * @param other     the square to copy
+     * @param other     chess tile to copy
      */
     public ChessTile(ChessTile other) {
-        this._color = other.getColor();
-        this._row = other.getRow();
-        this._col = other.getCol();
-
-        this._piece = other.getPiece();
+        // pass arguments to default constructor
+        this(other.getColor(), other.getRow(), other.getCol());
     }
 
     /**
      * setPiece
-     *
+     * <p>
      * This method sets a piece on the tile and updates the piece's position.
      *
      * @param piece     the piece to place on the tile
@@ -75,10 +73,10 @@ public class ChessTile {
 
     /**
      * getPiece
+     * <p>
+     * This method returns the current piece on the tile.
      *
-     * This method returns the piece on the tile.
-     *
-     * @return      the piece on the tile
+     * @return      chess tile's occupying piece
      */
     public Piece getPiece() {
         return _piece;
@@ -86,10 +84,10 @@ public class ChessTile {
 
     /**
      * getColor
-     *
+     * <p>
      * This method returns the color of the tile.
      *
-     * @return      the color of the tile
+     * @return      color of the chess tile
      */
     public int getColor() {
         return _color;
@@ -97,10 +95,10 @@ public class ChessTile {
 
     /**
      * getRow
+     * <p>
+     * This method returns the row of the tile on the chessboard.
      *
-     * This method returns the row of the tile.
-     *
-     * @return      the row of the tile
+     * @return      row of the chessboard
      */
     public int getRow() {
         return _row;
@@ -108,10 +106,10 @@ public class ChessTile {
 
     /**
      * getCol
+     * <p>
+     * This method returns the column of the tile on the chessboard.
      *
-     * This method returns the column of the tile.
-     *
-     * @return      the column of the tile
+     * @return      column of the chessboard
      */
     public int getCol() {
         return _col;

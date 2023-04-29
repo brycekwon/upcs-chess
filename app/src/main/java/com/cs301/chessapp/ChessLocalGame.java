@@ -1,13 +1,10 @@
 package com.cs301.chessapp;
 
-
 import com.cs301.chessapp.gameframework.LocalGame;
 import com.cs301.chessapp.gameframework.actionMessage.GameAction;
 import com.cs301.chessapp.gameframework.players.GamePlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
-import com.cs301.chessapp.gamestate.chessboard.ChessTile;
-import com.cs301.chessapp.gamestate.pieces.Queen;
 import com.cs301.chessapp.gamestate.players.ChessComputerNormal;
 import com.cs301.chessapp.gamestate.players.ChessComputerSmart;
 import com.cs301.chessapp.gamestate.players.ChessHumanPlayer;
@@ -62,18 +59,18 @@ public class ChessLocalGame extends LocalGame {
     public void start(GamePlayer[] players) {
         super.start(players);
 
-        int x = -1;
+        int side = -1;
         for (GamePlayer p : players) {
             if (p instanceof ChessHumanPlayer) {
-                x = p.getPlayerTurn() == ChessGameState.PLAYER_1 ? ChessGameState.PLAYER_2 : ChessGameState.PLAYER_1;
+                side = p.getPlayerTurn() == ChessGameState.PLAYER_1 ? ChessGameState.PLAYER_2 : ChessGameState.PLAYER_1;
             }
         }
 
         for (GamePlayer p : players) {
-            if (p instanceof ChessComputerSmart) {
-                ((ChessComputerSmart) p).setPlayerTurn(x);
-            } else if (p instanceof ChessComputerNormal) {
-                ((ChessComputerNormal) p).setPlayerTurn(x);
+            if (p instanceof ChessComputerNormal) {
+                ((ChessComputerNormal) p).setPlayerTurn(side);
+            } else if (p instanceof ChessComputerSmart) {
+                ((ChessComputerSmart) p).setPlayerTurn(side);
             }
         }
     }
@@ -101,7 +98,7 @@ public class ChessLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         int currPlayer = this.players[playerIdx].getPlayerTurn();
-        int currTurn = ((ChessGameState) state).getTurn();
+        int currTurn = ((ChessGameState) state).getCurrTurn();
 
         return currPlayer == currTurn;
     }
@@ -117,62 +114,10 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        ChessGameState gamestate = (ChessGameState) state;
-        ChessMove moveAction = (ChessMove) action;
-
-        ChessTile from = gamestate.getTile(moveAction.getStartRow(), moveAction.getStartCol());
-        ChessTile to = gamestate.getTile(moveAction.getEndRow(), moveAction.getEndCol());
-
-        if (from.getPiece() == null) {
-            return true;
+        if (action instanceof ChessMove) {
+            return ((ChessGameState) state).movePiece((ChessMove) action);
         }
-
-        if (from.getPiece().getName().equals("Pawn")) {
-            if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_1 && moveAction.getEndRow() == 0) {
-                to.setPiece(new Queen(ChessGameState.PLAYER_1));
-                from.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            } else if (from.getPiece().getPlayerId() == ChessGameState.PLAYER_2 && moveAction.getEndRow() == 7) {
-                to.setPiece(new Queen(ChessGameState.PLAYER_2));
-                from.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-        }
-
-        // castling 4->6 7->5
-        if (to.getPiece() != null && (from.getPiece().getName().equals("King") && to.getPiece().getName().equals("Rook"))) {
-            //4->6 7->5
-            if (to.getCol() == 7) {
-                gamestate.getTile(from.getRow(), 6).setPiece(from.getPiece());
-                gamestate.getTile(from.getRow(), 5).setPiece(to.getPiece());
-                from.setPiece(null);
-                to.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-            // 4->2 0->3
-            else if (to.getCol() == 0) {
-                gamestate.getTile(from.getRow(), 2).setPiece(from.getPiece());
-                gamestate.getTile(from.getRow(), 3).setPiece(to.getPiece());
-                from.setPiece(null);
-                to.setPiece(null);
-
-                gamestate.nextTurn();
-                return true;
-            }
-        }
-
-        to.setPiece(from.getPiece());
-        from.setPiece(null);
-
-        gamestate.nextTurn();
-
-        return true;
+        return false;
     }
 
     /**
@@ -184,16 +129,11 @@ public class ChessLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (((ChessGameState) state).getPiece(row, col) != null && ((ChessGameState) state).getPiece(row, col).getPlayerId() == ((ChessGameState) state).getTurn()) {
-                    if (((ChessGameState) state).getPiece(row, col).getName().equals("King")) {
-                        return null;
-                    }
-                }
+        for (GamePlayer p : players) {
+            if (p.checkmated()) {
+                return "Player Checkmated";
             }
         }
-
-        return "uh oh game over! ";
+        return null;
     }
 }

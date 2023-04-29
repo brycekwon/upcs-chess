@@ -1,6 +1,5 @@
 package com.cs301.chessapp.gamestate.players;
 
-
 import android.view.View;
 import android.view.MotionEvent;
 
@@ -9,6 +8,7 @@ import com.cs301.chessapp.gameframework.infoMessage.GameInfo;
 import com.cs301.chessapp.gameframework.players.GameHumanPlayer;
 
 import com.cs301.chessapp.gamestate.ChessGameState;
+import com.cs301.chessapp.gamestate.checkmate.CheckAlgorithm;
 import com.cs301.chessapp.gamestate.pieces.Piece;
 import com.cs301.chessapp.gamestate.chessboard.ChessMove;
 import com.cs301.chessapp.gamestate.views.ChessPerspective;
@@ -44,6 +44,8 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
     private int _selectedRow;
     private int _selectedCol;
 
+    private boolean _checked;
+
     /**
      * ChessHumanPlayer constructor
      *
@@ -64,6 +66,7 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
 
         // set the player information
         this._playerTurn = playerTurn;
+        this._checked = false;
     }
 
     /**
@@ -155,6 +158,10 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
         // get the piece at the touched location
         Piece touchedPiece = _surfaceView.getGameState().getPiece(row, col);
 
+        if (_surfaceView.getGameState().inCheck(_playerTurn)) {
+            _checked = true;
+        }
+
         // selecting a new piece
         if (touchedPiece != null && _selectedPiece == null) {
             // do nothing if trying to select opponent piece
@@ -182,8 +189,15 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             // attempt to move selected piece into selected location
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                if (_checked) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
+                        return true;
+                    }
+                }
+
                 game.sendAction(move);
                 _selectedPiece = null;
+                _checked = false;
 
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
@@ -213,8 +227,15 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
             // attempt to move selected piece into selected location
             ChessMove move = new ChessMove(this, _selectedRow, _selectedCol, row, col);
             if (_selectedPiece.isValidMove(move, _surfaceView.getGameState(), this)) {
+                if (_checked) {
+                    if (CheckAlgorithm.testMove(_surfaceView.getGameState(), move)) {
+                        return true;
+                    }
+                }
+
                 game.sendAction(move);
                 _selectedPiece = null;
+                _checked = false;
 
                 _surfaceView.setCurrPiece(null);
                 _surfaceView.setPieceMoves(null);
@@ -234,5 +255,9 @@ public class ChessHumanPlayer extends GameHumanPlayer implements View.OnTouchLis
      */
     public int getPlayerTurn() {
         return _playerTurn;
+    }
+
+    public boolean checkmated() {
+        return CheckAlgorithm.isCheckmate((ChessGameState) game.getGameState(), this);
     }
 }
